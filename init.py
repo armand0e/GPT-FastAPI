@@ -3,20 +3,58 @@ import subprocess
 import platform
 import time
 import sys
+import shutil
+
 """Ensures all Python dependencies are installed."""
 print("📦 Checking and installing Python dependencies...")
 
-try:
-    result = subprocess.Popen([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"], capture_output=True, text=True)
-    if result.returncode == 0:
+def check_pip():
+    """Ensures pip is installed and available."""
+    if not shutil.which("pip"):
+        print("⚠️ Pip is not installed or not found in PATH. Attempting to install it...")
+        subprocess.run([sys.executable, "-m", "ensurepip"], check=True)
+        subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"], check=True)
+
+def install_dependencies():
+    """Installs dependencies from requirements.txt"""
+    timeout = 10
+    cmd = [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]
+
+    try:
+        process = subprocess.Popen(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+
+        # Capture output with timeout
+        start_time = time.time()
+        while time.time() - start_time < timeout:
+            output = process.stdout.readline().strip()
+            if output:
+                print(output)
+            if process.poll() is not None:
+                break
+
+        stdout, stderr = process.communicate(timeout=timeout)
+        if process.returncode == 0:
+            print("✅ Python dependencies installed successfully.")
+        else:
+            raise Exception(f"⚠️ Failed to install dependencies.\n{stderr}")
+    
+    except subprocess.TimeoutExpired:
+        process.kill()
+        print("⏳ Timeout reached. Dependency installation took too long.")
+        sys.exit(1)
+
+    except Exception as e:
+        print("⚠️ Failed to install dependencies. Please check your Python & Pip installation.")
+        print(f"❌ Error: {e}")
+        sys.exit(1)
         
-        print("✅ Python dependencies installed successfully.")
-    else:
-        raise Exception("⚠️ Failed to install dependencies. Please check your Python & Pip installation.")
-except Exception as e:
-    print(str(e))
-    print(result.stderr)
-    quit()
+check_pip()
+install_dependencies()
 
 import dotenv
 

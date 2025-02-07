@@ -90,3 +90,4 @@ async def queue_requests(bulk_request: BulkRequest):
                 results.append({"router": router, "endpoint": endpoint, "error": str(e)})
 
     return {"status": "queued", "requests": results}
+
