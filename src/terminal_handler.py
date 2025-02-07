@@ -12,6 +12,7 @@ class CommandRequest(BaseModel):
 
 shell = None  # Persistent shell process
 
+
 async def start_shell():
     """Start a persistent shell session if not already running."""
     global shell
@@ -67,7 +68,6 @@ async def run_command(command: str, timeout: int = 10):
     
     except Exception as e:
         return {"error": str(e)}
-
 
 @router.post("/api/run-terminal")
 async def run_terminal_script(request: CommandRequest):

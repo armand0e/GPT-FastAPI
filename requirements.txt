@@ -11,3 +11,6 @@ pyngrok
 playwright
 transformers
 tf-keras
+httpx
+python-multipart
+psutil

@@ -8,6 +8,7 @@ from auth import authenticate_request
 from pydantic import BaseModel
 from typing import List, Dict, Any
 import httpx
+import uvicorn
 
 # Import all routers
 from ai_handler import router as ai_router
@@ -19,19 +20,19 @@ from web_handler import router as web_router
 from websocket_routes import router as websocket_router
 
 # Load environment variables
-dotenv.load_dotenv()
+dotenv.load_dotenv(dotenv_path='./src/.env')
 
 DEFAULT_HOST = "0.0.0.0"
 DEFAULT_PORT = "3000"
 
 """Runs the Uvicorn server on the externally accessible port."""
 print("🚀 Starting Uvicorn server...")
-API_KEY = dotenv.get_key(".env", "API_KEY")
+API_KEY = dotenv.get_key("./src/.env", "API_KEY")
 
 """Generate API Key if not found"""
 if not API_KEY:
     API_KEY = str(uuid.uuid4())
-    dotenv.set_key(".env", "API_KEY", API_KEY)
+    dotenv.set_key("./src/.env", "API_KEY", API_KEY)
 
 print(f"🔑 Your API Key: {API_KEY}")
 app = FastAPI(title="FastAPI Terminal Server", version="1.0")
@@ -82,8 +83,8 @@ async def queue_requests(bulk_request: BulkRequest):
     return {"status": "queued", "requests": results}
 
 if __name__ == "__main__":
-    PORT = dotenv.get_key(".env", "PORT")
-    HOST = dotenv.get_key(".env", "HOST")
+    PORT = dotenv.get_key("./src/.env", "PORT")
+    HOST = dotenv.get_key("./src/.env", "HOST")
 
     """Set to HOST to DEFAULT_HOST if not found"""
     if not HOST:
@@ -95,4 +96,4 @@ if __name__ == "__main__":
         dotenv.set_key('.env', "PORT", DEFAULT_PORT)
     """Runs the Uvicorn server directly inside the script."""
     print("🚀 Starting Uvicorn server...")
-    uvicorn.run("main:app", host=HOST, port=PORT, log_level="debug")
+    uvicorn.run("main:app", host=HOST, port=int(PORT), log_level="debug")

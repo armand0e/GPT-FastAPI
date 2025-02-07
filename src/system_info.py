@@ -11,32 +11,6 @@ import socket
 router = APIRouter()
 load_dotenv()
 
-def get_motherboard_info():
-    """Fetch motherboard information based on the operating system."""
-    try:
-        if platform.system() == "Windows":
-            result = subprocess.run(
-                ["wmic", "baseboard", "get", "Product,Manufacturer,SerialNumber,Version"],
-                capture_output=True, text=True, shell=True
-            )
-            lines = result.stdout.strip().split("\n")
-            headers = lines[0].split()
-            values = lines[1].split()
-            return dict(zip(headers, values))
-        
-        elif platform.system() == "Linux":
-            result = subprocess.run(["dmidecode", "-t", "baseboard"], capture_output=True, text=True)
-            return result.stdout
-
-        elif platform.system() == "Darwin":
-            result = subprocess.run(["system_profiler", "SPHardwareDataType"], capture_output=True, text=True)
-            return result.stdout
-
-        else:
-            return {"error": "Unsupported OS"}
-    except Exception as e:
-        return {"error": str(e)}
-
 def get_gpu_info():
     """Detects GPU using PyTorch or system commands."""
     try:
@@ -85,7 +59,6 @@ async def get_host_info():
         "architecture": platform.machine(),
         "version": platform.version(),
         "gpu": get_gpu_info(),
-        "motherboard": get_motherboard_info(),
         "cpu": platform.processor(),
         "cpu_cores": psutil.cpu_count(logical=False),
         "cpu_threads": psutil.cpu_count(logical=True),

@@ -33,7 +33,8 @@ def install_dependencies():
         while time.time() - start_time < timeout:
             output = process.stdout.readline().strip()
             if output:
-                print(output)
+                if "satisfied" not in output:
+                    print(output)
             if process.poll() is not None:
                 break
 
@@ -42,12 +43,7 @@ def install_dependencies():
             print("✅ Python dependencies installed successfully.")
         else:
             raise Exception(f"⚠️ Failed to install dependencies.\n{stderr}")
-    
-    except subprocess.TimeoutExpired:
-        process.kill()
-        print("⏳ Timeout reached. Dependency installation took too long.")
-        sys.exit(1)
-
+ 
     except Exception as e:
         print("⚠️ Failed to install dependencies. Please check your Python & Pip installation.")
         print(f"❌ Error: {e}")
@@ -142,7 +138,7 @@ if SYSTEM == "Windows":
         git_bash_path = install_git_bash()
 
     if git_bash_path:
-        set_env_variable("src/.env", "SHELL", git_bash_path)
+        set_env_variable("./src/.env", "SHELL", git_bash_path)
     else:
         print("⚠️ Git Bash setup failed. Defaulting to PowerShell.")
         set_env_variable("./src/.env", "SHELL", "powershell.exe")
@@ -156,6 +152,9 @@ port = input("Enter the port you want to expose (default: 3000): ").strip() or "
 set_env_variable("./src/.env", "PORT", port)
 set_env_variable("./src/.env", "HOST", "0.0.0.0")
 
+os.system(f'echo {sys.executable} src/main.py > start_server.bat')
+os.system(f'echo {sys.executable} src/main.py > start_server.sh')
+
 print("\n🎉 Setup complete!")
-print("🚀 Run the following command to start the server:")
-print("\tpython src/main.py")
+print("🚀 Run the either start_server.bat or start_server.sh to start the server:")
+
