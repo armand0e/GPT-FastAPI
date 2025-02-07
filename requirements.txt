@@ -9,3 +9,5 @@ thefuzz
 sentence-transformers
 pyngrok
 playwright
+transformers
+tf-keras

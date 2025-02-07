@@ -17,8 +17,6 @@ async def start_shell():
     global shell
 
     shell_cmd = [os.getenv("SHELL", "/bin/bash")]
-    if platform.system() == "Windows":
-        shell_cmd = [os.getenv("SHELL", "C:\\Program Files\\Git\\bin\\bash.exe")]
 
     if shell is None or shell.poll() is not None:  # Ensure shell is running
         try:

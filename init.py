@@ -4,23 +4,12 @@ import platform
 import time
 import sys
 """Ensures all Python dependencies are installed."""
-if platform.system() == "Windows":
-    python = "python"
-    pip = "pip"
-else:
-    python = "python3"
-    pip = "pip3" 
-    
-result = subprocess.run([python, "-m", pip, "install", "-r", "requirements.txt"], capture_output=True, text=True)
-
 print("📦 Checking and installing Python dependencies...")
 
 try:
-    subprocess.run([python, "-m", "ensurepip", "--default-pip"], capture_output=True, text=True)
-    subprocess.run([python, "-m", "pip", "install", "--upgrade", "pip"], capture_output=True, text=True)
-    result = subprocess.run([python, "-m", pip, "install", "-r", "requirements.txt"], capture_output=True, text=True)
-
+    result = subprocess.Popen([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"], capture_output=True, text=True)
     if result.returncode == 0:
+        
         print("✅ Python dependencies installed successfully.")
     else:
         raise Exception("⚠️ Failed to install dependencies. Please check your Python & Pip installation.")
@@ -127,6 +116,7 @@ elif SYSTEM in ["Darwin", "Linux"]:
 # 🏠 Setup Port
 port = input("Enter the port you want to expose (default: 3000): ").strip() or "3000"
 set_env_variable("./src/.env", "PORT", port)
+set_env_variable("./src/.env", "HOST", "0.0.0.0")
 
 print("\n🎉 Setup complete!")
 print("🚀 Run the following command to start the server:")

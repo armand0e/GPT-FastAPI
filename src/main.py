@@ -2,7 +2,7 @@ import os
 import uuid
 import subprocess
 import sys
-from dotenv import load_dotenv
+import dotenv
 from fastapi import FastAPI, Depends, HTTPException
 from auth import authenticate_request
 from pydantic import BaseModel
@@ -19,11 +19,34 @@ from web_handler import router as web_router
 from websocket_routes import router as websocket_router
 
 # Load environment variables
-load_dotenv()
+dotenv.load_dotenv(dotenv_path=".env")
 
+DEFAULT_HOST = "0.0.0.0"
+DEFAULT_PORT = "3000"
+
+"""Runs the Uvicorn server on the externally accessible port."""
+print("🚀 Starting Uvicorn server...")
+API_KEY = dotenv.get_key(".env", "API_KEY")
+PORT = dotenv.get_key(".env", "PORT")
+HOST = dotenv.get_key(".env", "HOST")
+
+"""Set to HOST to DEFAULT_HOST if not found"""
+if not HOST:
+    HOST = DEFAULT_HOST
+    dotenv.set_key('.env', "HOST", DEFAULT_HOST)
+"""Set to PORT to DEFAULT_PORT if not found"""
+if not PORT:
+    PORT = DEFAULT_PORT
+    dotenv.set_key('.env', "PORT", DEFAULT_PORT)
+"""Generate API Key if not found"""
+if not API_KEY:
+    API_KEY = str(uuid.uuid4())
+    dotenv.set_key(".env", "API_KEY", API_KEY)
+
+print(f"🔑 Your API Key: {API_KEY}")
 app = FastAPI(title="FastAPI Terminal Server", version="1.0")
 
-# Include routers with authentication dependency
+"""Include routers with authentication dependency"""
 app.include_router(terminal_router, dependencies=[Depends(authenticate_request)])
 app.include_router(file_router, dependencies=[Depends(authenticate_request)])
 app.include_router(ai_router, dependencies=[Depends(authenticate_request)])
@@ -67,29 +90,3 @@ async def queue_requests(bulk_request: BulkRequest):
                 results.append({"router": router, "endpoint": endpoint, "error": str(e)})
 
     return {"status": "queued", "requests": results}
-
-if __name__ == "__main__":
-    """Runs the Uvicorn server on the externally accessible port."""
-    print("🚀 Starting Uvicorn server...")
-    API_KEY = os.getenv("API_KEY")
-    PORT = os.getenv("PORT", "3000")
-
-    # Generate API Key on First Run
-    if not API_KEY:
-        API_KEY = str(uuid.uuid4())
-        os.environ["API_KEY"] = API_KEY
-        with open(".env", "w") as env_file:
-            env_file.write(f"API_KEY={API_KEY}\n")
-
-    print(f"🔑 Your API Key: {API_KEY}")
-    cwd = os.path.dirname(os.path.abspath(__file__))  # Get current directory
-
-    command = [
-        sys.executable, "-m", "uvicorn", "main:app",
-        "--host", "0.0.0.0",
-        "--port", str(int(PORT)),
-        "--log-level", "debug",
-        "--reload"
-    ]
-
-    subprocess.run(command, check=True, cwd=cwd)
