@@ -19,7 +19,7 @@ from web_handler import router as web_router
 from websocket_routes import router as websocket_router
 
 # Load environment variables
-dotenv.load_dotenv(dotenv_path=".env")
+dotenv.load_dotenv()
 
 DEFAULT_HOST = "0.0.0.0"
 DEFAULT_PORT = "3000"
@@ -27,17 +27,7 @@ DEFAULT_PORT = "3000"
 """Runs the Uvicorn server on the externally accessible port."""
 print("🚀 Starting Uvicorn server...")
 API_KEY = dotenv.get_key(".env", "API_KEY")
-PORT = dotenv.get_key(".env", "PORT")
-HOST = dotenv.get_key(".env", "HOST")
 
-"""Set to HOST to DEFAULT_HOST if not found"""
-if not HOST:
-    HOST = DEFAULT_HOST
-    dotenv.set_key('.env', "HOST", DEFAULT_HOST)
-"""Set to PORT to DEFAULT_PORT if not found"""
-if not PORT:
-    PORT = DEFAULT_PORT
-    dotenv.set_key('.env', "PORT", DEFAULT_PORT)
 """Generate API Key if not found"""
 if not API_KEY:
     API_KEY = str(uuid.uuid4())
@@ -91,3 +81,18 @@ async def queue_requests(bulk_request: BulkRequest):
 
     return {"status": "queued", "requests": results}
 
+if __name__ == "__main__":
+    PORT = dotenv.get_key(".env", "PORT")
+    HOST = dotenv.get_key(".env", "HOST")
+
+    """Set to HOST to DEFAULT_HOST if not found"""
+    if not HOST:
+        HOST = DEFAULT_HOST
+        dotenv.set_key('.env', "HOST", DEFAULT_HOST)
+    """Set to PORT to DEFAULT_PORT if not found"""
+    if not PORT:
+        PORT = DEFAULT_PORT
+        dotenv.set_key('.env', "PORT", DEFAULT_PORT)
+    """Runs the Uvicorn server directly inside the script."""
+    print("🚀 Starting Uvicorn server...")
+    uvicorn.run("main:app", host=HOST, port=PORT, log_level="debug")
