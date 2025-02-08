@@ -17,7 +17,6 @@ from file_access import router as file_router
 from system_info import router as system_router
 from terminal_handler import router as terminal_router
 from web_handler import router as web_router
-from websocket_routes import router as websocket_router
 
 # Load environment variables
 dotenv.load_dotenv(dotenv_path='./src/.env')
@@ -26,7 +25,6 @@ DEFAULT_HOST = "0.0.0.0"
 DEFAULT_PORT = "3000"
 
 """Runs the Uvicorn server on the externally accessible port."""
-print("🚀 Starting Uvicorn server...")
 API_KEY = dotenv.get_key("./src/.env", "API_KEY")
 
 """Generate API Key if not found"""
@@ -34,14 +32,12 @@ if not API_KEY:
     API_KEY = str(uuid.uuid4())
     dotenv.set_key("./src/.env", "API_KEY", API_KEY)
 
-print(f"🔑 Your API Key: {API_KEY}")
 app = FastAPI(title="FastAPI Terminal Server", version="1.0")
 
 """Include routers with authentication dependency"""
 app.include_router(terminal_router, dependencies=[Depends(authenticate_request)])
 app.include_router(file_router, dependencies=[Depends(authenticate_request)])
 app.include_router(ai_router, dependencies=[Depends(authenticate_request)])
-app.include_router(websocket_router, dependencies=[Depends(authenticate_request)])
 app.include_router(web_router, dependencies=[Depends(authenticate_request)])
 app.include_router(system_router, dependencies=[Depends(authenticate_request)])
 app.include_router(docs_router, dependencies=[Depends(authenticate_request)])
@@ -94,6 +90,8 @@ if __name__ == "__main__":
     if not PORT:
         PORT = DEFAULT_PORT
         dotenv.set_key('.env', "PORT", DEFAULT_PORT)
+    
     """Runs the Uvicorn server directly inside the script."""
     print("🚀 Starting Uvicorn server...")
+    print(f"🔑 Your API Key: {API_KEY}")
     uvicorn.run("main:app", host=HOST, port=int(PORT), log_level="debug")

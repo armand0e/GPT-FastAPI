@@ -1,0 +1,1412 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "FastAPI Terminal Server",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/run-terminal": {
+            "post": {
+                "summary": "Run Terminal Script",
+                "description": "Executes a command in Git Bash (Windows) or standard shell (Linux/macOS).",
+                "operationId": "run_terminal_script_api_run_terminal_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CommandRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/interrupt-terminal": {
+            "post": {
+                "summary": "Interrupt Terminal",
+                "description": "Interrupts the active shell process.",
+                "operationId": "interrupt_terminal_api_interrupt_terminal_post",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/check-shell-status": {
+            "get": {
+                "summary": "Check Shell Status",
+                "description": "Checks if a shell session is active.",
+                "operationId": "check_shell_status_api_check_shell_status_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/read-file": {
+            "get": {
+                "summary": "Get File",
+                "description": "Retrieves the contents of a specified file.",
+                "operationId": "get_file_api_read_file_get",
+                "parameters": [{
+                    "name": "filepath",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Filepath"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/write-file": {
+            "post": {
+                "summary": "Write File Api",
+                "description": "Writes content to a file.",
+                "operationId": "write_file_api_api_write_file_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FileWriteRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/fuzzy-search-file": {
+            "post": {
+                "summary": "Fuzzy Search",
+                "description": "Performs a fuzzy search within a file to find relevant lines.",
+                "operationId": "fuzzy_search_api_fuzzy_search_file_post",
+                "parameters": [{
+                    "name": "filepath",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Filepath"
+                    }
+                }, {
+                    "name": "query",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Query"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/upload-file": {
+            "post": {
+                "summary": "Upload File",
+                "description": "Uploads a file and saves it to the specified location.",
+                "operationId": "upload_file_api_upload_file_post",
+                "parameters": [{
+                    "name": "filepath",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Filepath"
+                    }
+                }],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_upload_file_api_upload_file_post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/list-files": {
+            "get": {
+                "summary": "List Files",
+                "description": "Lists all files in the specified directory.",
+                "operationId": "list_files_api_list_files_get",
+                "parameters": [{
+                    "name": "directory",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Directory"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/file-metadata": {
+            "get": {
+                "summary": "File Metadata",
+                "description": "Retrieves metadata such as size and modification date for a given file.",
+                "operationId": "file_metadata_api_file_metadata_get",
+                "parameters": [{
+                    "name": "filepath",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Filepath"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/delete-file": {
+            "delete": {
+                "summary": "Delete File",
+                "description": "Deletes a specified file.",
+                "operationId": "delete_file_api_delete_file_delete",
+                "parameters": [{
+                    "name": "filepath",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Filepath"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/delete-directory": {
+            "delete": {
+                "summary": "Delete Directory",
+                "description": "Deletes an entire directory and all its contents.",
+                "operationId": "delete_directory_api_delete_directory_delete",
+                "parameters": [{
+                    "name": "directory",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Directory"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sentence-embedding": {
+            "post": {
+                "summary": "Get Sentence Embedding",
+                "operationId": "get_sentence_embedding_api_sentence_embedding_post",
+                "parameters": [{
+                    "name": "text",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Text"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/open-tab": {
+            "post": {
+                "summary": "Open New Tab",
+                "description": "Opens a new tab and assigns it a name.",
+                "operationId": "open_new_tab_api_web_open_tab_post",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }, {
+                    "name": "tab_name",
+                    "in": "query",
+                    "required": false,
+                    "schema": {
+                        "type": "string",
+                        "default": "new_tab",
+                        "title": "Tab Name"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/switch-tab": {
+            "post": {
+                "summary": "Switch Tab",
+                "description": "Switches to a different open tab.",
+                "operationId": "switch_tab_api_web_switch_tab_post",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }, {
+                    "name": "tab_name",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Tab Name"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/list-tabs": {
+            "get": {
+                "summary": "List Open Tabs",
+                "description": "Lists all open tabs for the session.",
+                "operationId": "list_open_tabs_api_web_list_tabs_get",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/rename-tab": {
+            "post": {
+                "summary": "Rename Tab",
+                "description": "Renames a tab for better navigation.",
+                "operationId": "rename_tab_api_web_rename_tab_post",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }, {
+                    "name": "old_tab_name",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Old Tab Name"
+                    }
+                }, {
+                    "name": "new_tab_name",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "New Tab Name"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/close-tab": {
+            "post": {
+                "summary": "Close Tab",
+                "description": "Closes a specific tab.",
+                "operationId": "close_tab_api_web_close_tab_post",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }, {
+                    "name": "tab_name",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Tab Name"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/open-page": {
+            "post": {
+                "summary": "Open Page",
+                "description": "Opens a webpage and returns the full HTML content with debug logs.",
+                "operationId": "open_page_api_web_open_page_post",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }, {
+                    "name": "url",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Url"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/get-title": {
+            "get": {
+                "summary": "Get Page Title",
+                "description": "Gets the title of the currently open webpage with debug logs.",
+                "operationId": "get_page_title_api_web_get_title_get",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/get-links": {
+            "get": {
+                "summary": "Get Links",
+                "description": "Extracts all links from the current webpage with debug logs.",
+                "operationId": "get_links_api_web_get_links_get",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/search-google": {
+            "get": {
+                "summary": "Google Search",
+                "description": "Performs a Google Search and returns the top 5 results with AI debugging logs.",
+                "operationId": "google_search_api_web_search_google_get",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }, {
+                    "name": "query",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Query"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/save-session": {
+            "post": {
+                "summary": "Save Cookies",
+                "description": "Saves cookies for persistent login with AI debugging logs.",
+                "operationId": "save_cookies_api_web_save_session_post",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/get-history": {
+            "get": {
+                "summary": "Get Browsing History",
+                "description": "Returns the browsing history of the session with AI debugging logs.",
+                "operationId": "get_browsing_history_api_web_get_history_get",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/screenshot": {
+            "post": {
+                "summary": "Take Screenshot",
+                "description": "Takes a screenshot of the current page with AI debugging logs.",
+                "operationId": "take_screenshot_api_web_screenshot_post",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/close-session": {
+            "post": {
+                "summary": "Close Browser Session",
+                "description": "Closes a browser session with AI debugging logs.",
+                "operationId": "close_browser_session_api_web_close_session_post",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/send-keys": {
+            "post": {
+                "summary": "Send Keys",
+                "description": "Simulates keystrokes on the active page.",
+                "operationId": "send_keys_api_web_send_keys_post",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }, {
+                    "name": "keys",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Keys"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/wait-for-element": {
+            "post": {
+                "summary": "Wait For Element",
+                "description": "Waits for an element to appear before proceeding.",
+                "operationId": "wait_for_element_api_web_wait_for_element_post",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }, {
+                    "name": "selector",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Selector"
+                    }
+                }, {
+                    "name": "timeout",
+                    "in": "query",
+                    "required": false,
+                    "schema": {
+                        "type": "integer",
+                        "default": 5000,
+                        "title": "Timeout"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/get-dom-structure": {
+            "get": {
+                "summary": "Get Dom Structure",
+                "description": "Returns a structured representation of the page's DOM elements.",
+                "operationId": "get_dom_structure_api_web_get_dom_structure_get",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/web/click-element": {
+            "post": {
+                "summary": "Click Element",
+                "description": "Clicks on a specific element on the page.",
+                "operationId": "click_element_api_web_click_element_post",
+                "parameters": [{
+                    "name": "session_id",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Session Id"
+                    }
+                }, {
+                    "name": "selector",
+                    "in": "query",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "title": "Selector"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/host-info": {
+            "get": {
+                "summary": "Get Host Info",
+                "description": "Returns detailed system information about the host machine.",
+                "operationId": "get_host_info_api_host_info_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/host-resources": {
+            "get": {
+                "summary": "Get Host Resources",
+                "description": "Returns system resource usage (CPU, RAM, Disk).",
+                "operationId": "get_host_resources_api_host_resources_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/network-info": {
+            "get": {
+                "summary": "Get Network Info",
+                "description": "Returns network details such as IP address and active connections.",
+                "operationId": "get_network_info_api_network_info_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/list-processes": {
+            "get": {
+                "summary": "List Processes",
+                "description": "Lists running processes on the system.",
+                "operationId": "list_processes_api_list_processes_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/check-port/{port}": {
+            "get": {
+                "summary": "Check Port Usage",
+                "description": "Checks if a given port is in use.",
+                "operationId": "check_port_usage_api_check_port__port__get",
+                "parameters": [{
+                    "name": "port",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "title": "Port"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/docs": {
+            "get": {
+                "summary": "Get Openapi Spec",
+                "description": "Returns the OpenAPI documentation.",
+                "operationId": "get_openapi_spec_api_docs_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/metadata": {
+            "get": {
+                "summary": "Get Metadata",
+                "description": "Provides metadata about the API.",
+                "operationId": "get_metadata_api_metadata_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/health": {
+            "get": {
+                "summary": "Health Check",
+                "description": "Returns the API status and uptime.",
+                "operationId": "health_check_api_health_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/queue-requests": {
+            "post": {
+                "summary": "Queue Requests",
+                "description": "Accepts multiple API requests and processes them sequentially in order.",
+                "operationId": "queue_requests_api_queue_requests_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BulkRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Body_upload_file_api_upload_file_post": {
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "title": "File"
+                    }
+                },
+                "type": "object",
+                "required": ["file"],
+                "title": "Body_upload_file_api_upload_file_post"
+            },
+            "BulkRequest": {
+                "properties": {
+                    "requests": {
+                        "items": {
+                            "type": "object"
+                        },
+                        "type": "array",
+                        "title": "Requests"
+                    }
+                },
+                "type": "object",
+                "required": ["requests"],
+                "title": "BulkRequest",
+                "description": "Schema for bulk queuing API calls"
+            },
+            "CommandRequest": {
+                "properties": {
+                    "command": {
+                        "type": "string",
+                        "title": "Command"
+                    }
+                },
+                "type": "object",
+                "required": ["command"],
+                "title": "CommandRequest"
+            },
+            "FileWriteRequest": {
+                "properties": {
+                    "filepath": {
+                        "type": "string",
+                        "title": "Filepath"
+                    },
+                    "content": {
+                        "type": "string",
+                        "title": "Content"
+                    }
+                },
+                "type": "object",
+                "required": ["filepath", "content"],
+                "title": "FileWriteRequest"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [{
+                                "type": "string"
+                            }, {
+                                "type": "integer"
+                            }]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": ["loc", "msg", "type"],
+                "title": "ValidationError"
+            }
+        }
+    }
+}

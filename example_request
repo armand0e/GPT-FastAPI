@@ -1,4 +1,0 @@
-Invoke-RestMethod -Uri "http://localhost:3000/api/run-terminal" -Method Post -Headers @{
-    "Authorization" = "Bearer 0d3d7998-7f71-4d4b-a13f-6846ad5f8634"
-    "Content-Type" = "application/json"
-} -Body @{command="dir"}

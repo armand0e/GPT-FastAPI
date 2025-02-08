@@ -5,6 +5,7 @@ import subprocess
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 import time
+from log_handler import log
 router = APIRouter()
 
 class CommandRequest(BaseModel):
@@ -31,43 +32,42 @@ async def start_shell():
                 universal_newlines=True
             )
         except Exception as e:
+            print(f'Failed to start shell: {e}')
+            shell = None  # Mark shell as inactive
             raise HTTPException(status_code=500, detail=f"Failed to start shell: {str(e)}")
 
-async def run_command(command: str, timeout: int = 10):
-    """Execute a shell command safely without blocking."""
+async def run_command(command: str, timeout: int = 15):
+    """Executes a command inside the persistent shell and returns the output."""
     global shell
     if shell is None:
         await start_shell()
+    if shell is None:
+        return {"error": "Shell is not running"}
 
     if shell.stdin is None or shell.stdout is None:
         raise HTTPException(status_code=500, detail="Shell process not initialized properly.")
 
     try:
-        # Send command to shell
-        shell.stdin.write(command + "\n")
+        # Redirect output to a temporary file
+        temp_file = "./tmp/shell_output.txt"
+        # Write the command and ensure "DONE" is written at the end
+        shell.stdin.write(f"{command} > {temp_file} 2>&1; echo DONE >> {temp_file}\n")
         shell.stdin.flush()
 
-        # Read output in real-time (non-blocking)
-        output_lines = []
+        # Wait for the command to complete
         start_time = time.time()
-
         while time.time() - start_time < timeout:
-            line = shell.stdout.readline().strip()
-            if line:
-                output_lines.append(line)
-            else:
-                break  # Exit loop when no more output
+            with open(temp_file, "r") as f:
+                output = f.read().strip()
+                if "DONE" in output:
+                    return {"output": output.replace("DONE", "").strip()}
+            await asyncio.sleep(0.1)  # Non-blocking wait
 
-        if not output_lines:
-            return {"error": "No output received"}
-
-        return {"output": "\n".join(output_lines)}
-    
-    except asyncio.TimeoutError:
         return {"error": f"Command timed out after {timeout} seconds"}
-    
+
     except Exception as e:
         return {"error": str(e)}
+
 
 @router.post("/api/run-terminal")
 async def run_terminal_script(request: CommandRequest):
