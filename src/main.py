@@ -48,31 +48,32 @@ class BulkRequest(BaseModel):
 async def queue_requests(bulk_request: BulkRequest):
     """
     Accepts multiple API requests and processes them sequentially in order.
+    Only supports POST requests with body-based parameters.
     """
     results = []
     async with httpx.AsyncClient() as client:
         for req in bulk_request.requests:
-            router = req.get("router")
             endpoint = req.get("endpoint")
             method = req.get("method", "POST").upper()
             data = req.get("data", {})
 
-            if not router or not endpoint:
+            if not endpoint:
                 results.append({"error": "Invalid request format", "details": req})
                 continue
-
+            
             url = f"http://localhost:3000{endpoint}"  # Assumes local execution
-            headers = {"Authorization": f"Bearer {API_KEY}"}
+            headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
+            
 
             try:
-                if method == "GET":
-                    response = await client.get(url, headers=headers, params=data)
-                else:
-                    response = await client.post(url, headers=headers, json=data)
-                
-                results.append({"router": router, "endpoint": endpoint, "status": response.status_code, "response": response.json()})
+                response = await client.post(url, headers=headers, json=data)
+                results.append({
+                    "endpoint": endpoint,
+                    "status": response.status_code,
+                    "response": response.json()
+                })
             except Exception as e:
-                results.append({"router": router, "endpoint": endpoint, "error": str(e)})
+                results.append({"endpoint": endpoint, "error": str(e)})
 
     return {"status": "queued", "requests": results}
 

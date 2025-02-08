@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 router = APIRouter()
 
-class FileWriteRequest(BaseModel):
+class WriteFileRequest(BaseModel):
     filepath: str
     content: str
 
@@ -18,7 +18,12 @@ class ReadFileRequest(BaseModel):
 class FuzzySearchRequest(BaseModel):
     filepath: str
     query: str
-    
+
+class ListFilesRequest(BaseModel):
+    directory: str
+
+class FileMetadataRequest(BaseModel):
+    filepath: str
 
 async def write_file(file_path: str, content: str):
     async with aiofiles.open(file_path, "w") as f:
@@ -62,7 +67,7 @@ async def get_file(request: ReadFileRequest):
     return {"content": content}
 
 @router.post("/api/write-file")
-async def write_file_api(request: FileWriteRequest):
+async def write_file_api(request: WriteFileRequest):
     """Writes content to a file."""
     return await write_file(request.filepath, request.content)
 
@@ -72,26 +77,26 @@ async def fuzzy_search_file(request: FuzzySearchRequest):
     matches = await fuzzy_search(request.filepath, request.query)
     return {"matches": matches}
 
-@router.get("/api/list-files")
-async def list_files(directory: str):
-    """Lists all files in the specified directory."""
-    if not os.path.exists(directory) or not os.path.isdir(directory):
+@router.post("/api/list-files")
+async def list_files(request: ListFilesRequest):
+    """Lists all files in the specified directory. Expects request body."""
+    if not os.path.exists(request.directory) or not os.path.isdir(request.directory):
         raise HTTPException(status_code=404, detail="Directory not found")
     try:
-        files = os.listdir(directory)
-        return {"directory": directory, "files": files}
+        files = os.listdir(request.directory)
+        return {"directory": request.directory, "files": files}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error listing files: {str(e)}")
 
-@router.get("/api/file-metadata")
-async def file_metadata(filepath: str):
-    """Retrieves metadata such as size and modification date for a given file."""
-    if not os.path.exists(filepath):
+@router.post("/api/file-metadata")
+async def file_metadata(request: FileMetadataRequest):
+    """Retrieves metadata such as size and modification date for a given file. Expects request body."""
+    if not os.path.exists(request.filepath):
         raise HTTPException(status_code=404, detail="File not found")
 
-    file_stat = os.stat(filepath)
+    file_stat = os.stat(request.filepath)
     return {
-        "filepath": filepath,
+        "filepath": request.filepath,
         "size_bytes": file_stat.st_size,
         "last_modified": file_stat.st_mtime,
     }

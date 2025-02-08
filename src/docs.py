@@ -14,7 +14,7 @@ def get_app():
     app_module = import_module("main")
     return getattr(app_module, "app", None)
 
-@router.get("/api/docs")
+@router.post("/api/docs")
 async def get_openapi_spec():
     """Returns the OpenAPI documentation."""
     app = get_app()
@@ -22,7 +22,7 @@ async def get_openapi_spec():
         return get_openapi(title="FastAPI Terminal Server", version="1.0", routes=app.routes)
     return {"error": "Failed to retrieve OpenAPI spec"}
 
-@router.get("/api/metadata")
+@router.post("/api/metadata")
 async def get_metadata():
     """Provides metadata about the API."""
     app = get_app()
@@ -35,7 +35,7 @@ async def get_metadata():
         }
     return {"error": "Failed to retrieve API metadata"}
 
-@router.get("/api/health")
+@router.post("/api/health")
 async def health_check():
     """Returns the API status and uptime."""
     uptime_seconds = int(time.time() - APP_START_TIME)

@@ -111,7 +111,7 @@ async def interrupt_terminal():
         return {"message": "Shell session terminated"}
     return {"message": "No shell session running"}
 
-@router.get("/api/check-shell-status")
+@router.post("/api/check-shell-status")
 async def check_shell_status():
     """Checks if a shell session is active."""
     global shell
