@@ -12,22 +12,31 @@ class FileWriteRequest(BaseModel):
     filepath: str
     content: str
 
-async def read_file(file_path: str):
-    async with aiofiles.open(file_path, "r") as f:
-        return await f.read()
+class ReadFileRequest(BaseModel):
+    filepath: str
 
 async def write_file(file_path: str, content: str):
     async with aiofiles.open(file_path, "w") as f:
         await f.write(content)
     return {"message": f"File '{file_path}' saved successfully"}
 
-@router.get("/api/read-file")
-async def get_file(filepath: str):
-    """Retrieves the contents of a specified file."""
+async def read_file(filepath: str):
+    """Reads a file asynchronously with UTF-8 encoding."""
     if not os.path.exists(filepath):
-        raise HTTPException(status_code=404, detail="File not found")
-    content = await read_file(filepath)
-    return {"filepath": filepath, "content": content}
+        raise HTTPException(status_code=404, detail=f"File not found: {filepath}")
+    try:
+        async with aiofiles.open(filepath, mode="r", encoding="utf-8") as f:
+            return await f.read()
+    except UnicodeDecodeError:
+        raise HTTPException(status_code=400, detail=f"Encoding issue: Cannot read file {filepath} as UTF-8.")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
+
+@router.post("/api/read-file")
+async def get_file(request: ReadFileRequest):
+    """API to read a file (filepath provided in request body)."""
+    content = await read_file(request.filepath)
+    return {"content": content}
 
 @router.post("/api/write-file")
 async def write_file_api(request: FileWriteRequest):

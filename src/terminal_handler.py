@@ -5,7 +5,7 @@ import subprocess
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 import time
-from log_handler import log
+
 router = APIRouter()
 
 class CommandRequest(BaseModel):

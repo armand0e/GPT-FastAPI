@@ -1,3 +1,5 @@
 src/.env
 start_server.bat
 start_server.sh
+*.pyc
+
