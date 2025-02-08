@@ -1,16 +1,10 @@
 fastapi
 uvicorn
 python-dotenv
-firebase-admin
 pydantic
-websockets
 aiofiles
 thefuzz
-sentence-transformers
-pyngrok
 playwright
-transformers
-tf-keras
 httpx
 python-multipart
 psutil

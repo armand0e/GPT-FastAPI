@@ -1,7 +1,7 @@
 import logging
 
 # Configure logging
-LOG_FILE = "shell.log"
+LOG_FILE = "logs/shell.log"
 
 logging.basicConfig(
     filename=LOG_FILE,

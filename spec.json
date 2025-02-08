@@ -8,7 +8,7 @@
         "/api/run-terminal": {
             "post": {
                 "summary": "Run Terminal Script",
-                "description": "Executes a command in Git Bash (Windows) or standard shell (Linux/macOS).",
+                "description": "Executes a command in the persistent shell and logs output.",
                 "operationId": "run_terminal_script_api_run_terminal_post",
                 "requestBody": {
                     "content": {
@@ -76,20 +76,58 @@
                 }
             }
         },
-        "/api/read-file": {
-            "get": {
-                "summary": "Get File",
-                "description": "Retrieves the contents of a specified file.",
-                "operationId": "get_file_api_read_file_get",
-                "parameters": [{
-                    "name": "filepath",
-                    "in": "query",
-                    "required": true,
-                    "schema": {
-                        "type": "string",
-                        "title": "Filepath"
+        "/api/get-logs": {
+            "post": {
+                "summary": "Get Recent Logs",
+                "description": "Returns the logs for the last `num_commands` commands from the shell.log.\nIf `num_commands` is greater than available logs, it returns all logs.",
+                "operationId": "get_recent_logs_api_get_logs_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LogRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
                     }
-                }],
+                }
+            }
+        },
+        "/api/read-file": {
+            "post": {
+                "summary": "Get File",
+                "description": "API to read a file (filepath provided in request body).",
+                "operationId": "get_file_api_read_file_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ReadFileRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful Response",
@@ -151,71 +189,18 @@
         },
         "/api/fuzzy-search-file": {
             "post": {
-                "summary": "Fuzzy Search",
-                "description": "Performs a fuzzy search within a file to find relevant lines.",
-                "operationId": "fuzzy_search_api_fuzzy_search_file_post",
-                "parameters": [{
-                    "name": "filepath",
-                    "in": "query",
-                    "required": true,
-                    "schema": {
-                        "type": "string",
-                        "title": "Filepath"
-                    }
-                }, {
-                    "name": "query",
-                    "in": "query",
-                    "required": true,
-                    "schema": {
-                        "type": "string",
-                        "title": "Query"
-                    }
-                }],
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
+                "summary": "Fuzzy Search File",
+                "description": "API for fuzzy searching inside a file. Expects filepath & query in the body.",
+                "operationId": "fuzzy_search_file_api_fuzzy_search_file_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FuzzySearchRequest"
                             }
                         }
                     },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/upload-file": {
-            "post": {
-                "summary": "Upload File",
-                "description": "Uploads a file and saves it to the specified location.",
-                "operationId": "upload_file_api_upload_file_post",
-                "parameters": [{
-                    "name": "filepath",
-                    "in": "query",
-                    "required": true,
-                    "schema": {
-                        "type": "string",
-                        "title": "Filepath"
-                    }
-                }],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Body_upload_file_api_upload_file_post"
-                            }
-                        }
-                    }
+                    "required": true
                 },
                 "responses": {
                     "200": {
@@ -287,113 +272,6 @@
                     "schema": {
                         "type": "string",
                         "title": "Filepath"
-                    }
-                }],
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/delete-file": {
-            "delete": {
-                "summary": "Delete File",
-                "description": "Deletes a specified file.",
-                "operationId": "delete_file_api_delete_file_delete",
-                "parameters": [{
-                    "name": "filepath",
-                    "in": "query",
-                    "required": true,
-                    "schema": {
-                        "type": "string",
-                        "title": "Filepath"
-                    }
-                }],
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/delete-directory": {
-            "delete": {
-                "summary": "Delete Directory",
-                "description": "Deletes an entire directory and all its contents.",
-                "operationId": "delete_directory_api_delete_directory_delete",
-                "parameters": [{
-                    "name": "directory",
-                    "in": "query",
-                    "required": true,
-                    "schema": {
-                        "type": "string",
-                        "title": "Directory"
-                    }
-                }],
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/sentence-embedding": {
-            "post": {
-                "summary": "Get Sentence Embedding",
-                "operationId": "get_sentence_embedding_api_sentence_embedding_post",
-                "parameters": [{
-                    "name": "text",
-                    "in": "query",
-                    "required": true,
-                    "schema": {
-                        "type": "string",
-                        "title": "Text"
                     }
                 }],
                 "responses": {
@@ -1315,18 +1193,6 @@
     },
     "components": {
         "schemas": {
-            "Body_upload_file_api_upload_file_post": {
-                "properties": {
-                    "file": {
-                        "type": "string",
-                        "format": "binary",
-                        "title": "File"
-                    }
-                },
-                "type": "object",
-                "required": ["file"],
-                "title": "Body_upload_file_api_upload_file_post"
-            },
             "BulkRequest": {
                 "properties": {
                     "requests": {
@@ -1368,6 +1234,21 @@
                 "required": ["filepath", "content"],
                 "title": "FileWriteRequest"
             },
+            "FuzzySearchRequest": {
+                "properties": {
+                    "filepath": {
+                        "type": "string",
+                        "title": "Filepath"
+                    },
+                    "query": {
+                        "type": "string",
+                        "title": "Query"
+                    }
+                },
+                "type": "object",
+                "required": ["filepath", "query"],
+                "title": "FuzzySearchRequest"
+            },
             "HTTPValidationError": {
                 "properties": {
                     "detail": {
@@ -1380,6 +1261,28 @@
                 },
                 "type": "object",
                 "title": "HTTPValidationError"
+            },
+            "LogRequest": {
+                "properties": {
+                    "num_commands": {
+                        "type": "integer",
+                        "title": "Num Commands"
+                    }
+                },
+                "type": "object",
+                "required": ["num_commands"],
+                "title": "LogRequest"
+            },
+            "ReadFileRequest": {
+                "properties": {
+                    "filepath": {
+                        "type": "string",
+                        "title": "Filepath"
+                    }
+                },
+                "type": "object",
+                "required": ["filepath"],
+                "title": "ReadFileRequest"
             },
             "ValidationError": {
                 "properties": {
