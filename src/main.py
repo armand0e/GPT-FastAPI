@@ -11,7 +11,6 @@ import httpx
 import uvicorn
 
 # Import all routers
-from ai_handler import router as ai_router
 from docs import router as docs_router
 from file_access import router as file_router
 from system_info import router as system_router
@@ -37,7 +36,6 @@ app = FastAPI(title="FastAPI Terminal Server", version="1.0")
 """Include routers with authentication dependency"""
 app.include_router(terminal_router, dependencies=[Depends(authenticate_request)])
 app.include_router(file_router, dependencies=[Depends(authenticate_request)])
-app.include_router(ai_router, dependencies=[Depends(authenticate_request)])
 app.include_router(web_router, dependencies=[Depends(authenticate_request)])
 app.include_router(system_router, dependencies=[Depends(authenticate_request)])
 app.include_router(docs_router, dependencies=[Depends(authenticate_request)])

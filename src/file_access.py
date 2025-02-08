@@ -15,6 +15,11 @@ class FileWriteRequest(BaseModel):
 class ReadFileRequest(BaseModel):
     filepath: str
 
+class FuzzySearchRequest(BaseModel):
+    filepath: str
+    query: str
+    
+
 async def write_file(file_path: str, content: str):
     async with aiofiles.open(file_path, "w") as f:
         await f.write(content)
@@ -31,6 +36,24 @@ async def read_file(filepath: str):
         raise HTTPException(status_code=400, detail=f"Encoding issue: Cannot read file {filepath} as UTF-8.")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
+    
+async def fuzzy_search(filepath: str, query: str):
+    """Search for a query inside a file asynchronously."""
+    if not os.path.exists(filepath):
+        raise HTTPException(status_code=404, detail=f"File not found: {filepath}")
+
+    matches = []
+    try:
+        async with aiofiles.open(filepath, mode="r", encoding="utf-8") as f:
+            async for line in f:
+                if query.lower() in line.lower():
+                    matches.append(line.strip())
+    except UnicodeDecodeError:
+        raise HTTPException(status_code=400, detail=f"Encoding issue: Cannot read file {filepath} as UTF-8.")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
+
+    return matches
 
 @router.post("/api/read-file")
 async def get_file(request: ReadFileRequest):
@@ -44,24 +67,10 @@ async def write_file_api(request: FileWriteRequest):
     return await write_file(request.filepath, request.content)
 
 @router.post("/api/fuzzy-search-file")
-async def fuzzy_search(filepath: str, query: str):
-    """Performs a fuzzy search within a file to find relevant lines."""
-    if not os.path.exists(filepath):
-        raise HTTPException(status_code=404, detail="File not found")
-
-    content = await read_file(filepath)
-    lines = content.split("\n")
-    matches = [(i, line, fuzz.ratio(query, line)) for i, line in enumerate(lines) if fuzz.ratio(query, line) > 70]
-
+async def fuzzy_search_file(request: FuzzySearchRequest):
+    """API for fuzzy searching inside a file. Expects filepath & query in the body."""
+    matches = await fuzzy_search(request.filepath, request.query)
     return {"matches": matches}
-
-@router.post("/api/upload-file")
-async def upload_file(filepath: str, file: UploadFile = File(...)):
-    """Uploads a file and saves it to the specified location."""
-    async with aiofiles.open(filepath, "wb") as f:
-        content = await file.read()
-        await f.write(content)
-    return {"message": f"File '{filepath}' uploaded successfully"}
 
 @router.get("/api/list-files")
 async def list_files(directory: str):
@@ -87,20 +96,3 @@ async def file_metadata(filepath: str):
         "last_modified": file_stat.st_mtime,
     }
 
-@router.delete("/api/delete-file")
-async def delete_file(filepath: str):
-    """Deletes a specified file."""
-    if not os.path.exists(filepath):
-        raise HTTPException(status_code=404, detail="File not found")
-    os.remove(filepath)
-    return {"message": f"File '{filepath}' deleted successfully"}
-
-@router.delete("/api/delete-directory")
-async def delete_directory(directory: str):
-    """Deletes an entire directory and all its contents."""
-    if not os.path.exists(directory):
-        raise HTTPException(status_code=404, detail="Directory not found")
-    if not os.path.isdir(directory):
-        raise HTTPException(status_code=400, detail="Path is not a directory")
-    shutil.rmtree(directory)
-    return {"message": f"Directory '{directory}' deleted successfully"}

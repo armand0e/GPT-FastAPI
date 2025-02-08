@@ -1,0 +1,33 @@
+2025-02-08 03:03:51,357 - INFO - PWD: /c/Users/aranr/Documents/GitHub/GPT-FastAPI
+2025-02-08 03:03:51,357 - INFO - COMMAND: ls
+2025-02-08 03:03:51,357 - INFO - OUTPUT:
+README.md
+init.py
+instructions
+requirements.txt
+shell.log
+spec.json
+src
+start_server.bat
+start_server.sh
+tmp
+--------------------------------------------------
+2025-02-08 03:04:25,506 - INFO - PWD: /c/Users/aranr/Documents/GitHub
+2025-02-08 03:04:25,506 - INFO - COMMAND: cd ..
+2025-02-08 03:04:25,506 - INFO - OUTPUT:
+No output
+--------------------------------------------------
+2025-02-08 03:04:39,069 - INFO - PWD: /c/Users/aranr/Documents/GitHub
+2025-02-08 03:04:39,069 - INFO - COMMAND: ls
+2025-02-08 03:04:39,069 - INFO - OUTPUT:
+20xx
+COP3503c
+GPT-FastAPI
+Gmail-Spreadsheet
+Python-Data-Analysis
+Utopia-Overwrite-GUI
+chatgptservercommander
+lightbulb
+llm
+reocketleague-devops
+--------------------------------------------------
