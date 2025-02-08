@@ -26,19 +26,30 @@ class FileMetadataRequest(BaseModel):
     filepath: str
 
 async def write_file(file_path: str, content: str):
-    async with aiofiles.open(file_path, "w") as f:
-        await f.write(content)
-    return {"message": f"File '{file_path}' saved successfully"}
+    """Writes content to a file safely, ensuring encoding and avoiding corruption."""
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)  # Ensure directory exists
 
+    try:
+        async with aiofiles.open(file_path, "w", encoding="utf-8", newline="\n") as f:
+            await f.write(content)
+            await f.flush()  # Ensure content is fully written
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Write error: {str(e)}")
+
+    return {"message": f"File '{file_path}' saved successfully"}
+    
 async def read_file(filepath: str):
-    """Reads a file asynchronously with UTF-8 encoding."""
+    """Reads a file asynchronously, handling encoding and permission errors."""
     if not os.path.exists(filepath):
         raise HTTPException(status_code=404, detail=f"File not found: {filepath}")
+
     try:
         async with aiofiles.open(filepath, mode="r", encoding="utf-8") as f:
             return await f.read()
+    except PermissionError:
+        raise HTTPException(status_code=403, detail=f"Permission denied: {filepath}")
     except UnicodeDecodeError:
-        raise HTTPException(status_code=400, detail=f"Encoding issue: Cannot read file {filepath} as UTF-8.")
+        raise HTTPException(status_code=400, detail=f"Encoding issue: Cannot read {filepath} as UTF-8.")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
     
