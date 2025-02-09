@@ -631,43 +631,6 @@
                 }
             }
         },
-        "/api/web/save-session": {
-            "post": {
-                "summary": "Save Cookies",
-                "description": "Saves cookies for persistent login.",
-                "operationId": "save_cookies_api_web_save_session_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SaveSessionRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/web/get-history": {
             "post": {
                 "summary": "Get Browsing History",

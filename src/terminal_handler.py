@@ -47,6 +47,27 @@ async def get_shell_cwd():
     shell.stdin.flush()
     return shell.stdout.readline().strip()  # Read the directory from shell output
 
+import subprocess
+import pyautogui
+import os
+import platform
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+
+router = APIRouter()
+
+class CommandRequest(BaseModel):
+    command: str
+
+@router.post("/api/system/run-command")
+async def run_system_command(request: CommandRequest):
+    """Executes a system command."""
+    try:
+        result = subprocess.run(request.command, shell=True, capture_output=True, text=True)
+        return {"output": result.stdout, "error": result.stderr}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 async def run_command(command: str, timeout: int = 10):
     """Executes a command inside the persistent shell and captures output directly from stdout."""
     global shell

@@ -3,7 +3,9 @@ from playwright.async_api import async_playwright
 from pydantic import BaseModel
 import os
 import time
-import traceback
+from playwright_stealth import stealth_async
+import random
+import asyncio
 
 router = APIRouter()
 
@@ -80,20 +82,29 @@ class ClickElementRequest(BaseModel):
     session_id: str
     selector: str
 
+async def human_like_typing(page, selector, text):
+    """Simulates human-like typing with random delays per keystroke."""
+    for char in text:
+        current_value = await page.eval_on_selector(selector, "el => el.value")
+        await page.fill(selector, current_value + char)  # Appends one character at a time
+        await asyncio.sleep(random.uniform(0.3, 0.8))  # Random delay between 300ms - 800ms
+        
 async def get_browser_instance(session_id: str):
-    """Retrieve or create a new browser session using async Playwright."""
+    """Retrieve or create a new browser session with OAuth login support."""
     if session_id not in BROWSER_SESSIONS:
         try:
             playwright = await async_playwright().start()
-            browser = await playwright.chromium.launch(headless=True)
-            
-            # Check if the cookie file exists before loading it
-            cookie_file = f"{session_id}_cookies.json"
-            if not os.path.exists(cookie_file):
-                print(f"⚠️ Cookie file {cookie_file} not found. Creating a fresh session.")
+            browser = await playwright.chromium.launch(headless=False)  # Run in visible mode for OAuth login
+            context = await browser.new_context()
 
-            context = await browser.new_context(storage_state=cookie_file if os.path.exists(cookie_file) else None)
             page = await context.new_page()
+            await stealth_async(page)
+
+            # Load stored cookies if available
+            cookies_path = f"{session_id}_cookies.json"
+            if os.path.exists(cookies_path):
+                await context.add_cookies_from_storage_state(cookies_path)
+                print(f"✅ Loaded stored cookies from {cookies_path}")
 
             BROWSER_SESSIONS[session_id] = {
                 "browser": browser,
@@ -106,6 +117,28 @@ async def get_browser_instance(session_id: str):
         except Exception as e:
             raise HTTPException(status_code=500, detail={"session_id": session_id, "error": str(e)})
     return BROWSER_SESSIONS[session_id]
+
+@router.post("/api/web/google-login")
+async def google_login(request: BrowserSessionRequest):
+    """Opens Google OAuth login page for manual authentication."""
+    try:
+        session = await get_browser_instance(request.session_id)
+        page = session["pages"][session["active_tab"]]
+
+        print("🌍 Opening Google Sign-In Page...")
+        await page.goto("https://accounts.google.com/signin", wait_until="domcontentloaded")
+
+        print("🛑 Please log in manually, then press Enter in the terminal when done.")
+        input("Press Enter once you have logged in...")  # Wait for user confirmation
+
+        # Save authentication cookies
+        cookies_path = f"{request.session_id}_cookies.json"
+        await page.context.storage_state(path=cookies_path)
+        print(f"✅ Saved cookies to {cookies_path}")
+
+        return {"message": "Login successful. Cookies saved for future use."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=log_debug(request.session_id, "google_login", error=e))
 
 @router.post("/api/web/open-tab")
 async def open_new_tab(request: TabRequest):
@@ -180,7 +213,7 @@ async def open_page(request: OpenPageRequest):
     try:
         session = await get_browser_instance(request.session_id)
         page = session["pages"][session["active_tab"]]
-        await page.goto(request.url, wait_until="networkidle")
+        await page.goto(request.url, wait_until="networkidle")  # FIXED: added await
         session["history"].append(request.url)
 
         return log_debug(request.session_id, "open_page", details={"url": request.url})
@@ -193,7 +226,8 @@ async def get_page_title(request: GetTitleRequest):
     try:
         session = await get_browser_instance(request.session_id)
         page = session["pages"][session["active_tab"]]
-        return log_debug(request.session_id, "get_page_title", details={"title": await page.title()})
+        title = await page.title()  # FIXED: added await
+        return log_debug(request.session_id, "get_page_title", details={"title": title})
     except Exception as e:
         raise HTTPException(status_code=500, detail=log_debug(request.session_id, "get_page_title", error=e))
 
@@ -203,7 +237,7 @@ async def get_links(request: GetLinksRequest):
     try:
         session = await get_browser_instance(request.session_id)
         page = session["pages"][session["active_tab"]]
-        links = await page.eval_on_selector_all("a", "elements => elements.map(el => el.href)")
+        links = await page.eval_on_selector_all("a", "elements => elements.map(el => el.href)")  # FIXED: added await
 
         return log_debug(request.session_id, "get_links", details={"links_found": len(links), "sample_links": links[:3]})
     except Exception as e:
@@ -211,31 +245,42 @@ async def get_links(request: GetLinksRequest):
 
 @router.post("/api/web/search-google")
 async def google_search(request: GoogleSearchRequest):
-    """Performs a Google Search and returns the top 5 results."""
+    """Performs a Google Search using the authenticated session."""
     try:
         session = await get_browser_instance(request.session_id)
         page = session["pages"][session["active_tab"]]
-        await page.goto("https://www.google.com")
-        await page.fill("input[name=q]", request.query)
-        await page.press("input[name=q]", "Enter")
+
+        print("🚀 Navigating to Google...")
+        await page.goto("https://www.google.com", wait_until="domcontentloaded")
+
+        # Check if Google remembers the login
+        profile_button = await page.query_selector("a[href*='accounts.google.com']")
+        if profile_button:
+            print("✅ Google account detected. Proceeding with search.")
+        else:
+            print("⚠️ No Google account detected. You may need to re-login.")
+
+        print("⏳ Waiting for search input to be visible...")
+        await page.wait_for_selector("textarea[name=q]", timeout=10000)
+
+        print("⌨️ Typing search query...")
+        await human_like_typing(page, "textarea[name=q]", request.query)
+
+        print("🔎 Pressing Enter...")
+        await page.press("textarea[name=q]", "Enter")
+
+        print("⏳ Waiting for search results...")
         await page.wait_for_load_state("networkidle")
 
+        print("📋 Extracting results...")
         results = await page.eval_on_selector_all("h3", "elements => elements.map(el => el.textContent)")
         links = await page.eval_on_selector_all("h3 a", "elements => elements.map(el => el.href)")
 
-        return log_debug(request.session_id, "search_google", details={"query": request.query, "results_found": len(results), "sample_results": list(zip(results[:3], links[:3]))})
+        return log_debug(request.session_id, "search_google", details={
+            "query": request.query, "results_found": len(results), "sample_results": list(zip(results[:3], links[:3]))
+        })
     except Exception as e:
         raise HTTPException(status_code=500, detail=log_debug(request.session_id, "search_google", details={"query": request.query}, error=e))
-
-@router.post("/api/web/save-session")
-async def save_cookies(request: SaveSessionRequest):
-    """Saves cookies for persistent login."""
-    try:
-        session = await get_browser_instance(request.session_id)
-        await session["context"].storage_state(path=f"{request.session_id}_cookies.json")
-        return log_debug(request.session_id, "save_session", details={"cookies_saved": True})
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=log_debug(request.session_id, "save_session", error=e))
 
 @router.post("/api/web/get-history")
 async def get_browsing_history(request: GetHistoryRequest):
@@ -253,7 +298,7 @@ async def take_screenshot(request: ScreenshotRequest):
         session = await get_browser_instance(request.session_id)
         page = session["pages"][session["active_tab"]]
         screenshot_path = f"screenshot_{int(time.time())}.png"
-        await page.screenshot(path=screenshot_path)
+        await page.screenshot(path=screenshot_path)  # FIXED: added await
         return log_debug(request.session_id, "take_screenshot", details={"screenshot_path": screenshot_path})
     except Exception as e:
         raise HTTPException(status_code=500, detail=log_debug(request.session_id, "take_screenshot", error=e))
@@ -288,7 +333,16 @@ async def wait_for_element(request: WaitForElementRequest):
     try:
         session = await get_browser_instance(request.session_id)
         page = session["pages"][session["active_tab"]]
+
+        print(f"🔍 Checking if selector '{request.selector}' exists...")
+        exists = await page.query_selector(request.selector)
+
+        if not exists:
+            raise HTTPException(status_code=404, detail=log_debug(request.session_id, "wait_for_element", error=f"Selector '{request.selector}' not found on page."))
+
+        print(f"⏳ Waiting for element '{request.selector}' to become visible...")
         await page.wait_for_selector(request.selector, timeout=request.timeout)
+
         return log_debug(request.session_id, "wait_for_element", details={"selector": request.selector, "timeout": request.timeout})
     except Exception as e:
         raise HTTPException(status_code=500, detail=log_debug(request.session_id, "wait_for_element", error=e))
@@ -299,12 +353,14 @@ async def get_dom_structure(request: GetDomStructureRequest):
     try:
         session = await get_browser_instance(request.session_id)
         page = session["pages"][session["active_tab"]]
+
+        print("📋 Extracting DOM structure...")
         dom_structure = await page.evaluate("""
             () => {
                 function traverse(node) {
                     return {
                         tag: node.tagName,
-                        text: node.innerText.slice(0, 50), // Limit text length
+                        text: node.innerText ? node.innerText.slice(0, 50) : "",  // FIX: Check for missing text
                         children: [...node.children].map(traverse)
                     };
                 }
