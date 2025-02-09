@@ -187,43 +187,6 @@
                 }
             }
         },
-        "/api/fuzzy-search-file": {
-            "post": {
-                "summary": "Fuzzy Search File",
-                "description": "API for fuzzy searching inside a file. Expects filepath & query in the body.",
-                "operationId": "fuzzy_search_file_api_fuzzy_search_file_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/FuzzySearchRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/list-files": {
             "post": {
                 "summary": "List Files",
@@ -1070,21 +1033,6 @@
                 "required": ["filepath"],
                 "title": "FileMetadataRequest"
             },
-            "FuzzySearchRequest": {
-                "properties": {
-                    "filepath": {
-                        "type": "string",
-                        "title": "Filepath"
-                    },
-                    "query": {
-                        "type": "string",
-                        "title": "Query"
-                    }
-                },
-                "type": "object",
-                "required": ["filepath", "query"],
-                "title": "FuzzySearchRequest"
-            },
             "GetDomStructureRequest": {
                 "properties": {
                     "session_id": {
@@ -1224,17 +1172,6 @@
                 "required": ["session_id", "old_tab_name", "new_tab_name"],
                 "title": "RenameTabRequest"
             },
-            "SaveSessionRequest": {
-                "properties": {
-                    "session_id": {
-                        "type": "string",
-                        "title": "Session Id"
-                    }
-                },
-                "type": "object",
-                "required": ["session_id"],
-                "title": "SaveSessionRequest"
-            },
             "ScreenshotRequest": {
                 "properties": {
                     "session_id": {
@@ -1341,7 +1278,7 @@
     },
     "servers": [
         {
-            "url": "http://armand0e.online:3000/api"
+            "url": "https://api.armand0e.online"
         }
     ]
 }

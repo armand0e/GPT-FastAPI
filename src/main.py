@@ -8,6 +8,7 @@ from auth import authenticate_request
 from pydantic import BaseModel
 from typing import List, Dict, Any
 import httpx
+import requests
 import uvicorn
 
 # Import all routers
@@ -18,18 +19,18 @@ from terminal_handler import router as terminal_router
 from web_handler import router as web_router
 
 # Load environment variables
-dotenv.load_dotenv(dotenv_path='./src/.env')
+dotenv.load_dotenv()
 
 DEFAULT_HOST = "0.0.0.0"
-DEFAULT_PORT = "3000"
+DEFAULT_PORT = "8000"
 
 """Runs the Uvicorn server on the externally accessible port."""
-API_KEY = dotenv.get_key("./src/.env", "API_KEY")
+API_KEY = dotenv.get_key(".env", "API_KEY")
 
 """Generate API Key if not found"""
 if not API_KEY:
     API_KEY = str(uuid.uuid4())
-    dotenv.set_key("./src/.env", "API_KEY", API_KEY)
+    dotenv.set_key(".env", "API_KEY", API_KEY)
 
 app = FastAPI(title="FastAPI Terminal Server", version="1.0")
 
@@ -61,7 +62,7 @@ async def queue_requests(bulk_request: BulkRequest):
                 results.append({"error": "Invalid request format", "details": req})
                 continue
             
-            url = f"http://localhost:3000{endpoint}"  # Assumes local execution
+            url = f"http://localhost:{PORT}{endpoint}"  # Assumes local execution
             headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
             
 
@@ -78,8 +79,8 @@ async def queue_requests(bulk_request: BulkRequest):
     return {"status": "queued", "requests": results}
 
 if __name__ == "__main__":
-    PORT = dotenv.get_key("./src/.env", "PORT")
-    HOST = dotenv.get_key("./src/.env", "HOST")
+    PORT = dotenv.get_key(".env", "PORT")
+    HOST = dotenv.get_key(".env", "HOST")
 
     """Set to HOST to DEFAULT_HOST if not found"""
     if not HOST:

@@ -54,7 +54,7 @@ install_dependencies()
 import dotenv
 
 # Load existing .env file
-dotenv.load_dotenv(dotenv_path="./src/.env")
+dotenv.load_dotenv(dotenv_path=".env")
 
 SYSTEM = platform.system()
 
@@ -137,22 +137,22 @@ if SYSTEM == "Windows":
         git_bash_path = install_git_bash()
 
     if git_bash_path:
-        set_env_variable("./src/.env", "SHELL", git_bash_path)
+        set_env_variable(".env", "SHELL", git_bash_path)
     else:
         print("⚠️ Git Bash setup failed. Defaulting to PowerShell.")
-        set_env_variable("./src/.env", "SHELL", "powershell.exe")
+        set_env_variable(".env", "SHELL", "powershell.exe")
 
 # 🍏 Mac & 🐧 Linux: Use /bin/bash
 elif SYSTEM in ["Darwin", "Linux"]:
-    set_env_variable("./src/.env", "SHELL", "/bin/bash")
+    set_env_variable(".env", "SHELL", "/bin/bash")
     
 # 🌍 Install playwright 
 os.system(f"{sys.executable} -m playwright install")
 
 # 🏠 Setup Port
-port = input("Enter the port you want to expose (default: 3000): ").strip() or "3000"
-set_env_variable("./src/.env", "PORT", port)
-set_env_variable("./src/.env", "HOST", "0.0.0.0")
+port = input("Enter the port you want to expose (default: 8000): ").strip() or "8000"
+set_env_variable(".env", "PORT", port)
+set_env_variable(".env", "HOST", "0.0.0.0")
 
 os.system(f'echo {sys.executable} src/main.py > start_server.bat')
 os.system(f'echo {sys.executable} src/main.py > start_server.sh')

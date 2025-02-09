@@ -2,7 +2,6 @@ import aiofiles
 import os
 import hashlib
 import shutil
-from thefuzz import fuzz
 from fastapi import APIRouter, HTTPException, UploadFile, File
 from pydantic import BaseModel
 
@@ -14,10 +13,6 @@ class WriteFileRequest(BaseModel):
 
 class ReadFileRequest(BaseModel):
     filepath: str
-
-class FuzzySearchRequest(BaseModel):
-    filepath: str
-    query: str
 
 class ListFilesRequest(BaseModel):
     directory: str
@@ -53,24 +48,6 @@ async def read_file(filepath: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
     
-async def fuzzy_search(filepath: str, query: str):
-    """Search for a query inside a file asynchronously."""
-    if not os.path.exists(filepath):
-        raise HTTPException(status_code=404, detail=f"File not found: {filepath}")
-
-    matches = []
-    try:
-        async with aiofiles.open(filepath, mode="r", encoding="utf-8") as f:
-            async for line in f:
-                if query.lower() in line.lower():
-                    matches.append(line.strip())
-    except UnicodeDecodeError:
-        raise HTTPException(status_code=400, detail=f"Encoding issue: Cannot read file {filepath} as UTF-8.")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
-
-    return matches
-
 @router.post("/api/read-file")
 async def get_file(request: ReadFileRequest):
     """API to read a file (filepath provided in request body)."""
@@ -81,12 +58,6 @@ async def get_file(request: ReadFileRequest):
 async def write_file_api(request: WriteFileRequest):
     """Writes content to a file."""
     return await write_file(request.filepath, request.content)
-
-@router.post("/api/fuzzy-search-file")
-async def fuzzy_search_file(request: FuzzySearchRequest):
-    """API for fuzzy searching inside a file. Expects filepath & query in the body."""
-    matches = await fuzzy_search(request.filepath, request.query)
-    return {"matches": matches}
 
 @router.post("/api/list-files")
 async def list_files(request: ListFilesRequest):
