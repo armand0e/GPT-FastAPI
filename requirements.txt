@@ -1,11 +1,9 @@
 fastapi
 uvicorn
+pyautogui
+mss
+pytesseract
+opencv-python
 python-dotenv
-pydantic
-aiofiles
-thefuzz
-playwright
 httpx
-python-multipart
 psutil
-logger

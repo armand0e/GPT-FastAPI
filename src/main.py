@@ -11,34 +11,32 @@ import httpx
 import uvicorn
 
 # Import all routers
-from docs import router as docs_router
-from file_access import router as file_router
-from system_info import router as system_router
-from terminal_handler import router as terminal_router
-from web_handler import router as web_router
+from docs_router import router as docs
+from vision_router import router as vision
+from info_router import router as info
+from system_router import router as system
 
 # Load environment variables
-dotenv.load_dotenv(dotenv_path='./src/.env')
+dotenv.load_dotenv(dotenv_path='./.env')
 
 DEFAULT_HOST = "0.0.0.0"
 DEFAULT_PORT = "3000"
 
 """Runs the Uvicorn server on the externally accessible port."""
-API_KEY = dotenv.get_key("./src/.env", "API_KEY")
+API_KEY = dotenv.get_key("./.env", "API_KEY")
 
 """Generate API Key if not found"""
 if not API_KEY:
     API_KEY = str(uuid.uuid4())
-    dotenv.set_key("./src/.env", "API_KEY", API_KEY)
+    dotenv.set_key("./.env", "API_KEY", API_KEY)
 
 app = FastAPI(title="FastAPI Terminal Server", version="1.0")
 
 """Include routers with authentication dependency"""
-app.include_router(terminal_router, dependencies=[Depends(authenticate_request)])
-app.include_router(file_router, dependencies=[Depends(authenticate_request)])
-app.include_router(web_router, dependencies=[Depends(authenticate_request)])
-app.include_router(system_router, dependencies=[Depends(authenticate_request)])
-app.include_router(docs_router, dependencies=[Depends(authenticate_request)])
+app.include_router(vision, tags =["Computer Vision"], dependencies=[Depends(authenticate_request)])
+app.include_router(system, tags =["System Control"], dependencies=[Depends(authenticate_request)])
+app.include_router(info, tags =["System Information"], dependencies=[Depends(authenticate_request)])
+app.include_router(docs, tags =["Api Documentation"], dependencies=[Depends(authenticate_request)])
 
 class BulkRequest(BaseModel):
     """Schema for bulk queuing API calls"""
@@ -77,9 +75,13 @@ async def queue_requests(bulk_request: BulkRequest):
 
     return {"status": "queued", "requests": results}
 
+@app.get("/")
+async def root():
+    return {"message": "AI System Control API is running!"}
+
 if __name__ == "__main__":
-    PORT = dotenv.get_key("./src/.env", "PORT")
-    HOST = dotenv.get_key("./src/.env", "HOST")
+    PORT = dotenv.get_key("./.env", "PORT")
+    HOST = dotenv.get_key("./.env", "HOST")
 
     """Set to HOST to DEFAULT_HOST if not found"""
     if not HOST:
