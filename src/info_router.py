@@ -7,13 +7,9 @@ import psutil
 import torch
 import subprocess
 import socket
-from pydantic import BaseModel
 
 router = APIRouter()
 load_dotenv()
-
-class PortCheckRequest(BaseModel):
-    port: int
 
 def get_gpu_info():
     """Detects GPU using PyTorch or system commands."""
@@ -33,7 +29,10 @@ def get_gpu_info():
     except Exception:
         return "GPU detection failed"
 
-@router.post("/api/host-info")
+def get_cpu_info():
+    """Detects CPU using system commands"""
+
+@router.post("/info")
 async def get_host_info():
     """Returns detailed system information about the host machine."""
     return {
@@ -52,7 +51,7 @@ async def get_host_info():
         "hostname": socket.gethostname(),
     }
 
-@router.post("/api/host-resources")
+@router.post("/host-resources")
 async def get_host_resources():
     """Returns system resource usage (CPU, RAM, Disk)."""
     return {
@@ -62,7 +61,7 @@ async def get_host_resources():
         "uptime": psutil.boot_time()
     }
 
-@router.post("/api/list-processes")
+@router.post("/list-running-processes")
 async def list_processes():
     """Lists running processes on the system."""
     processes = []

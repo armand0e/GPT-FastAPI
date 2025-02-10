@@ -21,7 +21,7 @@ async def run_system_command(request: CommandRequest):
     """Runs a system command."""
     try:
         result = subprocess.run(request.command, shell=True, capture_output=True, text=True)
-        return {"output": result.stdout, "error": result.stderr}
+        return {"input": request.command, "output": result.stdout, "error": result.stderr}
     except Exception as e:
         return {"error": str(e)}
 

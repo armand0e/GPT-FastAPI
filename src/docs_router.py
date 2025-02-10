@@ -3,6 +3,7 @@ from datetime import timedelta
 from fastapi import APIRouter
 from fastapi.openapi.utils import get_openapi
 from importlib import import_module
+import json
 
 router = APIRouter()
 
@@ -14,7 +15,7 @@ def get_app():
     app_module = import_module("main")
     return getattr(app_module, "app", None)
 
-@router.post("/api/docs")
+@router.post("/docs")
 async def get_openapi_spec():
     """Returns the OpenAPI documentation."""
     app = get_app()
@@ -22,7 +23,7 @@ async def get_openapi_spec():
         return get_openapi(title="FastAPI Terminal Server", version="1.0", routes=app.routes)
     return {"error": "Failed to retrieve OpenAPI spec"}
 
-@router.post("/api/metadata")
+@router.post("/metadata")
 async def get_metadata():
     """Provides metadata about the API."""
     app = get_app()
@@ -35,7 +36,7 @@ async def get_metadata():
         }
     return {"error": "Failed to retrieve API metadata"}
 
-@router.post("/api/health")
+@router.post("/health")
 async def health_check():
     """Returns the API status and uptime."""
     uptime_seconds = int(time.time() - APP_START_TIME)
@@ -45,3 +46,4 @@ async def health_check():
         "status": "running",
         "uptime": uptime_str
     }
+    

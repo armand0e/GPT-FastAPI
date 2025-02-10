@@ -1,20 +1,13 @@
-import os
-import uuid
-import subprocess
-import sys
-import dotenv
-from fastapi import FastAPI, Depends, HTTPException
+import uuid, dotenv, uvicorn, json
+from fastapi import FastAPI, Depends
 from auth import authenticate_request
-from pydantic import BaseModel
-from typing import List, Dict, Any
-import httpx
-import uvicorn
 
 # Import all routers
 from docs_router import router as docs
 from vision_router import router as vision
 from info_router import router as info
 from system_router import router as system
+from file_handler import router as file
 
 # Load environment variables
 dotenv.load_dotenv(dotenv_path='./.env')
@@ -35,49 +28,25 @@ app = FastAPI(title="FastAPI Terminal Server", version="1.0")
 """Include routers with authentication dependency"""
 app.include_router(vision, tags =["Computer Vision"], dependencies=[Depends(authenticate_request)])
 app.include_router(system, tags =["System Control"], dependencies=[Depends(authenticate_request)])
+app.include_router(file, tags =["Read/Write Files"], dependencies=[Depends(authenticate_request)])
 app.include_router(info, tags =["System Information"], dependencies=[Depends(authenticate_request)])
 app.include_router(docs, tags =["Api Documentation"], dependencies=[Depends(authenticate_request)])
 
-class BulkRequest(BaseModel):
-    """Schema for bulk queuing API calls"""
-    requests: List[Dict[str, Any]]
-
-@app.post("/api/queue-requests", dependencies=[Depends(authenticate_request)])
-async def queue_requests(bulk_request: BulkRequest):
-    """
-    Accepts multiple API requests and processes them sequentially in order.
-    Only supports POST requests with body-based parameters.
-    """
-    results = []
-    async with httpx.AsyncClient() as client:
-        for req in bulk_request.requests:
-            endpoint = req.get("endpoint")
-            method = req.get("method", "POST").upper()
-            data = req.get("data", {})
-
-            if not endpoint:
-                results.append({"error": "Invalid request format", "details": req})
-                continue
-            
-            url = f"http://localhost:3000{endpoint}"  # Assumes local execution
-            headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
-            
-
-            try:
-                response = await client.post(url, headers=headers, json=data)
-                results.append({
-                    "endpoint": endpoint,
-                    "status": response.status_code,
-                    "response": response.json()
-                })
-            except Exception as e:
-                results.append({"endpoint": endpoint, "error": str(e)})
-
-    return {"status": "queued", "requests": results}
-
-@app.get("/")
+@app.post("/")
 async def root():
     return {"message": "AI System Control API is running!"}
+
+def generate_openapi_json():
+    openapi_schema = app.openapi()
+    
+    # Add custom 'servers' field
+    openapi_schema["servers"] = [
+        {"url": "https://api.armand0e.online", "description": "Production server"}
+    ]
+    
+    with open("openapi.json", "w", encoding="utf-8") as f:
+        json.dump(openapi_schema, f, indent=2)
+    print("✅ OpenAPI schema saved as openapi.json")
 
 if __name__ == "__main__":
     PORT = dotenv.get_key("./.env", "PORT")
@@ -91,6 +60,8 @@ if __name__ == "__main__":
     if not PORT:
         PORT = DEFAULT_PORT
         dotenv.set_key('.env', "PORT", DEFAULT_PORT)
+    
+    generate_openapi_json()
     
     """Runs the Uvicorn server directly inside the script."""
     print("🚀 Starting Uvicorn server...")

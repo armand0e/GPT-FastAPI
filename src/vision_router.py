@@ -9,20 +9,24 @@ import io
 
 router = APIRouter()
 
-@router.get("/screenshot")
+@router.post("/screenshot")
 async def take_screenshot():
-    """Captures a screenshot and returns it as a Base64 string."""
+    """Captures a screenshot, compresses it, and returns a Base64 string."""
     with mss.mss() as sct:
-        filename = sct.shot(output="screenshot.png")
-    
-    img = Image.open("screenshot.png").convert("RGB")  
-    img = img.resize((1280, 720))  
-    buffered = io.BytesIO()  
-    img.save(buffered, format="PNG")  
-    encoded = base64.b64encode(buffered.getvalue()).decode("utf-8")  
-    return {"image": encoded} 
+        filename = sct.shot(output="screenshot.jpg")  # Use JPEG format
 
-@router.get("/read-screen")
+    # Open the image, resize it, and compress
+    img = Image.open("screenshot.jpg").convert("RGB")
+    img = img.resize((800, 450))  # Resize to 800x450 for smaller data size
+    buffered = io.BytesIO()
+    img.save(buffered, format="JPEG", quality=50)  # Compress using JPEG quality
+
+    # Convert to Base64 and limit length
+    encoded = base64.b64encode(buffered.getvalue()).decode("utf-8")[:5000]  # Limit length
+
+    return {"image": encoded}
+
+@router.post("/read-screen")
 async def read_screen():
     """Extracts text from the screen using OCR."""
     with mss.mss() as sct:
