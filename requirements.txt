@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pyautogui
+mss
+pytesseract
+opencv-python
+python-dotenv
+httpx
+psutil

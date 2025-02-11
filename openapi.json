@@ -1,0 +1,689 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FastAPI Terminal Server",
+    "version": "1.0"
+  },
+  "paths": {
+    "/screenshot": {
+      "post": {
+        "tags": [
+          "Computer Vision"
+        ],
+        "summary": "Take Screenshot",
+        "description": "Captures a screenshot, compresses it, and returns a Base64 string.",
+        "operationId": "take_screenshot_screenshot_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/read-screen": {
+      "post": {
+        "tags": [
+          "Computer Vision"
+        ],
+        "summary": "Read Screen",
+        "description": "Extracts text from the screen using OCR.",
+        "operationId": "read_screen_read_screen_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/run-command": {
+      "post": {
+        "tags": [
+          "System Control"
+        ],
+        "summary": "Run System Command",
+        "description": "Runs a system command.",
+        "operationId": "run_system_command_run_command_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommandRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mouse": {
+      "post": {
+        "tags": [
+          "System Control"
+        ],
+        "summary": "Control Mouse",
+        "description": "Controls mouse movement & clicks.",
+        "operationId": "control_mouse_mouse_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MouseAction"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/keyboard": {
+      "post": {
+        "tags": [
+          "System Control"
+        ],
+        "summary": "Control Keyboard",
+        "description": "Simulates keyboard input.",
+        "operationId": "control_keyboard_keyboard_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KeyboardAction"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/read-file": {
+      "post": {
+        "tags": [
+          "Read/Write Files"
+        ],
+        "summary": "Get File",
+        "description": "API to read a file (filepath provided in request body).",
+        "operationId": "get_file_read_file_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadFileRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/write-file": {
+      "post": {
+        "tags": [
+          "Read/Write Files"
+        ],
+        "summary": "Write File",
+        "description": "Writes content to a file.",
+        "operationId": "write_file_write_file_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WriteFileRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/list_file": {
+      "post": {
+        "tags": [
+          "Read/Write Files"
+        ],
+        "summary": "List Files",
+        "description": "Lists all files in the specified directory. Expects request body.",
+        "operationId": "list_files_list_file_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListFilesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/file-metadata": {
+      "post": {
+        "tags": [
+          "Read/Write Files"
+        ],
+        "summary": "File Metadata",
+        "description": "Retrieves metadata such as size and modification date for a given file. Expects request body.",
+        "operationId": "file_metadata_file_metadata_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FileMetadataRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/replace-text": {
+      "post": {
+        "tags": [
+          "Read/Write Files"
+        ],
+        "summary": "Replace Text",
+        "operationId": "replace_text_replace_text_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceTextRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/info": {
+      "post": {
+        "tags": [
+          "System Information"
+        ],
+        "summary": "Get Host Info",
+        "description": "Returns detailed system information about the host machine.",
+        "operationId": "get_host_info_info_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/host-resources": {
+      "post": {
+        "tags": [
+          "System Information"
+        ],
+        "summary": "Get Host Resources",
+        "description": "Returns system resource usage (CPU, RAM, Disk).",
+        "operationId": "get_host_resources_host_resources_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/list-running-processes": {
+      "post": {
+        "tags": [
+          "System Information"
+        ],
+        "summary": "List Processes",
+        "description": "Lists running processes on the system.",
+        "operationId": "list_processes_list_running_processes_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/docs": {
+      "post": {
+        "tags": [
+          "Api Documentation"
+        ],
+        "summary": "Get Openapi Spec",
+        "description": "Returns the OpenAPI documentation.",
+        "operationId": "get_openapi_spec_docs_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metadata": {
+      "post": {
+        "tags": [
+          "Api Documentation"
+        ],
+        "summary": "Get Metadata",
+        "description": "Provides metadata about the API.",
+        "operationId": "get_metadata_metadata_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "post": {
+        "tags": [
+          "Api Documentation"
+        ],
+        "summary": "Health Check",
+        "description": "Returns the API status and uptime.",
+        "operationId": "health_check_health_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "post": {
+        "summary": "Root",
+        "operationId": "root__post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CommandRequest": {
+        "properties": {
+          "command": {
+            "type": "string",
+            "title": "Command"
+          }
+        },
+        "type": "object",
+        "required": [
+          "command"
+        ],
+        "title": "CommandRequest"
+      },
+      "FileMetadataRequest": {
+        "properties": {
+          "filepath": {
+            "type": "string",
+            "title": "Filepath"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filepath"
+        ],
+        "title": "FileMetadataRequest"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "KeyboardAction": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key"
+        ],
+        "title": "KeyboardAction"
+      },
+      "ListFilesRequest": {
+        "properties": {
+          "directory": {
+            "type": "string",
+            "title": "Directory"
+          }
+        },
+        "type": "object",
+        "required": [
+          "directory"
+        ],
+        "title": "ListFilesRequest"
+      },
+      "MouseAction": {
+        "properties": {
+          "x": {
+            "type": "integer",
+            "title": "X"
+          },
+          "y": {
+            "type": "integer",
+            "title": "Y"
+          },
+          "action": {
+            "type": "string",
+            "title": "Action"
+          }
+        },
+        "type": "object",
+        "required": [
+          "x",
+          "y",
+          "action"
+        ],
+        "title": "MouseAction"
+      },
+      "ReadFileRequest": {
+        "properties": {
+          "filepath": {
+            "type": "string",
+            "title": "Filepath"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filepath"
+        ],
+        "title": "ReadFileRequest"
+      },
+      "ReplaceTextRequest": {
+        "properties": {
+          "filepath": {
+            "type": "string",
+            "title": "Filepath"
+          },
+          "original_text": {
+            "type": "string",
+            "title": "Original Text"
+          },
+          "replacement_text": {
+            "type": "string",
+            "title": "Replacement Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filepath",
+          "original_text",
+          "replacement_text"
+        ],
+        "title": "ReplaceTextRequest"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WriteFileRequest": {
+        "properties": {
+          "filepath": {
+            "type": "string",
+            "title": "Filepath"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filepath",
+          "content"
+        ],
+        "title": "WriteFileRequest"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.armand0e.online",
+      "description": "Production server"
+    }
+  ]
+}
