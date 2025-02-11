@@ -325,6 +325,45 @@
         }
       }
     },
+    "/replace-text": {
+      "post": {
+        "tags": [
+          "Read/Write Files"
+        ],
+        "summary": "Replace Text",
+        "operationId": "replace_text_replace_text_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceTextRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/info": {
       "post": {
         "tags": [
@@ -564,6 +603,29 @@
           "filepath"
         ],
         "title": "ReadFileRequest"
+      },
+      "ReplaceTextRequest": {
+        "properties": {
+          "filepath": {
+            "type": "string",
+            "title": "Filepath"
+          },
+          "original_text": {
+            "type": "string",
+            "title": "Original Text"
+          },
+          "replacement_text": {
+            "type": "string",
+            "title": "Replacement Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filepath",
+          "original_text",
+          "replacement_text"
+        ],
+        "title": "ReplaceTextRequest"
       },
       "ValidationError": {
         "properties": {
