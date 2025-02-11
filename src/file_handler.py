@@ -70,3 +70,31 @@ async def file_metadata(request: FileMetadataRequest):
         "size_bytes": file_stat.st_size,
         "last_modified": file_stat.st_mtime,
     }
+
+
+class ReplaceTextRequest(BaseModel):
+    filepath: str
+    original_text: str
+    replacement_text: str
+
+@router.post("/replace-text")
+async def replace_text(request: ReplaceTextRequest):
+    if not os.path.exists(request.filepath):
+        raise HTTPException(status_code=404, detail="File not found")
+
+    try:
+        async with aiofiles.open(request.filepath, "r", encoding="utf-8") as file:
+            content = await file.read()
+        
+        if request.original_text not in content:
+            raise HTTPException(status_code=400, detail="Original text not found in file")
+
+        updated_content = content.replace(request.original_text, request.replacement_text)
+
+        async with aiofiles.open(request.filepath, "w", encoding="utf-8") as file:
+            await file.write(updated_content)
+
+        return {"message": "Text replaced successfully"}
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
