@@ -4,30 +4,10 @@ import platform
 import os
 import shutil
 import psutil
-import torch
-import subprocess
 import socket
 
 router = APIRouter()
 load_dotenv()
-
-def get_gpu_info():
-    """Detects GPU using PyTorch or system commands."""
-    try:
-        if torch.cuda.is_available():
-            return torch.cuda.get_device_name(0)
-        elif platform.system() == "Windows":
-            result = subprocess.run(["wmic", "path", "win32_videocontroller", "get", "name"], capture_output=True, text=True)
-            return result.stdout.strip().split("\n")[1] if result.returncode == 0 else "Unknown GPU"
-
-        elif platform.system() == "Linux":
-            result = subprocess.run(["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"], capture_output=True, text=True)
-            return result.stdout.strip() if result.returncode == 0 else "Unknown GPU"
-        else:
-            return "GPU not detected"
- 
-    except Exception:
-        return "GPU detection failed"
 
 def get_cpu_info():
     """Detects CPU using system commands"""
@@ -39,7 +19,6 @@ async def get_host_info():
         "system": platform.system(),
         "architecture": platform.machine(),
         "version": platform.version(),
-        "gpu": get_gpu_info(),
         "cpu": platform.processor(),
         "cpu_cores": psutil.cpu_count(logical=False),
         "cpu_threads": psutil.cpu_count(logical=True),
