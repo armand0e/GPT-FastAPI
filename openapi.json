@@ -383,97 +383,6 @@
         }
       }
     },
-    "/upload": {
-      "post": {
-        "tags": [
-          "Read/Write Files"
-        ],
-        "summary": "Upload File",
-        "description": "Uploads a file to the host system given a filepath and file.",
-        "operationId": "upload_file_upload_post",
-        "parameters": [
-          {
-            "name": "directory",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Directory"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/Body_upload_file_upload_post"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/download": {
-      "get": {
-        "tags": [
-          "Read/Write Files"
-        ],
-        "summary": "Download File",
-        "description": "Downloads a file given a directory and filename.",
-        "operationId": "download_file_download_get",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DownloadRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/replace-text": {
       "post": {
         "tags": [
@@ -652,20 +561,6 @@
   },
   "components": {
     "schemas": {
-      "Body_upload_file_upload_post": {
-        "properties": {
-          "file": {
-            "type": "string",
-            "format": "binary",
-            "title": "File"
-          }
-        },
-        "type": "object",
-        "required": [
-          "file"
-        ],
-        "title": "Body_upload_file_upload_post"
-      },
       "CDRequest": {
         "properties": {
           "directory": {
@@ -691,24 +586,6 @@
           "command"
         ],
         "title": "CommandRequest"
-      },
-      "DownloadRequest": {
-        "properties": {
-          "directory": {
-            "type": "string",
-            "title": "Directory"
-          },
-          "filename": {
-            "type": "string",
-            "title": "Filename"
-          }
-        },
-        "type": "object",
-        "required": [
-          "directory",
-          "filename"
-        ],
-        "title": "DownloadRequest"
       },
       "FileMetadataRequest": {
         "properties": {
