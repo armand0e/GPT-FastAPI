@@ -20,14 +20,6 @@ class ListFilesRequest(BaseModel):
 class FileMetadataRequest(BaseModel):
     filepath: str
 
-class UploadRequest:
-    directory: str
-    file: UploadFile = File(...)
-    
-class DownloadRequest:
-    directory: str
-    filename: str
-
 class ReplaceTextRequest(BaseModel):
     filepath: str
     original_text: str
@@ -81,22 +73,6 @@ async def file_metadata(request: FileMetadataRequest):
         "size_bytes": file_stat.st_size,
         "last_modified": file_stat.st_mtime,
     }
-
-@router.post("/upload")
-async def upload_file(upload: UploadRequest):
-    """Uploads a file to the host system given a filepath and file."""
-    file_location = os.path.join(upload.directory, upload.file.filename)
-    with open(file_location, "wb") as buffer:
-        buffer.write(await upload.file.read())
-    return {"filename": upload.file.filename, "location": file_location}
-
-@router.get("/download")
-async def download_file(download: DownloadRequest):
-    """Downloads a file given a directory and filename."""
-    file_location = os.path.join(download.directory, download.filename)
-    if not os.path.exists(file_location):
-        raise HTTPException(status_code=404, detail="File not found")
-    return FileResponse(file_location, filename=download.filename)
 
 @router.post("/replace-text")
 async def replace_text(request: ReplaceTextRequest):
