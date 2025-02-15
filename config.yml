@@ -1,0 +1,3 @@
+url: http://localhost:3000
+tunnel: db0ac586-24ec-4c09-8015-2912cfe749c0
+credentials-file: /Users/aranr/.cloudflared/db0ac586-24ec-4c09-8015-2912cfe749c0.json
