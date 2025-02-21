@@ -1,37 +1,43 @@
 import json
 import os
+import dotenv
 from pydantic import BaseModel
 import aiofiles
-from fastapi import APIRouter, HTTPException, UploadFile, File
-from fastapi.responses import FileResponse
+from fastapi import APIRouter, HTTPException
 
 router = APIRouter()
+dotenv.load_dotenv()
 
 class WriteFileRequest(BaseModel):
     filepath: str
     content: str
 
+class AppendFileRequest(BaseModel):
+    filepath: str
+    content: str | list
+
 class ReadFileRequest(BaseModel):
     filepath: str
 
-class ListFilesRequest(BaseModel):
-    directory: str
-
-class FileMetadataRequest(BaseModel):
+class ReadLinesRequest(BaseModel):
     filepath: str
-
-class ReplaceTextRequest(BaseModel):
-    filepath: str
-    original_text: str
-    replacement_text: str
+    start_line: int
+    num_lines: int
 
 async def read_file(file_path):
+    cd = dotenv.get_key(".env", "CURRENT_DIR")
+
+    file_path = os.path.join(cd, file_path)
     if not os.path.exists(file_path):
         return json.dumps({"error": "File not found"})
     with open(file_path, "r", encoding="utf-8") as f:
         return json.dumps({"file": file_path, "content": f.read()})
 
 async def make_file(file_path, content):
+    cd = dotenv.get_key(".env", "CURRENT_DIR")
+
+    file_path = os.path.join(cd, file_path)
+
     try:
         async with aiofiles.open(file_path, "w", encoding="utf-8", newline="\n") as f:
             await f.write(content)
@@ -39,6 +45,43 @@ async def make_file(file_path, content):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Write error: {str(e)}")
     return {"message": f"File '{file_path}' saved successfully"}
+
+async def append_to_file(file_path, content):
+    """
+    Appends multiple lines to the end of a file in batch mode.
+    If 'content' is a string, it appends a single line.
+    If 'content' is a list, it appends all lines in one operation.
+    """
+    cd = dotenv.get_key(".env", "CURRENT_DIR")
+
+    file_path = os.path.join(cd, file_path)
+    if not os.path.exists(file_path):
+        return json.dumps({"error": "File not found"})
+    try:
+        async with aiofiles.open(file_path, "a", encoding="utf-8", newline="\n") as f:
+            if isinstance(content, list):  # Batch append mode
+                await f.writelines([line + "\n" for line in content])
+            else:
+                await f.write(content + "\n")
+            await f.flush()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Append error: {str(e)}")
+    return {"message": f"Content appended to '{file_path}' successfully"}
+
+async def read_lines_from_file(file_path, start_line, num_lines):
+    cd = dotenv.get_key(".env", "CURRENT_DIR")
+
+    file_path = os.path.join(cd, file_path)
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+    try:
+        async with aiofiles.open(file_path, "r", encoding="utf-8") as f:
+            lines = await f.readlines()
+            if start_line < 0 or start_line >= len(lines):
+                raise HTTPException(status_code=400, detail="Invalid start line index")
+            return {"lines": lines[start_line : start_line + num_lines]}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Read error: {str(e)}")
 
 @router.post("/read-file")
 async def get_file(request: ReadFileRequest):
@@ -51,41 +94,12 @@ async def write_file(request: WriteFileRequest):
     """Writes content to a file."""
     return await make_file(request.filepath, request.content)
 
-@router.post("/list_file")
-async def list_files(request: ListFilesRequest):
-    """Lists all files in the specified directory. Expects request body."""
-    if not os.path.exists(request.directory) or not os.path.isdir(request.directory):
-        raise HTTPException(status_code=404, detail="Directory not found")
-    try:
-        files = os.listdir(request.directory)
-        return {"directory": request.directory, "files": files}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error listing files: {str(e)}")
+@router.post("/append-file")
+async def append_file(request: AppendFileRequest):
+    """Appends content to the end of a file in batch mode."""
+    return await append_to_file(request.filepath, request.content)
 
-@router.post("/file-metadata")
-async def file_metadata(request: FileMetadataRequest):
-    """Retrieves metadata such as size and modification date for a given file. Expects request body."""
-    if not os.path.exists(request.filepath):
-        raise HTTPException(status_code=404, detail="File not found")
-    file_stat = os.stat(request.filepath)
-    return {
-        "filepath": request.filepath,
-        "size_bytes": file_stat.st_size,
-        "last_modified": file_stat.st_mtime,
-    }
-
-@router.post("/replace-text")
-async def replace_text(request: ReplaceTextRequest):
-    if not os.path.exists(request.filepath):
-        raise HTTPException(status_code=404, detail="File not found")
-    try:
-        async with aiofiles.open(request.filepath, "r", encoding="utf-8") as file:
-            content = await file.read()
-        if request.original_text not in content:
-            raise HTTPException(status_code=400, detail="Original text not found in file")
-        updated_content = content.replace(request.original_text, request.replacement_text)
-        async with aiofiles.open(request.filepath, "w", encoding="utf-8") as file:
-            await file.write(updated_content)
-        return {"message": "Text replaced successfully"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+@router.post("/read-lines")
+async def read_lines(request: ReadLinesRequest):
+    """Reads a specific number of lines from a file starting from a given index."""
+    return await read_lines_from_file(request.filepath, request.start_line, request.num_lines)

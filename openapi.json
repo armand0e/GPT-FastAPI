@@ -51,6 +51,7 @@
           "System Control"
         ],
         "summary": "Change Current Directory",
+        "description": "Changes the current working directory",
         "operationId": "change_current_directory_set_current_directory_post",
         "requestBody": {
           "content": {
@@ -85,12 +86,13 @@
       }
     },
     "/get-current-directory": {
-      "get": {
+      "post": {
         "tags": [
           "System Control"
         ],
         "summary": "Return Current Directory",
-        "operationId": "return_current_directory_get_current_directory_get",
+        "description": "Returns the current working directory",
+        "operationId": "return_current_directory_get_current_directory_post",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -303,19 +305,19 @@
         }
       }
     },
-    "/list_file": {
+    "/append-file": {
       "post": {
         "tags": [
           "Read/Write Files"
         ],
-        "summary": "List Files",
-        "description": "Lists all files in the specified directory. Expects request body.",
-        "operationId": "list_files_list_file_post",
+        "summary": "Append File",
+        "description": "Appends content to the end of a file in batch mode.",
+        "operationId": "append_file_append_file_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ListFilesRequest"
+                "$ref": "#/components/schemas/AppendFileRequest"
               }
             }
           },
@@ -343,58 +345,19 @@
         }
       }
     },
-    "/file-metadata": {
+    "/read-lines": {
       "post": {
         "tags": [
           "Read/Write Files"
         ],
-        "summary": "File Metadata",
-        "description": "Retrieves metadata such as size and modification date for a given file. Expects request body.",
-        "operationId": "file_metadata_file_metadata_post",
+        "summary": "Read Lines",
+        "description": "Reads a specific number of lines from a file starting from a given index.",
+        "operationId": "read_lines_read_lines_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FileMetadataRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/replace-text": {
-      "post": {
-        "tags": [
-          "Read/Write Files"
-        ],
-        "summary": "Replace Text",
-        "operationId": "replace_text_replace_text_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReplaceTextRequest"
+                "$ref": "#/components/schemas/ReadLinesRequest"
               }
             }
           },
@@ -561,6 +524,32 @@
   },
   "components": {
     "schemas": {
+      "AppendFileRequest": {
+        "properties": {
+          "filepath": {
+            "type": "string",
+            "title": "Filepath"
+          },
+          "content": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ],
+            "title": "Content"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filepath",
+          "content"
+        ],
+        "title": "AppendFileRequest"
+      },
       "CDRequest": {
         "properties": {
           "directory": {
@@ -587,19 +576,6 @@
         ],
         "title": "CommandRequest"
       },
-      "FileMetadataRequest": {
-        "properties": {
-          "filepath": {
-            "type": "string",
-            "title": "Filepath"
-          }
-        },
-        "type": "object",
-        "required": [
-          "filepath"
-        ],
-        "title": "FileMetadataRequest"
-      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -625,19 +601,6 @@
           "key"
         ],
         "title": "KeyboardAction"
-      },
-      "ListFilesRequest": {
-        "properties": {
-          "directory": {
-            "type": "string",
-            "title": "Directory"
-          }
-        },
-        "type": "object",
-        "required": [
-          "directory"
-        ],
-        "title": "ListFilesRequest"
       },
       "MouseAction": {
         "properties": {
@@ -675,28 +638,28 @@
         ],
         "title": "ReadFileRequest"
       },
-      "ReplaceTextRequest": {
+      "ReadLinesRequest": {
         "properties": {
           "filepath": {
             "type": "string",
             "title": "Filepath"
           },
-          "original_text": {
-            "type": "string",
-            "title": "Original Text"
+          "start_line": {
+            "type": "integer",
+            "title": "Start Line"
           },
-          "replacement_text": {
-            "type": "string",
-            "title": "Replacement Text"
+          "num_lines": {
+            "type": "integer",
+            "title": "Num Lines"
           }
         },
         "type": "object",
         "required": [
           "filepath",
-          "original_text",
-          "replacement_text"
+          "start_line",
+          "num_lines"
         ],
-        "title": "ReplaceTextRequest"
+        "title": "ReadLinesRequest"
       },
       "ValidationError": {
         "properties": {
