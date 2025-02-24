@@ -51,7 +51,7 @@
           "System Control"
         ],
         "summary": "Change Current Directory",
-        "description": "Changes the current working directory",
+        "description": "Changes the current working directory.",
         "operationId": "change_current_directory_set_current_directory_post",
         "requestBody": {
           "content": {
@@ -91,7 +91,7 @@
           "System Control"
         ],
         "summary": "Return Current Directory",
-        "description": "Returns the current working directory",
+        "description": "Returns the current working directory.",
         "operationId": "return_current_directory_get_current_directory_post",
         "responses": {
           "200": {
@@ -111,7 +111,7 @@
           "System Control"
         ],
         "summary": "Run Terminal Command",
-        "description": "Runs a terminal command in the current directory",
+        "description": "Runs a terminal command asynchronously to prevent timeouts.",
         "operationId": "run_terminal_command_run_command_post",
         "requestBody": {
           "content": {
@@ -123,6 +123,87 @@
           },
           "required": true
         },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/run-long-command": {
+      "post": {
+        "tags": [
+          "System Control"
+        ],
+        "summary": "Run Long Terminal Command",
+        "description": "Starts a long-running command and returns a process ID.",
+        "operationId": "run_long_terminal_command_run_long_command_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommandRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/check-command-status/{process_id}": {
+      "post": {
+        "tags": [
+          "System Control"
+        ],
+        "summary": "Check Command Status",
+        "description": "Checks the status of a running command.",
+        "operationId": "check_command_status_check_command_status__process_id__post",
+        "parameters": [
+          {
+            "name": "process_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Process Id"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -231,7 +312,6 @@
           "Read/Write Files"
         ],
         "summary": "Get File",
-        "description": "API to read a file (filepath provided in request body).",
         "operationId": "get_file_read_file_post",
         "requestBody": {
           "content": {
@@ -271,7 +351,6 @@
           "Read/Write Files"
         ],
         "summary": "Write File",
-        "description": "Writes content to a file.",
         "operationId": "write_file_write_file_post",
         "requestBody": {
           "content": {
@@ -311,7 +390,6 @@
           "Read/Write Files"
         ],
         "summary": "Append File",
-        "description": "Appends content to the end of a file in batch mode.",
         "operationId": "append_file_append_file_post",
         "requestBody": {
           "content": {
@@ -351,13 +429,52 @@
           "Read/Write Files"
         ],
         "summary": "Read Lines",
-        "description": "Reads a specific number of lines from a file starting from a given index.",
         "operationId": "read_lines_read_lines_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ReadLinesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/read-log": {
+      "post": {
+        "tags": [
+          "Read/Write Files"
+        ],
+        "summary": "Read Log",
+        "description": "Reads a snippet from the specified log file.",
+        "operationId": "read_log_read_log_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogRequest"
               }
             }
           },
@@ -601,6 +718,22 @@
           "key"
         ],
         "title": "KeyboardAction"
+      },
+      "LogRequest": {
+        "properties": {
+          "start_line": {
+            "type": "integer",
+            "title": "Start Line",
+            "default": 0
+          },
+          "num_lines": {
+            "type": "integer",
+            "title": "Num Lines",
+            "default": 10
+          }
+        },
+        "type": "object",
+        "title": "LogRequest"
       },
       "MouseAction": {
         "properties": {
