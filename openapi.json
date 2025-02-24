@@ -306,6 +306,45 @@
         }
       }
     },
+    "/replace-function": {
+      "post": {
+        "tags": [
+          "Read/Write Files"
+        ],
+        "summary": "Replace Function",
+        "operationId": "replace_function_replace_function_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceFunctionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/read-file": {
       "post": {
         "tags": [
@@ -468,7 +507,7 @@
           "Read/Write Files"
         ],
         "summary": "Read Log",
-        "description": "Reads a snippet from the specified log file.",
+        "description": "Reads the last N lines from the log file, maintaining order.",
         "operationId": "read_log_read_log_post",
         "requestBody": {
           "content": {
@@ -721,11 +760,6 @@
       },
       "LogRequest": {
         "properties": {
-          "start_line": {
-            "type": "integer",
-            "title": "Start Line",
-            "default": 0
-          },
           "num_lines": {
             "type": "integer",
             "title": "Num Lines",
@@ -793,6 +827,29 @@
           "num_lines"
         ],
         "title": "ReadLinesRequest"
+      },
+      "ReplaceFunctionRequest": {
+        "properties": {
+          "filepath": {
+            "type": "string",
+            "title": "Filepath"
+          },
+          "function_name": {
+            "type": "string",
+            "title": "Function Name"
+          },
+          "new_function_code": {
+            "type": "string",
+            "title": "New Function Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filepath",
+          "function_name",
+          "new_function_code"
+        ],
+        "title": "ReplaceFunctionRequest"
       },
       "ValidationError": {
         "properties": {

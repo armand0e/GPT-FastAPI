@@ -94,7 +94,13 @@ async def check_command_status(process_id: str):
     """Checks the status of a running command."""
     if process_id not in running_processes:
         raise HTTPException(status_code=404, detail="Process not found")
-    return running_processes[process_id]
+
+    process_info = running_processes[process_id]
+
+    if isinstance(process_info, subprocess.Popen):
+        return {"message": "Process is still running", "completed": False}
+    
+    return process_info
 
 @router.post("/mouse")
 async def control_mouse(action: MouseAction):
