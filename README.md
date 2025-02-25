@@ -95,5 +95,3 @@ Below is a **summary of each API endpoint** categorized by functionality.
 | **📜 Logging**         | Logs all API requests |
 | **🖥️ System Control**  | Run commands, change directories, automate inputs |
 | **🖼️ Vision**         | Screenshot, OCR (text recognition) |
-
-Would you like any refinements or additions? 🚀
