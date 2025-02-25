@@ -1,147 +1,96 @@
-# FastAPI Terminal Server
+# **GPT-FastAPI**
+## **Overview**
+**GPT-FastAPI** is a **FastAPI-based backend service** designed to offer various functionalities, including **authentication, file management, system control, document processing, logging, and computer vision**. The project is structured with modular API routes, each handling a specific domain. It is a powerful **backend system** that offers **remote system management, file operations, automation, and vision capabilities**. With **authentication, process tracking, and logging**, it is well-suited for **secure remote administration and automation tasks**.
 
-## 📌 Overview
-This is a **FastAPI-based** server that replicates and enhances the functionality of a Node.js-based terminal API. It allows:
-- ✅ Running shell commands via API
-- ✅ Retrieving real-time terminal logs
-- ✅ Interrupting running processes
-- ✅ Reading and writing large files
-- ✅ Secure authentication for API requests
-- ✅ WebSocket support for live updates
-- ✅ Firebase integration for data storage
-- ✅ Auto-generated OpenAPI documentation
-
-## 🚀 Features
-| Feature                      | Status |
-|------------------------------|--------|
-| Run shell commands via API   | ✅      |
-| Retrieve real-time logs      | ✅      |
-| Interrupt terminal commands  | ✅      |
-| Read & Write large files     | ✅      |
-| WebSockets for live updates  | ✅      |
-| Secure authentication        | ✅      |
-| Firebase integration         | ✅      |
-| Auto-generated API docs      | ✅      |
+# **Endpoint Summary**
 
 ---
 
-## 🔧 Installation
-Ensure you have **Python 3.10+** installed.
+## **🔐 Authentication Endpoints (`auth.py`)**
+| **Endpoint**      | **Method** | **Description** |
+|------------------|-----------|----------------|
+| **Protected Endpoints** | _Depends_ | Uses `authenticate_request()` to validate API key in headers (`Bearer <API_KEY>`). |
 
-### 1️⃣ Clone Repository
-```bash
-git clone https://github.com/yourrepo/fastapi-terminal-server.git
-cd fastapi-terminal-server
-```
-
-### 2️⃣ Create a Virtual Environment
-```bash
-python -m venv venv
-source venv/bin/activate  # Mac/Linux
-venv\Scripts\activate  # Windows
-```
-
-### 3️⃣ Install Dependencies
-```bash
-pip install -r requirements.txt
-```
+🛠 **Purpose**: Ensures **API security** by requiring an API key for access.
 
 ---
 
-## ▶️ Running the Server
-Start the FastAPI server with:
-```bash
-uvicorn main:app --reload
-```
+## **📄 API Documentation & Metadata (`docs_router.py`)**
+| **Endpoint**      | **Method** | **Description** |
+|------------------|-----------|----------------|
+| `/docs`          | `POST`  | Returns **OpenAPI documentation**. |
+| `/metadata`      | `POST`  | Provides **API metadata** (name, version, description, endpoints). |
+| `/health`        | `POST`  | Returns **server status & uptime**. |
 
-The server runs on **http://127.0.0.1:8000** by default.
-
-### 📑 API Documentation
-- Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-- ReDoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+🛠 **Purpose**: Exposes API documentation and **health monitoring**.
 
 ---
 
-## 🔗 API Endpoints
-### **Terminal Commands**
-| Method | Endpoint | Description |
-|--------|---------|-------------|
-| POST   | `/api/run-terminal-script` | Execute a shell command |
-| GET    | `/api/get-terminal-logs` | Fetch terminal output |
-| POST   | `/api/interrupt` | Interrupt running processes |
+## **📂 File Handling (`file_handler.py`)**
+| **Endpoint**      | **Method** | **Description** |
+|------------------|-----------|----------------|
+| `/read-file`     | `POST`    | Reads **full content** of a file. |
+| `/write-file`    | `POST`    | Creates or **overwrites** a file. |
+| `/append-file`   | `POST`    | Appends data to a file. |
+| `/read-lines`    | `POST`    | Reads **specific lines** from a file. |
+| `/replace-function` | `POST`  | Replaces a **Python function** inside a script dynamically. |
 
-### **File Handling**
-| Method | Endpoint | Description |
-|--------|---------|-------------|
-| GET    | `/api/read-file?filename={name}` | Read a file |
-| POST   | `/api/write-file` | Write to a file |
-| POST   | `/api/upload-file` | Upload a file |
-
-### **WebSockets**
-- **Live Logs**: Connect to `/ws/logs`
+🛠 **Purpose**: **Read, write, and modify files remotely**.
 
 ---
 
-## 🛡️ Authentication
-API requests require an **Authorization Token**:
-```json
-{
-    "Authorization": "Bearer YOUR_SECRET_TOKEN"
-}
-```
+## **📊 System Information (`info_router.py`)**
+| **Endpoint**       | **Method** | **Description** |
+|-------------------|-----------|----------------|
+| `/info`           | `POST`    | Returns **system info** (OS, CPU, RAM, disk usage). |
+| `/host-resources` | `POST`    | Fetches **real-time CPU, RAM, and disk usage**. |
+| `/list-running-processes` | `POST` | Lists **all active processes** on the system. |
 
-Set your token in the `.env` file:
-```bash
-AUTH_TOKEN=your_secret_token
-```
+🛠 **Purpose**: **Monitor system health and performance**.
 
 ---
 
-## 🛠️ Firebase Integration
-This project integrates **Firebase** for data storage.
-- Ensure you have a valid `firebaseAdmin.json` file in the root directory.
+## **📜 Logging (`logger.py`)**
+| **Endpoint**      | **Method** | **Description** |
+|------------------|-----------|----------------|
+| **Logs API Calls** | _Auto_ | Logs **all API events** into `logs/system.log`. |
 
-### **Firebase Setup**
-```python
-import firebase_admin
-from firebase_admin import credentials, firestore
-
-cred = credentials.Certificate("firebaseAdmin.json")
-firebase_admin.initialize_app(cred)
-db = firestore.client()
-```
+🛠 **Purpose**: Maintains **detailed logging** for debugging & auditing.
 
 ---
 
-## 🔥 Deployment
-### **Using Docker**
-```bash
-docker build -t fastapi-terminal .
-docker run -p 8000:8000 fastapi-terminal
-```
+## **🖥️ System Control (`system_router.py`)**
+| **Endpoint**      | **Method** | **Description** |
+|------------------|-----------|----------------|
+| `/set-current-directory` | `POST` | Changes the **working directory**. |
+| `/get-current-directory` | `POST` | Returns the **current working directory**. |
+| `/run-command`   | `POST`  | Executes **a system command** (blocking). |
+| `/run-long-command` | `POST` | Runs **a command asynchronously** and returns a `process_id`. |
+| `/check-command-status/{process_id}` | `POST` | Checks the **status of a running command**. |
+| `/mouse` | `POST` | Moves the **mouse cursor & performs clicks**. |
+| `/keyboard` | `POST` | Simulates **keyboard key presses**. |
 
-### **Using Gunicorn (Production)**
-```bash
-gunicorn -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8000
-```
-
-### **Fix Port Binding Issues**
-Use a different port:
-```bash
-uvicorn main:app --host 0.0.0.0 --port 8080
-```
+🛠 **Purpose**: **Execute system commands, automate inputs, and track processes**.
 
 ---
 
-## 📜 License
-MIT License. See [LICENSE](LICENSE) for details.
+## **🖼️ Computer Vision (`vision_router.py`)**
+| **Endpoint**      | **Method** | **Description** |
+|------------------|-----------|----------------|
+| `/screenshot`    | `POST`  | Captures a **screenshot** and returns it as **Base64**. |
+| `/read-screen`   | `POST`  | Extracts **text from the screen** using **OCR**. |
+
+🛠 **Purpose**: Supports **remote screen capture & text recognition**.
 
 ---
 
-## 💡 Future Enhancements
-- [ ] Add database caching
-- [ ] Improve security with JWT authentication
-- [ ] Implement async task processing
-
-For contributions, feel free to submit a **pull request**! 🚀
-
+## **📌 Summary of All Endpoints**
+| **Category**            | **Key Functionalities** |
+|------------------------|-----------------------|
+| **🔐 Authentication**  | API Key validation |
+| **📄 Documentation**   | OpenAPI, metadata, health check |
+| **📂 File Handling**   | Read, write, append, modify files |
+| **📊 System Info**     | CPU, RAM, disk, processes |
+| **📜 Logging**         | Logs all API requests |
+| **🖥️ System Control**  | Run commands, change directories, automate inputs |
+| **🖼️ Vision**         | Screenshot, OCR (text recognition) |
