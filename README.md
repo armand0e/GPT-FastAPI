@@ -3,7 +3,6 @@
 **GPT-FastAPI** is a **FastAPI-based backend service** designed to offer various functionalities, including **authentication, file management, system control, document processing, logging, and computer vision**. The project is structured with modular API routes, each handling a specific domain. It is a powerful **backend system** that offers **remote system management, file operations, automation, and vision capabilities**. With **authentication, process tracking, and logging**, it is well-suited for **secure remote administration and automation tasks**.
 
 # **Endpoint Summary**
-Below is a **summary of each API endpoint** categorized by functionality.
 
 ---
 
