@@ -9,9 +9,6 @@ import socket
 router = APIRouter()
 load_dotenv()
 
-def get_cpu_info():
-    """Detects CPU using system commands"""
-
 @router.post("/info")
 async def get_host_info():
     """Returns detailed system information about the host machine."""
@@ -39,11 +36,3 @@ async def get_host_resources():
         "disk_usage": psutil.disk_usage("/").percent,
         "uptime": psutil.boot_time()
     }
-
-@router.post("/list-running-processes")
-async def list_processes():
-    """Lists running processes on the system."""
-    processes = []
-    for proc in psutil.process_iter(["pid", "name", "cpu_percent"]):
-        processes.append(proc.info)
-    return {"processes": processes}

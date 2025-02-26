@@ -1,0 +1,630 @@
+2025-02-25 06:08:15,580 - INFO - Executed command: rm basic_functions.py | Output:  | Error: 'rm' is not recognized as an internal or external command,
+operable program or batch file.
+2025-02-25 06:08:17,629 - INFO - Executed command: del basic_functions.py | Output:  | Error: 
+2025-02-25 06:09:54,613 - INFO - Current directory changed to C:\Users\aranr
+2025-02-25 06:09:56,896 - INFO - Executed command: mkdir Auto-GPT | Output:  | Error: 
+2025-02-25 06:10:07,352 - INFO - Executed command: cd Auto-GPT && mkdir src models config scripts | Output:  | Error: 
+2025-02-25 11:31:07,872 - ERROR - Write error: [Errno 2] No such file or directory: 'C:\\Users\\aranr\\Auto-GPT\\tests\\test_system.py'
+2025-02-25 11:31:11,101 - INFO - Executed command: mkdir C:\Users\aranr\Auto-GPT\tests | Output:  | Error: 
+2025-02-25 11:31:31,110 - INFO - Executed command: python -m unittest discover C:\Users\aranr\Auto-GPT\tests | Output:  | Error: E
+======================================================================
+ERROR: test_system (unittest.loader._FailedTest.test_system)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_system
+Traceback (most recent call last):
+  File "C:\Users\aranr\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\aranr\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "C:\Users\aranr\Auto-GPT\tests\test_system.py", line 2, in <module>
+    from src.agent import AutoGPTAgent
+ModuleNotFoundError: No module named 'src'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+2025-02-25 11:31:47,603 - INFO - Executed command: python -m unittest discover C:\Users\aranr\Auto-GPT\tests | Output:  | Error: E
+======================================================================
+ERROR: test_system (unittest.loader._FailedTest.test_system)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_system
+Traceback (most recent call last):
+  File "C:\Users\aranr\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\aranr\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "C:\Users\aranr\Auto-GPT\tests\test_system.py", line 2, in <module>
+    from src.agent import AutoGPTAgent
+ModuleNotFoundError: No module named 'src'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+2025-02-25 11:32:03,905 - INFO - Executed command: python C:\Users\aranr\Auto-GPT\run_tests.py | Output:  | Error: ----------------------------------------------------------------------
+Ran 0 tests in 0.000s
+
+OK
+2025-02-25 11:32:15,732 - INFO - Executed command: python C:\Users\aranr\Auto-GPT\run_tests.py | Output:  | Error: ----------------------------------------------------------------------
+Ran 0 tests in 0.000s
+
+OK
+2025-02-25 11:32:37,877 - INFO - Executed command: python C:\Users\aranr\Auto-GPT\run_tests.py | Output: [Task Manager] Added task: Create a new Python project named TestProj
+[Debugger] Linting file: src/agent.py | Error: .F...
+======================================================================
+FAIL: test_debugging_tools (tests.test_system.TestAutoGPT.test_debugging_tools)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\aranr\Auto-GPT\tests\test_system.py", line 37, in test_debugging_tools
+    self.assertIn("No linting issues.", result)
+AssertionError: 'No linting issues.' not found in 'Error linting file: [WinError 2] The system cannot find the file specified'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.019s
+
+FAILED (failures=1)
+2025-02-25 11:32:46,858 - INFO - Executed command: pip show flake8 | Output:  | Error: WARNING: Package(s) not found: flake8
+2025-02-25 11:32:51,321 - INFO - Executed command: pip install flake8 | Output: Collecting flake8
+  Downloading flake8-7.1.2-py2.py3-none-any.whl.metadata (3.8 kB)
+Collecting mccabe<0.8.0,>=0.7.0 (from flake8)
+  Downloading mccabe-0.7.0-py2.py3-none-any.whl.metadata (5.0 kB)
+Collecting pycodestyle<2.13.0,>=2.12.0 (from flake8)
+  Downloading pycodestyle-2.12.1-py2.py3-none-any.whl.metadata (4.5 kB)
+Collecting pyflakes<3.3.0,>=3.2.0 (from flake8)
+  Downloading pyflakes-3.2.0-py2.py3-none-any.whl.metadata (3.5 kB)
+Downloading flake8-7.1.2-py2.py3-none-any.whl (57 kB)
+Downloading mccabe-0.7.0-py2.py3-none-any.whl (7.3 kB)
+Downloading pycodestyle-2.12.1-py2.py3-none-any.whl (31 kB)
+Downloading pyflakes-3.2.0-py2.py3-none-any.whl (62 kB)
+Installing collected packages: pyflakes, pycodestyle, mccabe, flake8
+Successfully installed flake8-7.1.2 mccabe-0.7.0 pycodestyle-2.12.1 pyflakes-3.2.0 | Error: 
+2025-02-25 11:32:54,131 - INFO - Executed command: python C:\Users\aranr\Auto-GPT\run_tests.py | Output: [Task Manager] Added task: Create a new Python project named TestProj
+[Debugger] Linting file: src/agent.py | Error: .F...
+======================================================================
+FAIL: test_debugging_tools (tests.test_system.TestAutoGPT.test_debugging_tools)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\aranr\Auto-GPT\tests\test_system.py", line 37, in test_debugging_tools
+    self.assertIn("No linting issues.", result)
+AssertionError: 'No linting issues.' not found in "src/agent.py:0:1: E902 FileNotFoundError: [Errno 2] No such file or directory: 'src/agent.py'\n"
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.207s
+
+FAILED (failures=1)
+2025-02-25 11:34:14,788 - INFO - Executed command: python C:\Users\aranr\Auto-GPT\run_tests.py | Output: [Task Manager] Added task: Create a new Python project named TestProj | Error: .E...
+======================================================================
+ERROR: test_debugging_tools (tests.test_system.TestAutoGPT.test_debugging_tools)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\aranr\Auto-GPT\tests\test_system.py", line 36, in test_debugging_tools
+    result = self.debugger.lint_code("src/agent.py")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Debugger.lint_code() takes 1 positional argument but 2 were given
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.009s
+
+FAILED (errors=1)
+2025-02-25 11:35:18,587 - INFO - Executed command: python C:\Users\aranr\Auto-GPT\run_tests.py | Output: [Task Manager] Added task: Create a new Python project named TestProj
+[Debugger] Linting file: src/agent.py | Error: .F...
+======================================================================
+FAIL: test_debugging_tools (tests.test_system.TestAutoGPT.test_debugging_tools)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\aranr\Auto-GPT\tests\test_system.py", line 37, in test_debugging_tools
+    self.assertIn("No linting issues.", result)
+AssertionError: 'No linting issues.' not found in 'Error: File not found: C:\\Users\\aranr\\src\\agent.py'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.009s
+
+FAILED (failures=1)
+2025-02-25 11:35:43,397 - INFO - Executed command: python C:\Users\aranr\Auto-GPT\run_tests.py | Output: [Task Manager] Added task: Create a new Python project named TestProj
+[Debugger] Linting file: src/agent.py | Error: .F...
+======================================================================
+FAIL: test_debugging_tools (tests.test_system.TestAutoGPT.test_debugging_tools)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\aranr\Auto-GPT\tests\test_system.py", line 37, in test_debugging_tools
+    self.assertIn("No linting issues.", result)
+AssertionError: 'No linting issues.' not found in 'C:\\Users\\aranr\\Auto-GPT\\src\\agent.py:6:1: E302 expected 2 blank lines, found 1\nC:\\Users\\aranr\\Auto-GPT\\src\\agent.py:34:80: E501 line too long (82 > 79 characters)\nC:\\Users\\aranr\\Auto-GPT\\src\\agent.py:37:80: E501 line too long (96 > 79 characters)\nC:\\Users\\aranr\\Auto-GPT\\src\\agent.py:42:1: E305 expected 2 blank lines after class or function definition, found 0\nC:\\Users\\aranr\\Auto-GPT\\src\\agent.py:45:25: W292 no newline at end of file\n'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.163s
+
+FAILED (failures=1)
+2025-02-25 11:35:55,234 - INFO - Executed command: autopep8 --in-place --aggressive --aggressive C:\Users\aranr\Auto-GPT\src\agent.py | Output:  | Error: 'autopep8' is not recognized as an internal or external command,
+operable program or batch file.
+2025-02-25 11:36:00,235 - INFO - Executed command: pip install autopep8 | Output: Collecting autopep8
+  Downloading autopep8-2.3.2-py2.py3-none-any.whl.metadata (16 kB)
+Requirement already satisfied: pycodestyle>=2.12.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from autopep8) (2.12.1)
+Downloading autopep8-2.3.2-py2.py3-none-any.whl (45 kB)
+Installing collected packages: autopep8
+Successfully installed autopep8-2.3.2 | Error: 
+2025-02-25 11:36:07,231 - INFO - Executed command: autopep8 --in-place --aggressive --aggressive C:\Users\aranr\Auto-GPT\src\agent.py | Output:  | Error: 
+2025-02-25 11:36:15,351 - INFO - Executed command: python C:\Users\aranr\Auto-GPT\run_tests.py | Output: [Task Manager] Added task: Create a new Python project named TestProj
+[Debugger] Linting file: src/agent.py | Error: .F...
+======================================================================
+FAIL: test_debugging_tools (tests.test_system.TestAutoGPT.test_debugging_tools)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\aranr\Auto-GPT\tests\test_system.py", line 37, in test_debugging_tools
+    self.assertIn("No linting issues.", result)
+AssertionError: 'No linting issues.' not found in 'C:\\Users\\aranr\\Auto-GPT\\src\\agent.py:40:80: E501 line too long (84 > 79 characters)\n'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.155s
+
+FAILED (failures=1)
+2025-02-25 11:37:41,213 - INFO - Executed command: python C:\Users\aranr\Auto-GPT\run_tests.py | Output: [Task Manager] Added task: Create a new Python project named TestProj
+[Debugger] Linting file: src/agent.py | Error: .F...
+======================================================================
+FAIL: test_debugging_tools (tests.test_system.TestAutoGPT.test_debugging_tools)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\aranr\Auto-GPT\tests\test_system.py", line 37, in test_debugging_tools
+    self.assertIn("No linting issues.", result)
+AssertionError: 'No linting issues.' not found in 'C:\\Users\\aranr\\Auto-GPT\\src\\agent.py:35:80: E501 line too long (82 > 79 characters)\nC:\\Users\\aranr\\Auto-GPT\\src\\agent.py:39:21: E128 continuation line under-indented for visual indent\n'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.153s
+
+FAILED (failures=1)
+2025-02-25 11:38:08,915 - INFO - Executed command: python C:\Users\aranr\Auto-GPT\run_tests.py | Output: [Task Manager] Added task: Create a new Python project named TestProj
+[Debugger] Linting file: src/agent.py | Error: .....
+----------------------------------------------------------------------
+Ran 5 tests in 0.152s
+
+OK
+2025-02-25 11:44:08,401 - INFO - Executed command: pip install flask | Output: Requirement already satisfied: flask in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (3.1.0)
+Requirement already satisfied: Werkzeug>=3.1 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from flask) (3.1.3)
+Requirement already satisfied: Jinja2>=3.1.2 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from flask) (3.1.5)
+Requirement already satisfied: itsdangerous>=2.2 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from flask) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from flask) (8.1.8)
+Requirement already satisfied: blinker>=1.9 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from flask) (1.9.0)
+Requirement already satisfied: colorama in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from click>=8.1.3->flask) (0.4.6)
+Requirement already satisfied: MarkupSafe>=2.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from Jinja2>=3.1.2->flask) (3.0.2) | Error: 
+2025-02-25 11:50:06,760 - INFO - Current directory changed to C:\Users\aranr\Auto-GPT
+2025-02-25 11:52:55,675 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" -d '{"goal": "Create a Python project that prints Hello World"}' | Output: <!doctype html>
+<html lang=en>
+<title>400 Bad Request</title>
+<h1>Bad Request</h1>
+<p>Failed to decode JSON object: Expecting value: line 1 column 1 (char 0)</p> | Error: % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   169  100   162  100     7  82317   3556 --:--:-- --:--:-- --:--:--  165k
+curl: (3) unmatched close brace/bracket in URL position 48:
+Create a Python project that prints Hello World}'
+                                               ^
+2025-02-25 11:53:11,396 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"Create a Python project that prints Hello World\"}" | Output: {
+  "goal": "Create a Python project that prints Hello World",
+  "message": "Agent started successfully"
+} | Error: % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   166  100   107  100    59  54177  29873 --:--:-- --:--:-- --:--:--  162k
+2025-02-25 11:53:31,380 - INFO - Executed command: curl -X GET http://127.0.0.1:5000/status | Output: {
+  "message": "Agent is running"
+} | Error: % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    36  100    36    0     0  20725      0 --:--:-- --:--:-- --:--:-- 36000
+2025-02-25 11:53:34,129 - INFO - Executed command: ls C:\Users\aranr\Auto-GPT\projects | Output:  | Error: 'ls' is not recognized as an internal or external command,
+operable program or batch file.
+2025-02-25 11:53:41,616 - INFO - Executed command: dir C:\Users\aranr\Auto-GPT\projects | Output: Volume in drive C has no label.
+ Volume Serial Number is 3C03-9533
+
+ Directory of C:\Users\aranr\Auto-GPT | Error: File Not Found
+2025-02-25 11:54:01,304 - INFO - Executed command: python C:\Users\aranr\Auto-GPT\src\logger.py | Output:  | Error: 
+2025-02-25 11:54:07,984 - INFO - Executed command: python -c "import sqlite3; conn = sqlite3.connect('logs.db'); cursor = conn.cursor(); cursor.execute('SELECT * FROM logs ORDER BY id DESC LIMIT 10'); print(cursor.fetchall()); conn.close()" | Output: [(1, '2025-02-25 11:53:11', 'INFO', 'Agent started with goal: Create a Python project that prints Hello World')] | Error: 
+2025-02-25 11:54:26,271 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-25 11:57:28,680 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-25 11:57:40,862 - INFO - Executed command: python -c "from src.project_manager import ProjectManager; pm = ProjectManager(); print(pm.create_project('TestProject', 'python'))" | Output: Project 'TestProject' created successfully. | Error: 
+2025-02-25 11:57:52,313 - INFO - Executed command: dir C:\Users\aranr\Auto-GPT\projects | Output: Volume in drive C has no label.
+ Volume Serial Number is 3C03-9533
+
+ Directory of C:\Users\aranr\Auto-GPT\projects
+
+02/25/2025  11:57 AM    <DIR>          .
+02/25/2025  11:57 AM    <DIR>          ..
+02/25/2025  11:57 AM    <DIR>          TestProject
+               0 File(s)              0 bytes
+               3 Dir(s)  754,157,404,160 bytes free | Error: 
+2025-02-25 11:58:30,671 - INFO - Current directory changed to C:\Users\aranr\Auto-GPT
+2025-02-25 11:58:38,046 - INFO - Current directory changed to C:\Users\aranr\Auto-GPT
+2025-02-25 12:00:00,293 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-25 12:00:20,570 - INFO - Executed command: python -c "from src.project_manager import ProjectManager; pm = ProjectManager(); print(pm.create_project('TestProject', 'python'))" | Output: Project 'TestProject' already exists. | Error: 
+2025-02-25 12:01:10,846 - INFO - Executed command: python -c "import sqlite3; conn = sqlite3.connect('logs.db'); cursor = conn.cursor(); cursor.execute('SELECT * FROM logs ORDER BY id DESC LIMIT 10'); print(cursor.fetchall()); conn.close()" | Output: [(1, '2025-02-25 11:53:11', 'INFO', 'Agent started with goal: Create a Python project that prints Hello World')] | Error: 
+2025-02-25 12:03:05,422 - INFO - Executed command: python -c "from src.llm_interface import chat_with_llama; print(chat_with_llama('Create a Python project'))" | Output: Error: No response | Error: 
+2025-02-25 12:04:08,272 - INFO - Executed command: curl -X POST http://127.0.0.1:4000/v1/completion -H "Content-Type: application/json" --data "{\"prompt\": \"Hello\", \"max_tokens\": 50}" | Output: {"error":{"code":404,"message":"File Not Found","type":"not_found_error"}} | Error: % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   111  100    74  100    37  81051  40525 --:--:-- --:--:-- --:--:--  108k
+2025-02-25 12:04:24,762 - INFO - Executed command: curl -X GET http://127.0.0.1:4000 | Output: Error: gzip is not supported by this browser | Error: % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    44  100    44    0     0  39819      0 --:--:-- --:--:-- --:--:-- 44000
+2025-02-25 12:05:10,567 - INFO - Executed command: curl -X POST http://127.0.0.1:4000/completion -H "Content-Type: application/json" --data "{\"prompt\": \"Hello\", \"max_tokens\": 50}" | Output: {"index":0,"content":", I'm the owner of a small business and I'm looking for a reliable and efficient way to manage my company's finances. I've heard about accounting software, but I'm not sure which one to choose. Can you help me with that?\n\n","tokens":[],"id_slot":0,"stop":true,"model":"gpt-3.5-turbo","tokens_predicted":50,"tokens_evaluated":2,"generation_settings":{"n_predict":50,"seed":4294967295,"temperature":0.800000011920929,"dynatemp_range":0.0,"dynatemp_exponent":1.0,"top_k":40,"top_p":0.949999988079071,"min_p":0.05000000074505806,"xtc_probability":0.0,"xtc_threshold":0.10000000149011612,"typical_p":1.0,"repeat_last_n":64,"repeat_penalty":1.0,"presence_penalty":0.0,"frequency_penalty":0.0,"dry_multiplier":0.0,"dry_base":1.75,"dry_allowed_length":2,"dry_penalty_last_n":4096,"dry_sequence_breakers":["\n",":","\"","*"],"mirostat":0,"mirostat_tau":5.0,"mirostat_eta":0.10000000149011612,"stop":[],"max_tokens":50,"n_keep":0,"n_discard":0,"ignore_eos":false,"stream":false,"logit_bias":[],"n_probs":0,"min_keep":0,"grammar":"","grammar_trigger_words":[],"grammar_trigger_tokens":[],"preserved_tokens":[],"samplers":["penalties","dry","top_k","typ_p","top_p","min_p","xtc","temperature"],"speculative.n_max":16,"speculative.n_min":5,"speculative.p_min":0.8999999761581421,"timings_per_token":false,"post_sampling_probs":false,"lora":[]},"prompt":"<|begin_of_text|>Hello","has_new_line":true,"truncated":false,"stop_type":"limit","stopping_word":"","tokens_cached":51,"timings":{"prompt_n":2,"prompt_ms":172.599,"prompt_per_token_ms":86.2995,"prompt_per_second":11.587552650942358,"predicted_n":50,"predicted_ms":5642.672,"predicted_per_token_ms":112.85343999999999,"predicted_per_second":8.861050225850448}} | Error: % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    37    0     0  100    37      0     36  0:00:01  0:00:01 --:--:--    36100    37    0     0  100    37      0     18  0:00:02  0:00:02 --:--:--    18100    37    0     0  100    37      0     12  0:00:03  0:00:03 --:--:--    12100    37    0     0  100    37      0      9  0:00:04  0:00:04 --:--:--     9100    37    0     0  100    37      0      7  0:00:05  0:00:05 --:--:--     7100  1762  100  1725  100    37    296      6  0:00:06  0:00:05  0:00:01   358100  1762  100  1725  100    37    296      6  0:00:06  0:00:05  0:00:01   454
+2025-02-25 12:05:49,591 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-25 12:07:18,812 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-25 12:08:15,728 - INFO - Current directory changed to C:\Users\aranr\Auto-GPT
+2025-02-25 12:08:51,111 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-25 12:09:23,520 - INFO - Executed command: python -c "from src.project_manager import ProjectManager; pm = ProjectManager(); print(pm.create_project('TestProject', 'python'))" | Output: Project 'TestProject' already exists. | Error: 
+2025-02-25 12:10:54,347 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-25 12:12:16,127 - INFO - Executed command: python -c "from src.llm_interface import chat_with_llama; print(chat_with_llama('Create a Python project'))" | Output: with the following components:
+
+1. A `main.py` file that contains the main program.
+2. A `models` directory with a `person.py` file that defines a `Person` class.
+3. A `views` directory with a `person_view.py` file that defines a `PersonView` class.
+4. A `templates` directory with an `index.html` file that contains an HTML template.
+
+Here is an example implementation:
+
+**main.py**
+```python
+from flask | Error: 
+2025-02-25 12:13:01,738 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-25 12:15:38,402 - INFO - Current directory changed to C:\Users\aranr\Auto-GPT
+2025-02-25 12:16:53,740 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-25 12:18:56,441 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-25 12:19:54,907 - INFO - Executed command: python -c "from src.agent import AutoGPTAgent; agent = AutoGPTAgent(); agent.run('create project: TestProject | python')" | Output:  | Error: Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\aranr\Auto-GPT\src\agent.py", line 2, in <module>
+    from task_manager import TaskManager
+ModuleNotFoundError: No module named 'task_manager'
+2025-02-25 12:20:35,619 - INFO - Executed command: python -c "from src.agent import AutoGPTAgent; agent = AutoGPTAgent(); agent.run('create project: TestProject | python')" | Output:  | Error: Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\aranr\Auto-GPT\src\agent.py", line 3, in <module>
+    from llm_interface import chat_with_llama
+ModuleNotFoundError: No module named 'llm_interface'
+2025-02-25 12:21:01,725 - INFO - Executed command: python -c "from src.agent import AutoGPTAgent; agent = AutoGPTAgent(); agent.run('create project: TestProject | python')" | Output:  | Error: Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\aranr\Auto-GPT\src\agent.py", line 4, in <module>
+    from memory import Memory
+ModuleNotFoundError: No module named 'memory'
+2025-02-25 12:21:32,571 - INFO - Executed command: python -c "from src.agent import AutoGPTAgent; agent = AutoGPTAgent(); agent.run('create project: TestProject | python')" | Output:  | Error: Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\aranr\Auto-GPT\src\agent.py", line 13, in run
+    from logger import Logger
+ImportError: cannot import name 'Logger' from 'logger' (C:\Users\aranr\AppData\Local\Programs\Python\Python311\Lib\site-packages\logger\__init__.py)
+2025-02-25 12:21:54,695 - INFO - Executed command: rename C:\Users\aranr\Auto-GPT\src\logger.py logging_manager.py | Output:  | Error: 
+2025-02-25 12:22:03,270 - INFO - Executed command: python -c "from src.agent import AutoGPTAgent; agent = AutoGPTAgent(); agent.run('create project: TestProject | python')" | Output:  | Error: Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\aranr\Auto-GPT\src\agent.py", line 14, in run
+    from planner import Planner
+ModuleNotFoundError: No module named 'planner'
+2025-02-25 12:22:25,933 - INFO - Executed command: python -c "from src.agent import AutoGPTAgent; agent = AutoGPTAgent(); agent.run('create project: TestProject | python')" | Output:  | Error: Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\aranr\Auto-GPT\src\agent.py", line 14, in run
+    from src.planner import Planner
+  File "C:\Users\aranr\Auto-GPT\src\planner.py", line 3, in <module>
+    from memory import Memory
+ModuleNotFoundError: No module named 'memory'
+2025-02-25 12:27:45,596 - INFO - Executed command: python -c "from src.task_manager import TaskManager; tm = TaskManager(); tm.process_response('create project: TestProject | python')" | Output:  | Error: Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\aranr\Auto-GPT\src\task_manager.py", line 31, in process_response
+    from project_manager import ProjectManager
+ModuleNotFoundError: No module named 'project_manager'
+2025-02-25 12:28:16,412 - INFO - Executed command: python -c "from src.task_manager import TaskManager; tm = TaskManager(); tm.process_response('create project: TestProject | python')" | Output: [Task Manager] Project Created: Project 'TestProject' already exists. | Error: 
+2025-02-25 12:28:38,217 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-25 17:51:30,145 - INFO - Executed command: python -c "from src.project_manager import ProjectManager; pm = ProjectManager(); print(pm.create_project('TestProject', 'python'))" | Output: Project 'TestProject' already exists. | Error: 
+2025-02-25 18:30:41,454 - INFO - Current directory changed to C:\Users\aranr\Desktop
+2025-02-25 18:30:43,663 - INFO - Executed command: mkdir RealEstateAPI | Output:  | Error: 
+2025-02-25 18:30:47,612 - INFO - Current directory changed to C:\Users\aranr\Desktop\RealEstateAPI
+2025-02-25 18:30:59,263 - INFO - Executed command: python -m venv venv | Output:  | Error: 
+2025-02-25 18:31:12,976 - INFO - Executed command: venv\Scripts\activate && pip install fastapi selenium uvicorn webdriver-manager | Output: Collecting fastapi
+  Using cached fastapi-0.115.8-py3-none-any.whl.metadata (27 kB)
+Collecting selenium
+  Downloading selenium-4.29.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting uvicorn
+  Using cached uvicorn-0.34.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting webdriver-manager
+  Downloading webdriver_manager-4.0.2-py2.py3-none-any.whl.metadata (12 kB)
+Collecting starlette<0.46.0,>=0.40.0 (from fastapi)
+  Using cached starlette-0.45.3-py3-none-any.whl.metadata (6.3 kB)
+Collecting pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4 (from fastapi)
+  Using cached pydantic-2.10.6-py3-none-any.whl.metadata (30 kB)
+Collecting typing-extensions>=4.8.0 (from fastapi)
+  Using cached typing_extensions-4.12.2-py3-none-any.whl.metadata (3.0 kB)
+Collecting urllib3<3,>=1.26 (from urllib3[socks]<3,>=1.26->selenium)
+  Using cached urllib3-2.3.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting trio~=0.17 (from selenium)
+  Downloading trio-0.29.0-py3-none-any.whl.metadata (8.5 kB)
+Collecting trio-websocket~=0.9 (from selenium)
+  Downloading trio_websocket-0.12.2-py3-none-any.whl.metadata (5.1 kB)
+Collecting certifi>=2021.10.8 (from selenium)
+  Using cached certifi-2025.1.31-py3-none-any.whl.metadata (2.5 kB)
+Collecting websocket-client~=1.8 (from selenium)
+  Using cached websocket_client-1.8.0-py3-none-any.whl.metadata (8.0 kB)
+Collecting click>=7.0 (from uvicorn)
+  Using cached click-8.1.8-py3-none-any.whl.metadata (2.3 kB)
+Collecting h11>=0.8 (from uvicorn)
+  Using cached h11-0.14.0-py3-none-any.whl.metadata (8.2 kB)
+Collecting requests (from webdriver-manager)
+  Using cached requests-2.32.3-py3-none-any.whl.metadata (4.6 kB)
+Collecting python-dotenv (from webdriver-manager)
+  Using cached python_dotenv-1.0.1-py3-none-any.whl.metadata (23 kB)
+Collecting packaging (from webdriver-manager)
+  Using cached packaging-24.2-py3-none-any.whl.metadata (3.2 kB)
+Collecting colorama (from click>=7.0->uvicorn)
+  Using cached colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+Collecting annotated-types>=0.6.0 (from pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4->fastapi)
+  Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.27.2 (from pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4->fastapi)
+  Using cached pydantic_core-2.27.2-cp311-cp311-win_amd64.whl.metadata (6.7 kB)
+Collecting anyio<5,>=3.6.2 (from starlette<0.46.0,>=0.40.0->fastapi)
+  Using cached anyio-4.8.0-py3-none-any.whl.metadata (4.6 kB)
+Collecting attrs>=23.2.0 (from trio~=0.17->selenium)
+  Using cached attrs-25.1.0-py3-none-any.whl.metadata (10 kB)
+Collecting sortedcontainers (from trio~=0.17->selenium)
+  Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl.metadata (10 kB)
+Collecting idna (from trio~=0.17->selenium)
+  Using cached idna-3.10-py3-none-any.whl.metadata (10 kB)
+Collecting outcome (from trio~=0.17->selenium)
+  Downloading outcome-1.3.0.post0-py2.py3-none-any.whl.metadata (2.6 kB)
+Collecting sniffio>=1.3.0 (from trio~=0.17->selenium)
+  Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+Collecting cffi>=1.14 (from trio~=0.17->selenium)
+  Using cached cffi-1.17.1-cp311-cp311-win_amd64.whl.metadata (1.6 kB)
+Collecting wsproto>=0.14 (from trio-websocket~=0.9->selenium)
+  Using cached wsproto-1.2.0-py3-none-any.whl.metadata (5.6 kB)
+Collecting pysocks!=1.5.7,<2.0,>=1.5.6 (from urllib3[socks]<3,>=1.26->selenium)
+  Downloading PySocks-1.7.1-py3-none-any.whl.metadata (13 kB)
+Collecting charset-normalizer<4,>=2 (from requests->webdriver-manager)
+  Using cached charset_normalizer-3.4.1-cp311-cp311-win_amd64.whl.metadata (36 kB)
+Collecting pycparser (from cffi>=1.14->trio~=0.17->selenium)
+  Using cached pycparser-2.22-py3-none-any.whl.metadata (943 bytes)
+Using cached fastapi-0.115.8-py3-none-any.whl (94 kB)
+Downloading selenium-4.29.0-py3-none-any.whl (9.5 MB)
+   ---------------------------------------- 9.5/9.5 MB 30.4 MB/s eta 0:00:00
+Using cached uvicorn-0.34.0-py3-none-any.whl (62 kB)
+Downloading webdriver_manager-4.0.2-py2.py3-none-any.whl (27 kB)
+Using cached certifi-2025.1.31-py3-none-any.whl (166 kB)
+Using cached click-8.1.8-py3-none-any.whl (98 kB)
+Using cached h11-0.14.0-py3-none-any.whl (58 kB)
+Using cached pydantic-2.10.6-py3-none-any.whl (431 kB)
+Using cached pydantic_core-2.27.2-cp311-cp311-win_amd64.whl (2.0 MB)
+Using cached starlette-0.45.3-py3-none-any.whl (71 kB)
+Downloading trio-0.29.0-py3-none-any.whl (492 kB)
+   --------------------------------------- 492.9/492.9 kB 32.2 MB/s eta 0:00:00
+Downloading trio_websocket-0.12.2-py3-none-any.whl (21 kB)
+Using cached typing_extensions-4.12.2-py3-none-any.whl (37 kB)
+Using cached urllib3-2.3.0-py3-none-any.whl (128 kB)
+Using cached websocket_client-1.8.0-py3-none-any.whl (58 kB)
+Using cached packaging-24.2-py3-none-any.whl (65 kB)
+Using cached python_dotenv-1.0.1-py3-none-any.whl (19 kB)
+Using cached requests-2.32.3-py3-none-any.whl (64 kB)
+Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+Using cached anyio-4.8.0-py3-none-any.whl (96 kB)
+Using cached attrs-25.1.0-py3-none-any.whl (63 kB)
+Using cached cffi-1.17.1-cp311-cp311-win_amd64.whl (181 kB)
+Using cached charset_normalizer-3.4.1-cp311-cp311-win_amd64.whl (102 kB)
+Using cached idna-3.10-py3-none-any.whl (70 kB)
+Downloading outcome-1.3.0.post0-py2.py3-none-any.whl (10 kB)
+Downloading PySocks-1.7.1-py3-none-any.whl (16 kB)
+Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+Using cached wsproto-1.2.0-py3-none-any.whl (24 kB)
+Using cached colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+Using cached pycparser-2.22-py3-none-any.whl (117 kB)
+Installing collected packages: sortedcontainers, websocket-client, urllib3, typing-extensions, sniffio, python-dotenv, pysocks, pycparser, packaging, idna, h11, colorama, charset-normalizer, certifi, attrs, annotated-types, wsproto, requests, pydantic-core, outcome, click, cffi, anyio, webdriver-manager, uvicorn, trio, starlette, pydantic, trio-websocket, fastapi, selenium
+Successfully installed annotated-types-0.7.0 anyio-4.8.0 attrs-25.1.0 certifi-2025.1.31 cffi-1.17.1 charset-normalizer-3.4.1 click-8.1.8 colorama-0.4.6 fastapi-0.115.8 h11-0.14.0 idna-3.10 outcome-1.3.0.post0 packaging-24.2 pycparser-2.22 pydantic-2.10.6 pydantic-core-2.27.2 pysocks-1.7.1 python-dotenv-1.0.1 requests-2.32.3 selenium-4.29.0 sniffio-1.3.1 sortedcontainers-2.4.0 starlette-0.45.3 trio-0.29.0 trio-websocket-0.12.2 typing-extensions-4.12.2 urllib3-2.3.0 uvicorn-0.34.0 webdriver-manager-4.0.2 websocket-client-1.8.0 wsproto-1.2.0 | Error: [notice] A new release of pip is available: 24.0 -> 25.0.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+2025-02-25 18:31:27,126 - INFO - Executed command: touch app.py scraper.py requirements.txt __init__.py | Output:  | Error: 'touch' is not recognized as an internal or external command,
+operable program or batch file.
+2025-02-25 18:31:29,234 - INFO - Executed command: type nul > app.py && type nul > scraper.py && type nul > requirements.txt && type nul > __init__.py | Output:  | Error: 
+2025-02-25 18:38:23,186 - INFO - Executed command: venv\Scripts\activate && pip list | Output: Package            Version
+------------------ -----------
+annotated-types    0.7.0
+anyio              4.8.0
+attrs              25.1.0
+certifi            2025.1.31
+cffi               1.17.1
+charset-normalizer 3.4.1
+click              8.1.8
+colorama           0.4.6
+fastapi            0.115.8
+h11                0.14.0
+idna               3.10
+outcome            1.3.0.post0
+packaging          24.2
+pip                24.0
+pycparser          2.22
+pydantic           2.10.6
+pydantic_core      2.27.2
+PySocks            1.7.1
+python-dotenv      1.0.1
+requests           2.32.3
+selenium           4.29.0
+setuptools         65.5.0
+sniffio            1.3.1
+sortedcontainers   2.4.0
+starlette          0.45.3
+trio               0.29.0
+trio-websocket     0.12.2
+typing_extensions  4.12.2
+urllib3            2.3.0
+uvicorn            0.34.0
+webdriver-manager  4.0.2
+websocket-client   1.8.0
+wsproto            1.2.0 | Error: [notice] A new release of pip is available: 24.0 -> 25.0.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+2025-02-25 18:38:28,086 - INFO - Executed command: venv\Scripts\activate && python app.py | Output:  | Error: INFO:     Started server process [19504]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+ERROR:    [Errno 10048] error while attempting to bind on address ('0.0.0.0', 8000): only one usage of each socket address (protocol/network address/port) is normally permitted
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+2025-02-25 18:38:32,346 - INFO - Executed command: netstat -ano | findstr :8000 | Output: TCP    0.0.0.0:8000           0.0.0.0:0              LISTENING       12088
+  TCP    [2600:1700:23c3:4810::34]:64135  [2001:4860:4864:4:8000::]:3478  ESTABLISHED     6940
+  TCP    [2600:1700:23c3:4810:3c8d:40c5:3199:232]:64132  [2001:4860:4864:4:8000::]:3478  ESTABLISHED     6940
+  TCP    [2600:1700:23c3:4810:744b:243a:26f7:7548]:64133  [2001:4860:4864:4:8000::]:3478  ESTABLISHED     6940
+  TCP    [2600:1700:23c3:4810:852c:7cdb:fb03:d862]:64134  [2001:4860:4864:4:8000::]:3478  ESTABLISHED     6940
+  TCP    [2600:1700:23c3:4810:b4e5:13a5:390b:4de2]:64136  [2001:4860:4864:4:8000::]:3478  ESTABLISHED     6940 | Error: 
+2025-02-25 18:38:34,091 - INFO - Executed command: taskkill /PID 12088 /F | Output: SUCCESS: The process with PID 12088 has been terminated. | Error: 
+2025-02-25 18:38:34,095 - INFO - Executed command: venv\Scripts\activate && python app.py | Output:  | Error: INFO:     Started server process [12088]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-02-25 18:39:50,318 - INFO - Executed command: venv\Scripts\activate && python scraper.py | Output: [] | Error: 
+2025-02-25 18:40:50,006 - INFO - Executed command: rmdir /s /q venv | Output:  | Error: The system cannot find the file specified.
+2025-02-25 18:40:54,905 - INFO - Current directory changed to C:\Users\aranr\Desktop\RealEstateAPI
+2025-02-25 18:41:43,261 - INFO - Executed command: pip install fastapi selenium uvicorn webdriver-manager | Output: Requirement already satisfied: fastapi in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (0.115.8)
+Collecting selenium
+  Using cached selenium-4.29.0-py3-none-any.whl.metadata (7.1 kB)
+Requirement already satisfied: uvicorn in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (0.34.0)
+Collecting webdriver-manager
+  Using cached webdriver_manager-4.0.2-py2.py3-none-any.whl.metadata (12 kB)
+Requirement already satisfied: starlette<0.46.0,>=0.40.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from fastapi) (0.45.3)
+Requirement already satisfied: pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from fastapi) (2.10.6)
+Requirement already satisfied: typing-extensions>=4.8.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from fastapi) (4.12.2)
+Requirement already satisfied: urllib3<3,>=1.26 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from urllib3[socks]<3,>=1.26->selenium) (2.3.0)
+Collecting trio~=0.17 (from selenium)
+  Using cached trio-0.29.0-py3-none-any.whl.metadata (8.5 kB)
+Collecting trio-websocket~=0.9 (from selenium)
+  Using cached trio_websocket-0.12.2-py3-none-any.whl.metadata (5.1 kB)
+Requirement already satisfied: certifi>=2021.10.8 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from selenium) (2025.1.31)
+Requirement already satisfied: websocket-client~=1.8 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from selenium) (1.8.0)
+Requirement already satisfied: click>=7.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from uvicorn) (8.1.8)
+Requirement already satisfied: h11>=0.8 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from uvicorn) (0.14.0)
+Requirement already satisfied: requests in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from webdriver-manager) (2.32.3)
+Requirement already satisfied: python-dotenv in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from webdriver-manager) (1.0.1)
+Requirement already satisfied: packaging in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from webdriver-manager) (24.2)
+Requirement already satisfied: colorama in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from click>=7.0->uvicorn) (0.4.6)
+Requirement already satisfied: annotated-types>=0.6.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4->fastapi) (0.7.0)
+Requirement already satisfied: pydantic-core==2.27.2 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4->fastapi) (2.27.2)
+Requirement already satisfied: anyio<5,>=3.6.2 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from starlette<0.46.0,>=0.40.0->fastapi) (4.8.0)
+Requirement already satisfied: attrs>=23.2.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from trio~=0.17->selenium) (25.1.0)
+Collecting sortedcontainers (from trio~=0.17->selenium)
+  Using cached sortedcontainers-2.4.0-py2.py3-none-any.whl.metadata (10 kB)
+Requirement already satisfied: idna in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from trio~=0.17->selenium) (3.10)
+Collecting outcome (from trio~=0.17->selenium)
+  Using cached outcome-1.3.0.post0-py2.py3-none-any.whl.metadata (2.6 kB)
+Requirement already satisfied: sniffio>=1.3.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from trio~=0.17->selenium) (1.3.1)
+Requirement already satisfied: cffi>=1.14 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from trio~=0.17->selenium) (1.17.1)
+Requirement already satisfied: wsproto>=0.14 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from trio-websocket~=0.9->selenium) (1.2.0)
+Collecting pysocks!=1.5.7,<2.0,>=1.5.6 (from urllib3[socks]<3,>=1.26->selenium)
+  Using cached PySocks-1.7.1-py3-none-any.whl.metadata (13 kB)
+Requirement already satisfied: charset-normalizer<4,>=2 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from requests->webdriver-manager) (3.4.1)
+Requirement already satisfied: pycparser in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from cffi>=1.14->trio~=0.17->selenium) (2.22)
+Using cached selenium-4.29.0-py3-none-any.whl (9.5 MB)
+Using cached webdriver_manager-4.0.2-py2.py3-none-any.whl (27 kB)
+Using cached trio-0.29.0-py3-none-any.whl (492 kB)
+Using cached trio_websocket-0.12.2-py3-none-any.whl (21 kB)
+Using cached outcome-1.3.0.post0-py2.py3-none-any.whl (10 kB)
+Using cached PySocks-1.7.1-py3-none-any.whl (16 kB)
+Using cached sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+Installing collected packages: sortedcontainers, pysocks, outcome, webdriver-manager, trio, trio-websocket, selenium
+Successfully installed outcome-1.3.0.post0 pysocks-1.7.1 selenium-4.29.0 sortedcontainers-2.4.0 trio-0.29.0 trio-websocket-0.12.2 webdriver-manager-4.0.2 | Error: 
+2025-02-25 18:43:23,384 - INFO - Executed command: python test_app.py | Output: All tests passed. | Error: 
+2025-02-25 18:52:07,374 - INFO - Executed command: python test_app.py | Output: Test passed. API is working correctly. | Error: 
+2025-02-26 06:16:05,015 - INFO - Current directory changed to C:\Users\aranr\Auto-GPT
+2025-02-26 06:20:26,661 - INFO - Executed command: ls C:\Users\aranr\Auto-GPT\src | Output:  | Error: 'ls' is not recognized as an internal or external command,
+operable program or batch file.
+2025-02-26 06:20:30,176 - INFO - Executed command: dir C:\Users\aranr\Auto-GPT\src | Output: Volume in drive C has no label.
+ Volume Serial Number is 3C03-9533
+
+ Directory of C:\Users\aranr\Auto-GPT\src
+
+02/25/2025  12:28 PM    <DIR>          .
+02/25/2025  11:57 AM    <DIR>          ..
+02/25/2025  12:22 PM             3,274 agent.py
+02/25/2025  11:35 AM             1,626 debugger.py
+02/25/2025  06:15 AM               366 executor.py
+02/25/2025  06:18 AM               912 file_manager.py
+02/25/2025  12:12 PM               520 llm_interface.py
+02/25/2025  06:22 AM             1,075 logging_manager.py
+02/25/2025  11:55 AM             1,472 memory.py
+02/25/2025  12:22 PM             1,966 planner.py
+02/25/2025  06:24 AM             1,594 project_manager.py
+02/25/2025  11:56 AM             2,252 reinforcement.py
+02/25/2025  12:28 PM             2,681 task_manager.py
+02/25/2025  12:18 PM               780 web_server.py
+02/25/2025  06:16 AM               856 web_tools.py
+02/25/2025  11:31 AM                 0 __init__.py
+02/25/2025  12:28 PM    <DIR>          __pycache__
+              14 File(s)         19,374 bytes
+               3 Dir(s)  747,321,683,968 bytes free | Error: 
+2025-02-26 06:22:53,398 - INFO - Executed command: python -c "from src.project_manager import ProjectManager; pm = ProjectManager(); print(pm.create_project('TestProject', 'python'))" | Output: Project 'TestProject' already exists. | Error: 
+2025-02-26 06:26:29,210 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-26 06:28:21,766 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-26 06:31:37,864 - INFO - Executed command: set PYTHONPATH=C:\Users\aranr\Auto-GPT\src && python C:\Users\aranr\Auto-GPT\src\web_server.py | Output:  | Error: Traceback (most recent call last):
+  File "C:\Users\aranr\Auto-GPT\src\web_server.py", line 3, in <module>
+    from agent import AutoGPTAgent
+  File "C:\Users\aranr\Auto-GPT\src\agent.py", line 2, in <module>
+    from src.task_manager import TaskManager
+ModuleNotFoundError: No module named 'src'
+2025-02-26 06:35:09,775 - INFO - Current directory changed to C:\Users\aranr\Auto-GPT
+2025-02-26 06:36:56,360 - INFO - Executed command: curl -X POST http://127.0.0.1:5000/start -H "Content-Type: application/json" --data "{\"goal\": \"create project: TestProject | python\"}" | Output:  | Error: The system cannot find the path specified.
+2025-02-26 06:38:06,314 - INFO - Executed command: python -c "from src.task_manager import TaskManager; tm = TaskManager(); tm.process_response('create project: TestProject | python')" | Output: [Task Manager] Project Created: Project 'TestProject' already exists. | Error: 
+2025-02-26 06:43:26,411 - INFO - Executed command: rmdir /s /q C:\Users\aranr\Auto-GPT | Output:  | Error: C:\Users\aranr\Auto-GPT\memory.db - The process cannot access the file because it is being used by another process.
+The process cannot access the file because it is being used by another process.
+2025-02-26 06:43:39,411 - INFO - Executed command: tasklist /FI "IMAGENAME eq python.exe" | Output: Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+python.exe                   21916 Console                    1    133,836 K
+python.exe                   11880 Console                    1     42,944 K
+python.exe                    6480 Console                    1     41,552 K | Error: 
+2025-02-26 06:44:55,395 - INFO - Executed command: if exist C:\Users\aranr\Auto-GPT (echo Exists) else (echo Not Found) | Output: Not Found | Error: 
+2025-02-26 06:45:16,617 - INFO - Current directory changed to C:\Users\aranr\
+2025-02-26 06:45:19,483 - INFO - Executed command: mkdir Auto-GPT | Output:  | Error: 
+2025-02-26 06:46:18,293 - INFO - Executed command: cd Auto-GPT && mkdir models scripts data config | Output:  | Error: 
+2025-02-26 06:47:55,911 - INFO - Executed command: pip install torch torchvision torchaudio transformers datasets sentencepiece accelerate numpy pandas | Output: Requirement already satisfied: torch in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (2.4.1)
+Requirement already satisfied: torchvision in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (0.19.1)
+Requirement already satisfied: torchaudio in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (2.4.1)
+Requirement already satisfied: transformers in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (4.48.3)
+Requirement already satisfied: datasets in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (3.2.0)
+Requirement already satisfied: sentencepiece in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (0.2.0)
+Requirement already satisfied: accelerate in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (1.3.0)
+Requirement already satisfied: numpy in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (1.26.4)
+Requirement already satisfied: pandas in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (2.2.3)
+Requirement already satisfied: filelock in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from torch) (3.17.0)
+Requirement already satisfied: typing-extensions>=4.8.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from torch) (4.12.2)
+Requirement already satisfied: sympy in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from torch) (1.13.3)
+Requirement already satisfied: networkx in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from torch) (3.4.2)
+Requirement already satisfied: jinja2 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from torch) (3.1.5)
+Requirement already satisfied: fsspec in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from torch) (2025.2.0)
+Requirement already satisfied: pillow!=8.3.*,>=5.3.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from torchvision) (11.1.0)
+Requirement already satisfied: huggingface-hub<1.0,>=0.24.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from transformers) (0.28.1)
+Requirement already satisfied: packaging>=20.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from transformers) (24.2)
+Requirement already satisfied: pyyaml>=5.1 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from transformers) (6.0.2)
+Requirement already satisfied: regex!=2019.12.17 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from transformers) (2024.11.6)
+Requirement already satisfied: requests in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from transformers) (2.32.3)
+Requirement already satisfied: tokenizers<0.22,>=0.21 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from transformers) (0.21.0)
+Requirement already satisfied: safetensors>=0.4.1 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from transformers) (0.5.2)
+Requirement already satisfied: tqdm>=4.27 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from transformers) (4.67.1)
+Requirement already satisfied: pyarrow>=15.0.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from datasets) (19.0.0)
+Requirement already satisfied: dill<0.3.9,>=0.3.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from datasets) (0.3.8)
+Requirement already satisfied: xxhash in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from datasets) (3.5.0)
+Requirement already satisfied: multiprocess<0.70.17 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from datasets) (0.70.16)
+Collecting fsspec (from torch)
+  Using cached fsspec-2024.9.0-py3-none-any.whl.metadata (11 kB)
+Requirement already satisfied: aiohttp in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from datasets) (3.11.12)
+Requirement already satisfied: psutil in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from accelerate) (6.1.1)
+Requirement already satisfied: python-dateutil>=2.8.2 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from pandas) (2025.1)
+Requirement already satisfied: tzdata>=2022.7 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from pandas) (2025.1)
+Requirement already satisfied: aiohappyeyeballs>=2.3.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from aiohttp->datasets) (2.4.6)
+Requirement already satisfied: aiosignal>=1.1.2 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from aiohttp->datasets) (1.3.2)
+Requirement already satisfied: attrs>=17.3.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from aiohttp->datasets) (25.1.0)
+Requirement already satisfied: frozenlist>=1.1.1 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from aiohttp->datasets) (1.5.0)
+Requirement already satisfied: multidict<7.0,>=4.5 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from aiohttp->datasets) (6.1.0)
+Requirement already satisfied: propcache>=0.2.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from aiohttp->datasets) (0.2.1)
+Requirement already satisfied: yarl<2.0,>=1.17.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from aiohttp->datasets) (1.18.3)
+Requirement already satisfied: six>=1.5 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+Requirement already satisfied: charset-normalizer<4,>=2 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from requests->transformers) (3.4.1)
+Requirement already satisfied: idna<4,>=2.5 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from requests->transformers) (3.10)
+Requirement already satisfied: urllib3<3,>=1.21.1 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from requests->transformers) (2.3.0)
+Requirement already satisfied: certifi>=2017.4.17 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from requests->transformers) (2025.1.31)
+Requirement already satisfied: colorama in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from tqdm>=4.27->transformers) (0.4.6)
+Requirement already satisfied: MarkupSafe>=2.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from jinja2->torch) (3.0.2)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in c:\users\aranr\appdata\local\programs\python\python311\lib\site-packages (from sympy->torch) (1.3.0)
+Using cached fsspec-2024.9.0-py3-none-any.whl (179 kB)
+Installing collected packages: fsspec
+  Attempting uninstall: fsspec
+    Found existing installation: fsspec 2025.2.0
+    Uninstalling fsspec-2025.2.0:
+      Successfully uninstalled fsspec-2025.2.0
+Successfully installed fsspec-2024.9.0 | Error: 
