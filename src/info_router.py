@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from dotenv import load_dotenv
 import platform
 import os
@@ -7,39 +7,24 @@ import psutil
 import torch
 import subprocess
 import socket
+import time
+from datetime import timedelta
 
 router = APIRouter()
 load_dotenv()
 
-def get_gpu_info():
-    """Detects GPU using PyTorch or system commands."""
-    try:
-        if torch.cuda.is_available():
-            return torch.cuda.get_device_name(0)
-        elif platform.system() == "Windows":
-            result = subprocess.run(["wmic", "path", "win32_videocontroller", "get", "name"], capture_output=True, text=True)
-            return result.stdout.strip().split("\n")[1] if result.returncode == 0 else "Unknown GPU"
-
-        elif platform.system() == "Linux":
-            result = subprocess.run(["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"], capture_output=True, text=True)
-            return result.stdout.strip() if result.returncode == 0 else "Unknown GPU"
-        else:
-            return "GPU not detected"
- 
-    except Exception:
-        return "GPU detection failed"
-
-def get_cpu_info():
-    """Detects CPU using system commands"""
+def get_uptime():
+    """Returns system uptime in a human-readable format."""
+    uptime_seconds = time.time() - psutil.boot_time()
+    return str(timedelta(seconds=int(uptime_seconds)))
 
 @router.post("/info")
 async def get_host_info():
     """Returns detailed system information about the host machine."""
-    return {
+    system_info = {
         "system": platform.system(),
         "architecture": platform.machine(),
         "version": platform.version(),
-        "gpu": get_gpu_info(),
         "cpu": platform.processor(),
         "cpu_cores": psutil.cpu_count(logical=False),
         "cpu_threads": psutil.cpu_count(logical=True),
@@ -49,7 +34,19 @@ async def get_host_info():
         "python_version": platform.python_version(),
         "shell": os.getenv("SHELL", "unknown"),
         "hostname": socket.gethostname(),
+        "uptime": get_uptime(),
     }
+
+    # Detect if running on WSL2 and add Windows system details
+    if "WSL2" in platform.release():
+        try:
+            import subprocess
+            windows_info = subprocess.run(["powershell.exe", "systeminfo"], capture_output=True, text=True)
+            system_info["windows_system_info"] = windows_info.stdout
+        except Exception:
+            system_info["windows_system_info"] = "Unable to retrieve Windows system info"
+
+    return system_info
 
 @router.post("/host-resources")
 async def get_host_resources():
@@ -58,13 +55,5 @@ async def get_host_resources():
         "cpu_usage": psutil.cpu_percent(interval=1),
         "memory_usage": psutil.virtual_memory().percent,
         "disk_usage": psutil.disk_usage("/").percent,
-        "uptime": psutil.boot_time()
+        "uptime": get_uptime()
     }
-
-@router.post("/list-running-processes")
-async def list_processes():
-    """Lists running processes on the system."""
-    processes = []
-    for proc in psutil.process_iter(["pid", "name", "cpu_percent"]):
-        processes.append(proc.info)
-    return {"processes": processes}

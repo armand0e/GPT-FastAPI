@@ -1,100 +1,41 @@
-import json
-import os
-from pydantic import BaseModel
-import aiofiles
-from fastapi import APIRouter, HTTPException
+import dotenv
+from fastapi import APIRouter
+from logger import get_logger, LOG_DIR
+from utils import read_file, write_file, append_file, replace_function_logic, replace_text_logic, read_lines, read_logs, read_func
+from schemas import WriteFileRequest, AppendFileRequest, ReadFileRequest, ReadLinesRequest, ReplaceFunctionRequest, ReplaceTextRequest, ReadFuncRequest
 
 router = APIRouter()
 
-class WriteFileRequest(BaseModel):
-    filepath: str
-    content: str
+@router.post("/replace-function")
+async def replace_function(req: ReplaceFunctionRequest):
+    return await replace_function_logic(req.filepath, req.function_name, req.new_function_code)
 
-class ReadFileRequest(BaseModel):
-    filepath: str
-
-class ListFilesRequest(BaseModel):
-    directory: str
-
-class FileMetadataRequest(BaseModel):
-    filepath: str
-
-
-async def read_file(file_path):
-    if not os.path.exists(file_path):
-        return json.dumps({"error": "File not found"})
-    with open(file_path, "r", encoding="utf-8") as f:
-        return json.dumps({"file": file_path, "content": f.read()})
-
-async def make_file(file_path, content):
-    try:
-        async with aiofiles.open(file_path, "w", encoding="utf-8", newline="\n") as f:
-            await f.write(content)
-            await f.flush()  # Ensure content is fully written
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Write error: {str(e)}")
-
-    return {"message": f"File '{file_path}' saved successfully"}
+@router.post("/replace-text")
+async def replace_text(req: ReplaceTextRequest):
+    return await replace_text_logic(req.filepath, req.original_text, req.replacement_text)
 
 @router.post("/read-file")
 async def get_file(request: ReadFileRequest):
-    """API to read a file (filepath provided in request body)."""
-    content = await read_file(request.filepath)
-    return {"content": content}
+    return await read_file(request.filepath)
 
 @router.post("/write-file")
-async def write_file(request: WriteFileRequest):
-    """Writes content to a file."""
-    return await make_file(request.filepath, request.content)
+async def write_file_endpoint(request: WriteFileRequest):
+    return await write_file(request.filepath, request.content)
 
-@router.post("/list_file")
-async def list_files(request: ListFilesRequest):
-    """Lists all files in the specified directory. Expects request body."""
-    if not os.path.exists(request.directory) or not os.path.isdir(request.directory):
-        raise HTTPException(status_code=404, detail="Directory not found")
-    try:
-        files = os.listdir(request.directory)
-        return {"directory": request.directory, "files": files}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error listing files: {str(e)}")
+@router.post("/append-file")
+async def append_file_endpoint(request: AppendFileRequest):
+    return await append_file(request.filepath, request.content)
 
-@router.post("/file-metadata")
-async def file_metadata(request: FileMetadataRequest):
-    """Retrieves metadata such as size and modification date for a given file. Expects request body."""
-    if not os.path.exists(request.filepath):
-        raise HTTPException(status_code=404, detail="File not found")
+@router.post("/read-lines")
+async def read_lines(request: ReadLinesRequest):
+    return await read_lines(request.filepath, request.start_line, request.num_lines)
 
-    file_stat = os.stat(request.filepath)
-    return {
-        "filepath": request.filepath,
-        "size_bytes": file_stat.st_size,
-        "last_modified": file_stat.st_mtime,
-    }
+@router.post("/read-shell-logs")
+async def read_log():
+    """Reads the last 5 command logs from the persistent shell"""
+    return await read_logs()
 
-
-class ReplaceTextRequest(BaseModel):
-    filepath: str
-    original_text: str
-    replacement_text: str
-
-@router.post("/replace-text")
-async def replace_text(request: ReplaceTextRequest):
-    if not os.path.exists(request.filepath):
-        raise HTTPException(status_code=404, detail="File not found")
-
-    try:
-        async with aiofiles.open(request.filepath, "r", encoding="utf-8") as file:
-            content = await file.read()
-        
-        if request.original_text not in content:
-            raise HTTPException(status_code=400, detail="Original text not found in file")
-
-        updated_content = content.replace(request.original_text, request.replacement_text)
-
-        async with aiofiles.open(request.filepath, "w", encoding="utf-8") as file:
-            await file.write(updated_content)
-
-        return {"message": "Text replaced successfully"}
-    
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+@router.post("/read-function")
+async def read_function(request: ReadFuncRequest):
+    """Reads the source code of a specific function from a Python file."""
+    return await read_func(request.filepath, request.function_name)
