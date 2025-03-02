@@ -4,4 +4,4 @@ start_server.sh
 *.pyc
 shell.log
 test_session_cookies.json
-src/.env
+.env

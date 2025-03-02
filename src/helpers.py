@@ -49,3 +49,34 @@ class ProcessManager:
         """Removes a process by its ID."""
         if process_id in self.processes:
             del self.processes[process_id]
+
+class Shell:
+    """Represents a persistent shell session."""
+    def __init__(self, shell_id: int, name: str, process):
+        self.shell_id = shell_id
+        self.name = name
+        self.process = process
+
+class ShellManager:
+    """Manages multiple persistent shells."""
+    def __init__(self):
+        self.shells = {}  # Stores {shell_id: Shell object}
+        self.next_shell_id = 1  # Starts from 1
+
+    def add_shell(self, name: str, process):
+        """Adds a new shell and assigns it a unique ID."""
+        shell_id = self.next_shell_id
+        self.shells[shell_id] = Shell(shell_id, name, process)
+        self.next_shell_id += 1
+        return shell_id
+
+    def get_shell(self, shell_id: int):
+        """Retrieves a shell by its ID."""
+        return self.shells.get(shell_id, None)
+
+    def remove_shell(self, shell_id: int):
+        """Removes a shell by its ID."""
+        if shell_id in self.shells:
+            del self.shells[shell_id]
+
+shell_manager = ShellManager()  # Global instance

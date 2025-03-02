@@ -5,37 +5,37 @@ from pathlib import Path
 from fastapi import APIRouter, HTTPException, WebSocket
 from logger import get_logger
 from schemas import CommandRequest
-from helpers import ProcessManager
+from helpers import ShellManager
 # Configure logging
 logger = get_logger()
 router = APIRouter()
 
 running_shells = {}
 
-process_manager = ProcessManager()  # Global instance
+shell_manager = ShellManager()  # Global instance
 
 @router.post("/execute")
-async def execute_command(request: CommandRequest):
-    """Executes a command. Runs quick commands directly, and tracks long-running ones."""
+async def execute_command(request: CommandRequest, shell_id: int = 0):
+    """Executes a command in a persistent shell. Defaults to shell ID 1."""
     try:
-        if bash_process is None or bash_process.stdin is None:
-            raise HTTPException(status_code=500, detail="Persistent shell is not running")
+        shell = shell_manager.get_shell(shell_id) if shell_id else shell_manager.get_shell(1)
+        if not shell or not shell.process or shell.process.stdin is None:
+            raise HTTPException(status_code=500, detail="Shell is not running")
         
-        # Send command to bash shell
-        bash_process.stdin.write((request.command + "\n").encode())
-        await bash_process.stdin.drain()
+        # Send command to the selected shell
+        shell.process.stdin.write((request.command + "\n").encode())
+        await shell.process.stdin.drain()
         
         stdout, stderr = await asyncio.gather(
-            bash_process.stdout.read(),
-            bash_process.stderr.read()
+            shell.process.stdout.read(),
+            shell.process.stderr.read()
         )
         
         output = stdout.decode().strip()
         error = stderr.decode().strip()
 
-        # If process exits quickly, return output
         if output:
-            return {"message": f"Process succesfully ran in the {"default" if bash_process == running_shells[0]} shell", "output": output}
+            return {"message": f"Command executed in shell {shell.shell_id} ({shell.name})", "output": output}
         else:
             return {"error": error}
                 
@@ -99,30 +99,29 @@ async def list_processes():
              if info["name"] != "bash"]  # Exclude persistent shell
     return {"running_processes": processes}
 
-@router.websocket("/ws/process/{process_id}")
-async def websocket_process_status(websocket: WebSocket, process_id: int):
-    """Streams live output of a running process."""
+@router.websocket("/ws/shell/{shell_id}")
+async def websocket_shell_status(websocket: WebSocket, shell_id: int):
+    """Streams live output from a persistent shell."""
     await websocket.accept()
 
-    process_info = process_manager.get_process(process_id)
-    if not process_info:
-        await websocket.send_text("Error: Process not found")
+    shell = shell_manager.get_shell(shell_id)
+    if not shell:
+        await websocket.send_text("Error: Shell not found")
         await websocket.close()
         return
 
-    process = process_info["process"]
-    while process and process.returncode is None:
+    while shell.process and shell.process.returncode is None:
         try:
-            line = await process.stdout.readline()
+            line = await shell.process.stdout.readline()
             if not line:
                 break
             await websocket.send_text(line.decode().strip())
         except Exception as e:
-            await websocket.send_text(f"Error reading output: {str(e)}")
+            await websocket.send_text(f"Error reading shell output: {str(e)}")
             break
         await asyncio.sleep(0.5)
 
-    await websocket.send_text("Process finished.")
+    await websocket.send_text("Shell session closed.")
     await websocket.close()
 
 @router.get("/check-process/{process_id}")
@@ -171,3 +170,21 @@ def cleanup_processes():
     logger.info("All running subprocesses have been cleaned up.")
 # Register cleanup function to run when the script exits
 atexit.register(cleanup_processes)
+
+@router.get("/check-shell/{shell_id}")
+async def check_shell(shell_id: int):
+    """Returns the latest output from a persistent shell."""
+    shell = shell_manager.get_shell(shell_id)
+    if not shell:
+        raise HTTPException(status_code=404, detail="Shell not found")
+    
+    output_lines = []
+    try:
+        while shell.process and shell.process.returncode is None:
+            line = await shell.process.stdout.readline()
+            if not line:
+                break
+            output_lines.append(line.decode().strip())
+        return {"shell_id": shell_id, "output": output_lines}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error retrieving shell output: {str(e)}")
