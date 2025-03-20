@@ -1,11 +1,9 @@
 import asyncio
 import os
 import uuid
-import atexit
 from pydantic import BaseModel
 from fastapi import APIRouter, HTTPException
 from logger import system_logger
-
 logger = system_logger
 router = APIRouter()
 running_processes = {}
@@ -54,8 +52,8 @@ async def run_long_command_to_log(command: str, process_id: str):
     with open(log_file_path, 'w') as log_file:
         log_file.write(f'Command: {command}\n')
         log_file.flush()
-        process = await asyncio.create_subprocess_shell(command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.STDOUT)
-        running_processes[process_id] = {'process': process, 'log_file': log_file_path}
+        process = await asyncio.create_subprocess_shell(command, stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.STDOUT)
+        running_processes[process_id] = {'process': process, 'log_file': log_file_path, 'stdin': process.stdin}
         while True:
             line = await process.stdout.readline()
             if not line:
@@ -109,39 +107,3 @@ async def stop_process(process_id: str):
             raise HTTPException(status_code=500, detail=f'Failed to delete log file: {e}')
     del running_processes[process_id]
     return {'message': 'Process terminated and log file deleted'}
-
-@router.post('/check-process-status/{process_id}')
-async def check_process_status(process_id: str):
-    """
-    Checks the status of a running process by reading its log file.
-    """
-    if process_id not in running_processes:
-        raise HTTPException(status_code=404, detail='Process not found')
-    proc_info = running_processes[process_id]
-    process = proc_info.get('process')
-    log_file_path = proc_info.get('log_file')
-    log_content = ''
-    if os.path.exists(log_file_path):
-        with open(log_file_path, 'r') as log_file:
-            log_content = log_file.read()
-    else:
-        log_content = 'Log file not found'
-    if process and process.returncode is None:
-        status_message = 'Process is still running'
-        completed = False
-    else:
-        status_message = 'Process completed'
-        completed = True
-    return {'message': status_message, 'log': log_content, 'completed': completed}
-
-@router.post('/list-running-processes')
-async def list_processes():
-    """
-    Lists all processes tracked in the running_processes dictionary.
-    """
-    process_list = []
-    for (process_id, proc_info) in running_processes.items():
-        process = proc_info.get('process')
-        status = 'running' if process and process.returncode is None else 'completed'
-        process_list.append({'process_id': process_id, 'status': status})
-    return {'processes': process_list}

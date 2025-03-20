@@ -1,0 +1,251 @@
+2025-03-13 01:10:42,274 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-13 01:12:09,156 - system - INFO - Executed command: python3 /home/armand0e/Autonomous-Agent/agents/planner.py | Output: Planned tasks: [] | Error: Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:04<00:04,  4.96s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:06<00:00,  2.90s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:06<00:00,  3.21s/it]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:09<00:09,  9.26s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:12<00:00,  6.01s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:12<00:00,  6.50s/it]
+2025-03-13 01:11:48,312 - INFO - [Logger] Shared logger initialized.
+2025-03-13 01:11:48,312 - INFO - [Planner] Received task: Generate a Python script that uses AI to webscrape a website
+2025-03-13 01:11:48,312 - DEBUG - [Planner] Full prompt:
+For the given objective 'Generate a Python script that uses AI to webscrape a website', generate a structured plan.
+Break the objective into clear, concise steps and assign each step a specialized agent:
+- Use 'code_assistant' for code-related tasks.
+- Use 'executor' for general or non-code tasks.
+Ensure at least one step is generated.
+2025-03-13 01:11:48,312 - INFO - [Jsonformer] Generating structured output with prompt: For the given objective 'Generate a Python script that uses AI to webscrape a website', generate a structured plan.
+Break the objective into clear, concise steps and assign each step a specialized agent:
+- Use 'code_assistant' for code-related tasks.
+- Use 'executor' for general or non-code tasks.
+Ensure at least one step is generated.
+2025-03-13 01:11:48,314 - DEBUG - [Jsonformer] Using JSON schema: {'type': 'object', 'properties': {'steps': {'description': 'Ordered list of steps.', 'items': {'type': 'string'}, 'title': 'Steps', 'type': 'array'}, 'target_agent': {'description': 'Agent assigned for each step.', 'items': {'type': 'string'}, 'title': 'Target Agent', 'type': 'array'}}}
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+2025-03-13 01:12:08,324 - INFO - [Jsonformer] Raw structured output: {'steps': ["Use 'executor' to find a web scraping library", "Use 'executor' to install the web scraping library", "Use 'executor' to select a suitable website for webscrape", "Use 'executor' to gather information about the website", "Use 'code_assistant' to define the AI algorithm for web scraping", "Use 'code_assistant' to write the Python script using the selected web scraping library", "Use 'code_assistant' to add AI-driven logic to the Python script", "Use 'code_assistant' to test the Python script", "Use 'executor' to upload the script to a hosting platform", "Use 'executor' to run the script on the selected website", "Use 'executor' to monitor the script's output", "Use 'executor' to optimize the script for faster performance", "Use 'executor' to maintain and update the script", "Use 'code_assistant' to keep the AI algorithm updated", "Use 'code_assistant' to continuously monitor the script's performance", "Use 'executor' to handle any errors that may occur", "Use 'executor' to make adjustments to the script as needed", "Use 'code_assistant' to improve the AI algorithm", "Use 'code_assistant' to refactor the script for better readability and maintainability", "Use 'executor' to back up the script", "Use 'executor' to make a backup of the hosting platform", "Use 'code_assistant' to update the AI algorithm regularly", "Use 'executor' to keep track of the hosting platform's updates", "Use 'code_assistant' to keep track of the AI algorithm's updates", "Use 'executor' to make changes to the hosting platform as needed", "Use 'code_assistant' to provide recommendations for the AI algorithm", "Use 'executor' to make adjustments to the script based on the recommendations", "Use 'code_assistant' to optimize the AI algorithm for the hosting platform", "Use 'executor' to make adjustments to the hosting platform based on the optimization"], 'target_agent': ['executor']}
+2025-03-13 01:12:08,324 - INFO - [Jsonformer] Validated output: steps=["Use 'executor' to find a web scraping library", "Use 'executor' to install the web scraping library", "Use 'executor' to select a suitable website for webscrape", "Use 'executor' to gather information about the website", "Use 'code_assistant' to define the AI algorithm for web scraping", "Use 'code_assistant' to write the Python script using the selected web scraping library", "Use 'code_assistant' to add AI-driven logic to the Python script", "Use 'code_assistant' to test the Python script", "Use 'executor' to upload the script to a hosting platform", "Use 'executor' to run the script on the selected website", "Use 'executor' to monitor the script's output", "Use 'executor' to optimize the script for faster performance", "Use 'executor' to maintain and update the script", "Use 'code_assistant' to keep the AI algorithm updated", "Use 'code_assistant' to continuously monitor the script's performance", "Use 'executor' to handle any errors that may occur", "Use 'executor' to make adjustments to the script as needed", "Use 'code_assistant' to improve the AI algorithm", "Use 'code_assistant' to refactor the script for better readability and maintainability", "Use 'executor' to back up the script", "Use 'executor' to make a backup of the hosting platform", "Use 'code_assistant' to update the AI algorithm regularly", "Use 'executor' to keep track of the hosting platform's updates", "Use 'code_assistant' to keep track of the AI algorithm's updates", "Use 'executor' to make changes to the hosting platform as needed", "Use 'code_assistant' to provide recommendations for the AI algorithm", "Use 'executor' to make adjustments to the script based on the recommendations", "Use 'code_assistant' to optimize the AI algorithm for the hosting platform", "Use 'executor' to make adjustments to the hosting platform based on the optimization"] target_agent=['executor']
+2025-03-13 01:12:08,325 - INFO - [Planner] Generated plan steps: ["Use 'executor' to find a web scraping library", "Use 'executor' to install the web scraping library", "Use 'executor' to select a suitable website for webscrape", "Use 'executor' to gather information about the website", "Use 'code_assistant' to define the AI algorithm for web scraping", "Use 'code_assistant' to write the Python script using the selected web scraping library", "Use 'code_assistant' to add AI-driven logic to the Python script", "Use 'code_assistant' to test the Python script", "Use 'executor' to upload the script to a hosting platform", "Use 'executor' to run the script on the selected website", "Use 'executor' to monitor the script's output", "Use 'executor' to optimize the script for faster performance", "Use 'executor' to maintain and update the script", "Use 'code_assistant' to keep the AI algorithm updated", "Use 'code_assistant' to continuously monitor the script's performance", "Use 'executor' to handle any errors that may occur", "Use 'executor' to make adjustments to the script as needed", "Use 'code_assistant' to improve the AI algorithm", "Use 'code_assistant' to refactor the script for better readability and maintainability", "Use 'executor' to back up the script", "Use 'executor' to make a backup of the hosting platform", "Use 'code_assistant' to update the AI algorithm regularly", "Use 'executor' to keep track of the hosting platform's updates", "Use 'code_assistant' to keep track of the AI algorithm's updates", "Use 'executor' to make changes to the hosting platform as needed", "Use 'code_assistant' to provide recommendations for the AI algorithm", "Use 'executor' to make adjustments to the script based on the recommendations", "Use 'code_assistant' to optimize the AI algorithm for the hosting platform", "Use 'executor' to make adjustments to the hosting platform based on the optimization"]
+2025-03-13 01:12:08,325 - INFO - [Planner] Generated target agents: ['executor']
+2025-03-13 01:12:08,325 - INFO - [Planner] Next step set: {'step': "Use 'executor' to find a web scraping library", 'agent': 'executor'}
+2025-03-13 01:12:34,895 - system - INFO - Executed command: python3 /home/armand0e/Autonomous-Agent/agents/planner.py | Output: Planned tasks: [] | Error: Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:04<00:04,  4.06s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:05<00:00,  2.51s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:05<00:00,  2.74s/it]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:06<00:06,  6.57s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:08<00:00,  4.01s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:08<00:00,  4.40s/it]
+2025-03-13 01:12:32,165 - INFO - [Logger] Shared logger initialized.
+2025-03-13 01:12:32,166 - INFO - [Planner] Received task: Generate a Python script that uses AI to webscrape a website
+2025-03-13 01:12:32,166 - DEBUG - [Planner] Full prompt:
+For the given objective 'Generate a Python script that uses AI to webscrape a website', generate a structured plan.
+Break the objective into clear, concise steps and assign each step a specialized agent:
+- Use 'code_assistant' for code-related tasks.
+- Use 'executor' for general or non-code tasks.
+Ensure at least one step is generated.
+2025-03-13 01:12:32,166 - INFO - [Jsonformer] Generating structured output with prompt: For the given objective 'Generate a Python script that uses AI to webscrape a website', generate a structured plan.
+Break the objective into clear, concise steps and assign each step a specialized agent:
+- Use 'code_assistant' for code-related tasks.
+- Use 'executor' for general or non-code tasks.
+Ensure at least one step is generated.
+2025-03-13 01:12:32,168 - DEBUG - [Jsonformer] Using JSON schema: {'type': 'object', 'properties': {'steps': {'description': 'Ordered list of steps.', 'items': {'type': 'string'}, 'title': 'Steps', 'type': 'array'}, 'target_agent': {'description': 'Agent assigned for each step.', 'items': {'type': 'string'}, 'title': 'Target Agent', 'type': 'array'}}}
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+2025-03-13 01:12:34,080 - INFO - [Jsonformer] Raw structured output: {'steps': ['1. Import necessary libraries'], 'target_agent': ['code_assistant']}
+2025-03-13 01:12:34,080 - INFO - [Jsonformer] Validated output: steps=['1. Import necessary libraries'] target_agent=['code_assistant']
+2025-03-13 01:12:34,080 - INFO - [Planner] Generated plan steps: ['1. Import necessary libraries']
+2025-03-13 01:12:34,080 - INFO - [Planner] Generated target agents: ['code_assistant']
+2025-03-13 01:12:34,080 - INFO - [Planner] Next step set: {'step': '1. Import necessary libraries', 'agent': 'code_assistant'}
+2025-03-13 01:17:34,658 - system - INFO - Current directory changed to /home/armand0e/Autonomous-Agent/agents
+2025-03-13 01:20:51,432 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/logs/autonomous_cycle.log
+2025-03-13 01:26:25,156 - system - INFO - Appended content to file: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-13 01:27:08,071 - system - INFO - Appended content to file: /home/armand0e/Autonomous-Agent/agents/executor.py
+2025-03-13 01:27:12,015 - system - INFO - Appended content to file: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-13 02:05:56,976 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/bash_agent.py
+2025-03-13 02:07:01,174 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/output_schemas.py
+2025-03-13 02:07:07,429 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-13 02:13:36,773 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-13 02:13:36,773 - system - INFO - Replaced text in file: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-13 02:13:36,775 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-13 02:18:11,097 - system - INFO - Executed command: ls /home/armand0e/Autonomous-Agent/agents | Output: __pycache__
+bash_agent.py
+code_assistant.py
+config.py
+executor.py
+graph.py
+logs
+memory.py
+old
+orchestrator.py
+output_schemas.py
+planner.py
+reflection.py
+shared.py
+test_dir
+tmp
+workflow.md | Error: 
+2025-03-13 02:21:06,698 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-13 02:22:34,929 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/output_schemas.py
+2025-03-13 02:22:40,284 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-13 02:22:51,074 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-13 02:22:51,133 - system - INFO - Replaced function 'convert_schema_types' in file: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-13 02:22:51,135 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-13 02:24:43,317 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-13 02:24:43,324 - system - INFO - Replaced function 'convert_schema_types' in file: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-13 02:24:43,326 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-13 02:26:23,352 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-13 02:30:36,707 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-13 02:30:36,714 - system - INFO - Replaced function 'convert_schema_types' in file: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-13 02:30:36,716 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-13 02:35:56,855 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-13 02:38:42,479 - system - INFO - Read file successfully: /mnt/c/Users/aranr/Documents/Github/jsonformer/jsonformer/main.py
+2025-03-13 02:40:51,236 - system - INFO - File written successfully: /mnt/c/Users/aranr/Documents/Github/jsonformer/jsonformer/main.py
+2025-03-13 02:41:50,983 - system - INFO - Current directory changed to /mnt/c/Users/aranr/Documents/Github/jsonformer
+2025-03-13 02:42:42,818 - system - INFO - Executed command: git add . | Output:  | Error: 
+2025-03-13 02:42:45,617 - system - INFO - Executed command: git commit -m "updated support for 'anyOf'" | Output: On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean | Error: 
+2025-03-13 02:44:15,091 - system - INFO - Executed command: cmd.exe /C git commit -m "updated support for 'anyOf'" | Output: On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean | Error: 
+2025-03-13 02:44:19,714 - system - INFO - Executed command: cmd.exe /C git push | Output:  | Error: To https://github.com/armand0e/jsonformer.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/armand0e/jsonformer.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+2025-03-13 02:46:11,567 - system - INFO - Executed command: cmd.exe /C git pull --rebase | Output: Auto-merging jsonformer/main.py
+Auto-merging pyproject.toml
+CONFLICT (content): Merge conflict in pyproject.toml | Error: From https://github.com/armand0e/jsonformer
+   6a38b4b..ec91cec  main       -> origin/main
+Rebasing (1/1)error: could not apply e655fcd... updated support for 'anyOf'
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config advice.mergeConflict false"
+Could not apply e655fcd... updated support for 'anyOf'
+2025-03-13 02:47:25,176 - system - INFO - Executed command: cmd.exe /C git fetch origin && git reset --hard origin/main | Output: HEAD is now at ec91cec Update pyproject.toml | Error: 
+2025-03-13 02:48:19,125 - system - INFO - File written successfully: /mnt/c/Users/aranr/Documents/Github/jsonformer/jsonformer/main.py
+2025-03-13 02:48:47,053 - system - INFO - Executed command: cmd.exe /C git add . && git commit -m "Fixed anyOf handling in Jsonformer" && git push | Output: [detached HEAD d8023b8] Fixed anyOf handling in Jsonformer
+ 1 file changed, 16 insertions(+), 69 deletions(-) | Error: warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.vscode/settings.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Jsonformer_example.ipynb', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'example.ipynb', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'jsonformer/__init__.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'jsonformer/format.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'jsonformer/logits_processors.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'jsonformer/main.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'license.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'poetry.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'poetry.toml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pyproject.toml', LF will be replaced by CRLF the next time Git touches it
+fatal: You are not currently on a branch.
+To push the history leading to the current (detached HEAD)
+state now, use
+
+    git push origin HEAD:<name-of-remote-branch>
+2025-03-13 02:49:27,428 - system - INFO - Executed command: cmd.exe /C git push origin HEAD:main --force | Output:  | Error: To https://github.com/armand0e/jsonformer.git
+   ec91cec..d8023b8  HEAD -> main
+2025-03-13 02:51:17,084 - system - INFO - Current directory changed to /home/armand0e/Autonomous-Agent/agents
+2025-03-13 02:56:19,609 - system - INFO - Executed command: pip install git+https://www.github.com/armand0e/jsonformer.git --force | Output: Defaulting to user installation because normal site-packages is not writeable
+Collecting git+https://www.github.com/armand0e/jsonformer.git
+  Cloning https://www.github.com/armand0e/jsonformer.git to /tmp/pip-req-build-lvdjebml | Error: Running command git clone --filter=blob:none --quiet https://www.github.com/armand0e/jsonformer.git /tmp/pip-req-build-lvdjebml
+  fatal: unable to access 'https://www.github.com/armand0e/jsonformer.git/': SSL connection timeout
+  error: subprocess-exited-with-error
+  
+  × git clone --filter=blob:none --quiet https://www.github.com/armand0e/jsonformer.git /tmp/pip-req-build-lvdjebml did not run successfully.
+  │ exit code: 128
+  ╰─> See above for output.
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: subprocess-exited-with-error
+
+× git clone --filter=blob:none --quiet https://www.github.com/armand0e/jsonformer.git /tmp/pip-req-build-lvdjebml did not run successfully.
+│ exit code: 128
+╰─> See above for output.
+
+note: This error originates from a subprocess, and is likely not a problem with pip.
+2025-03-13 02:57:13,555 - system - INFO - Current directory changed to /mnt/c/Users/aranr/Documents/Github/jsonformer
+2025-03-13 02:57:15,867 - system - INFO - Executed command: cmd.exe /C git log --oneline | Output: d8023b8 Fixed anyOf handling in Jsonformer
+ec91cec Update pyproject.toml
+c3cd472 Update main.py
+6a38b4b Update logits_processors.py
+bfad031 Merge pull request #24 from ishmandoo/main
+210d69a Add iteration tracking to generate_number
+f6366c2 0.12.0
+898b793 better array generation
+64e21e0 0.11.0
+c9f46bd vectorize OutputNumbersTokens logit warper
+4fe34dc add pad_token_id to generate string
+44e6db5 0.10.0
+04a323a add (1) better logging (2) better string generation: dont rely on model for starting " in string (3) support T5ForConditionalGeneration
+9210724 Merge pull request #15 from wjessup/patch-1
+7567393 Update README.md
+b4e76df Merge pull request #14 from eltociear/patch-1
+1597e5f Update README.md
+6358a44 add example
+7b2c4b2 Created using Colaboratory
+5527627 update readme
+e4ba435 bump version
+0d2370f clean up example
+0fed17d improve number decoding
+581a7fd update example
+8e99be8 bump version
+3c06fe0 support cuda #12
+f65fbd9 Merge branch 'main' of https://github.com/1rgs/jsonformer
+93b7ffa add link to colab
+d5a2567 Add Colab example
+7aae7f8 clean up example
+332571e clean up example
+47e69b5 reduce required python version #8
+4c71043 fix #10 array generation
+d38be16 Merge pull request #5 from DACUS1995/main
+16036ad Merge branch 'main' into main
+e1b7c4b Merge pull request #3 from danielcorin/dc/minor-fixes
+034622b Update readme.md
+2800ab4 fixed __pycache__ ignore
+bc065bb Update .gitignore
+3f90149 Fix readme example, remove .DS_Store
+3cdc0b1 add import
+e065a12 fix deps
+38a700a add init
+5ee352c remove hardcoded params
+1fe94db update
+2dc8f88 update
+b422f68 . | Error: 
+2025-03-13 02:58:02,847 - system - INFO - Executed command: cmd.exe /C git reset --hard ec91cec | Output: HEAD is now at ec91cec Update pyproject.toml | Error: 
+2025-03-13 03:00:54,720 - system - INFO - Read file successfully: /mnt/c/Users/aranr/Documents/Github/jsonformer/jsonformer/main.py
+2025-03-13 03:00:54,735 - system - INFO - Replaced function 'generate_value' in file: /mnt/c/Users/aranr/Documents/Github/jsonformer/jsonformer/main.py
+2025-03-13 03:00:54,742 - system - INFO - File written successfully: /mnt/c/Users/aranr/Documents/Github/jsonformer/jsonformer/main.py
+2025-03-13 03:02:07,014 - system - INFO - Executed command: cmd.exe /C git add . && git commit -m "Restored anyOf support in Jsonformer" && git push | Output: [detached HEAD 04fab7d] Restored anyOf support in Jsonformer
+ 1 file changed, 58 insertions(+), 138 deletions(-) | Error: warning: in the working copy of 'jsonformer/main.py', LF will be replaced by CRLF the next time Git touches it
+fatal: You are not currently on a branch.
+To push the history leading to the current (detached HEAD)
+state now, use
+
+    git push origin HEAD:<name-of-remote-branch>
+2025-03-13 03:02:12,124 - system - INFO - Executed command: cmd.exe /C git push origin HEAD:main --force | Output:  | Error: To https://github.com/armand0e/jsonformer.git
+ + d8023b8...04fab7d HEAD -> main (forced update)
+2025-03-13 03:02:26,667 - system - INFO - Current directory changed to /home/armand0e/Autonomous-Agent/agents
+2025-03-13 03:10:29,400 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-13 03:10:29,407 - system - INFO - Replaced text in file: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-13 03:10:29,411 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-13 03:13:54,029 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-13 03:13:54,031 - system - INFO - Replaced text in file: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-13 03:13:54,034 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-13 07:14:22,580 - system - INFO - Executed command: cmd.exe /C cd /home/armand0e/Autonomous-Agent && git init && git add . && git commit -m "Initial commit" | Output:  | Error: '\\wsl.localhost\Ubuntu-22.04\home\armand0e\Autonomous-Agent\agents'
+CMD.EXE was started with the above path as the current directory.
+UNC paths are not supported.  Defaulting to Windows directory.
+The system cannot find the path specified.
+2025-03-13 14:06:27,000 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-13 14:23:35,200 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/output_schemas.py
+2025-03-13 14:28:58,650 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-13 14:29:10,329 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-13 14:32:23,240 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/output_schemas.py
+2025-03-13 14:32:35,744 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-13 14:38:23,957 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-13 14:41:06,709 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-13 14:43:26,852 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-13 14:45:51,015 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-13 14:46:03,277 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-13 14:46:41,892 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-13 14:46:41,892 - system - INFO - Replaced text in file: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-13 14:46:41,894 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-13 14:54:20,400 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-13 17:07:41,029 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-13 17:07:52,008 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/graph.py

@@ -111,7 +111,7 @@
           "System Control"
         ],
         "summary": "Run Terminal Command",
-        "description": "Runs a terminal command.",
+        "description": "Runs a terminal command and returns its output.",
         "operationId": "run_terminal_command_run_command_post",
         "requestBody": {
           "content": {
@@ -151,7 +151,7 @@
           "System Control"
         ],
         "summary": "Start Process",
-        "description": "Starts a long-running process and returns a process ID.",
+        "description": "Starts a long-running process in the background.\nReturns immediately with a success message and a unique process ID.",
         "operationId": "start_process_start_process_post",
         "requestBody": {
           "content": {
@@ -191,7 +191,7 @@
           "System Control"
         ],
         "summary": "Stop Process",
-        "description": "Stops a running process given its process ID.",
+        "description": "Stops a running process given its process ID and deletes its log file.",
         "operationId": "stop_process_stop_process__process_id__post",
         "parameters": [
           {
@@ -232,7 +232,7 @@
           "System Control"
         ],
         "summary": "Check Process Status",
-        "description": "Checks the status of a running process and returns live output.",
+        "description": "Checks the status of a running process by reading its log file.",
         "operationId": "check_process_status_check_process_status__process_id__post",
         "parameters": [
           {
@@ -273,7 +273,7 @@
           "System Control"
         ],
         "summary": "List Processes",
-        "description": "Lists running processes on the system.",
+        "description": "Lists all processes tracked in the running_processes dictionary.",
         "operationId": "list_processes_list_running_processes_post",
         "responses": {
           "200": {
@@ -287,93 +287,13 @@
         }
       }
     },
-    "/mouse": {
-      "post": {
-        "tags": [
-          "System Control"
-        ],
-        "summary": "Control Mouse",
-        "description": "Controls mouse movement & clicks.",
-        "operationId": "control_mouse_mouse_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MouseAction"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/keyboard": {
-      "post": {
-        "tags": [
-          "System Control"
-        ],
-        "summary": "Control Keyboard",
-        "description": "Simulates keyboard input.",
-        "operationId": "control_keyboard_keyboard_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/KeyboardAction"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/replace-function": {
       "post": {
         "tags": [
           "Read/Write Files"
         ],
         "summary": "Replace Function",
-        "description": "Replaces a function definition in a Python file with a new one.",
+        "description": "Replaces the definition of a function in the specified file.",
         "operationId": "replace_function_replace_function_post",
         "requestBody": {
           "content": {
@@ -412,9 +332,9 @@
         "tags": [
           "Read/Write Files"
         ],
-        "summary": "Replace Text",
-        "description": "Replaces original text with upadted text within in a specified file.",
-        "operationId": "replace_text_replace_text_post",
+        "summary": "Replace Text Endpoint",
+        "description": "Replaces a specific text snippet with new text in the file.",
+        "operationId": "replace_text_endpoint_replace_text_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -453,7 +373,7 @@
           "Read/Write Files"
         ],
         "summary": "Get File",
-        "description": "Reads the content of a file at the specified path.",
+        "description": "Reads the content of the specified file.",
         "operationId": "get_file_read_file_post",
         "requestBody": {
           "content": {
@@ -492,9 +412,9 @@
         "tags": [
           "Read/Write Files"
         ],
-        "summary": "Write File",
-        "description": "Overwrites the file at the specified path with the given content.",
-        "operationId": "write_file_write_file_post",
+        "summary": "Write File Endpoint",
+        "description": "Writes new content to the specified file.",
+        "operationId": "write_file_endpoint_write_file_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -532,9 +452,9 @@
         "tags": [
           "Read/Write Files"
         ],
-        "summary": "Append File",
-        "description": "Appends content to the end of the file at the specified path.",
-        "operationId": "append_file_append_file_post",
+        "summary": "Append File Endpoint",
+        "description": "Appends content to the specified file.",
+        "operationId": "append_file_endpoint_append_file_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -572,9 +492,9 @@
         "tags": [
           "Read/Write Files"
         ],
-        "summary": "Read Lines",
-        "description": "Reads a specified number of lines from a file starting at a given line.",
-        "operationId": "read_lines_read_lines_post",
+        "summary": "Read File Lines Endpoint",
+        "description": "Reads a specified number of lines from the file, starting from a given line index.",
+        "operationId": "read_file_lines_endpoint_read_lines_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -607,19 +527,39 @@
         }
       }
     },
-    "/read-log": {
+    "/read-logs": {
       "post": {
         "tags": [
           "Read/Write Files"
         ],
-        "summary": "Read Log",
-        "description": "Reads the last N lines from the log file, maintaining order.",
-        "operationId": "read_log_read_log_post",
+        "summary": "Read Shell Logs",
+        "description": "Reads the contents of the system log file.",
+        "operationId": "read_shell_logs_read_logs_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/read-function": {
+      "post": {
+        "tags": [
+          "Read/Write Files"
+        ],
+        "summary": "Read Function",
+        "description": "Reads the source code of a specific function from a Python file.",
+        "operationId": "read_function_read_function_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LogRequest"
+                "$ref": "#/components/schemas/ReadFuncRequest"
               }
             }
           },
@@ -762,6 +702,55 @@
           }
         }
       }
+    },
+    "/docs-json": {
+      "get": {
+        "summary": "Read Json File",
+        "operationId": "read_json_file_docs_json_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/restart-server": {
+      "post": {
+        "summary": "Restart Server",
+        "description": "Endpoint to restart the API server.",
+        "operationId": "restart_server_restart_server_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/privacy-policy": {
+      "get": {
+        "summary": "Privacy Policy",
+        "operationId": "privacy_policy_privacy_policy_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -831,53 +820,6 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
-      "KeyboardAction": {
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "Key"
-          }
-        },
-        "type": "object",
-        "required": [
-          "key"
-        ],
-        "title": "KeyboardAction"
-      },
-      "LogRequest": {
-        "properties": {
-          "num_lines": {
-            "type": "integer",
-            "title": "Num Lines",
-            "default": 10
-          }
-        },
-        "type": "object",
-        "title": "LogRequest"
-      },
-      "MouseAction": {
-        "properties": {
-          "x": {
-            "type": "integer",
-            "title": "X"
-          },
-          "y": {
-            "type": "integer",
-            "title": "Y"
-          },
-          "action": {
-            "type": "string",
-            "title": "Action"
-          }
-        },
-        "type": "object",
-        "required": [
-          "x",
-          "y",
-          "action"
-        ],
-        "title": "MouseAction"
-      },
       "ReadFileRequest": {
         "properties": {
           "filepath": {
@@ -890,6 +832,24 @@
           "filepath"
         ],
         "title": "ReadFileRequest"
+      },
+      "ReadFuncRequest": {
+        "properties": {
+          "filepath": {
+            "type": "string",
+            "title": "Filepath"
+          },
+          "function_name": {
+            "type": "string",
+            "title": "Function Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filepath",
+          "function_name"
+        ],
+        "title": "ReadFuncRequest"
       },
       "ReadLinesRequest": {
         "properties": {

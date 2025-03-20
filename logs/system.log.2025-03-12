@@ -1,0 +1,170 @@
+2025-03-12 14:44:36,000 - system - INFO - Current directory changed to /home/armand0e/Autonomous-Agent
+2025-03-12 14:44:46,420 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 14:45:04,062 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/executor.py
+2025-03-12 14:45:21,175 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 14:45:42,348 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 14:46:22,439 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 14:46:36,053 - system - ERROR - File not found: /home/armand0e/Autonomous-Agent/agents/__init__.py
+2025-03-12 14:46:36,054 - system - ERROR - Replace text failed; file not found: /home/armand0e/Autonomous-Agent/agents/__init__.py
+2025-03-12 14:48:51,112 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-12 15:04:03,953 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:04:27,753 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:04:27,755 - system - INFO - Replaced function 'planner_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:04:27,759 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:05:20,134 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:05:46,149 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:05:46,150 - system - INFO - Replaced function 'reflection_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:05:46,155 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:06:46,833 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:07:10,390 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:07:10,392 - system - INFO - Replaced function 'code_assistant_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:07:10,393 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:08:17,864 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-12 15:08:43,735 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-12 15:08:43,737 - system - INFO - Replaced function 'run_autonomous_cycle' in file: /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-12 15:08:43,737 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-12 15:09:25,821 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:09:42,440 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:09:42,440 - system - ERROR - No function definition found in new function code
+2025-03-12 15:09:52,965 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:09:52,965 - system - ERROR - Original text not found in /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:10:05,188 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:10:05,188 - system - ERROR - Original text not found in /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:10:14,149 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:10:14,149 - system - ERROR - Original text not found in /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:10:18,857 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:10:26,957 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:10:26,958 - system - ERROR - Original text not found in /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:10:36,055 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:10:36,056 - system - ERROR - Original text not found in /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:10:41,911 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:10:48,698 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:10:57,484 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:13:30,259 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:13:30,260 - system - INFO - Replaced function 'planner_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:13:30,261 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:13:44,298 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:13:44,299 - system - INFO - Replaced function 'reflection_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:13:44,300 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:13:49,844 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:14:09,717 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:14:09,719 - system - INFO - Replaced function 'code_assistant_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:14:09,720 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:14:17,177 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/executor.py
+2025-03-12 15:14:27,813 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/executor.py
+2025-03-12 15:14:27,815 - system - INFO - Replaced function 'executor_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/executor.py
+2025-03-12 15:14:27,818 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/executor.py
+2025-03-12 15:15:50,966 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:15:50,967 - system - ERROR - Function 'build_graph' not found in /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:15:59,912 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:16:15,380 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:19:34,328 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:20:07,939 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:20:24,131 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:20:24,132 - system - INFO - Replaced function 'planner_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:20:24,132 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:20:29,346 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:20:44,316 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:20:44,317 - system - INFO - Replaced function 'reflection_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:20:44,317 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:21:54,896 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:22:13,527 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:22:13,529 - system - INFO - Replaced function 'code_assistant_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:22:13,530 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:23:12,288 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:23:25,483 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:23:25,483 - system - INFO - Replaced text in file: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:23:25,484 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:24:56,424 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:25:02,795 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:25:04,687 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:25:07,257 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:25:10,707 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-12 15:28:51,176 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-12 15:29:15,021 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-12 15:29:15,021 - system - ERROR - Original text not found in /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-12 15:29:37,261 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-12 15:29:37,262 - system - INFO - Replaced text in file: /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-12 15:29:37,267 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-12 15:32:28,462 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:32:35,694 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:32:38,737 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:32:41,439 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:32:46,117 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-12 15:33:06,764 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/output_schemas.py
+2025-03-12 15:33:19,154 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-12 15:33:19,154 - system - INFO - Replaced text in file: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-12 15:33:19,159 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-12 15:33:22,037 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:33:22,037 - system - ERROR - Original text not found in /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:33:29,204 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:33:29,204 - system - ERROR - Original text not found in /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:33:35,161 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:33:41,845 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:33:41,845 - system - ERROR - Original text not found in /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:33:50,574 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:33:56,376 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:33:56,377 - system - ERROR - Original text not found in /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:35:20,791 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/output_schemas.py
+2025-03-12 15:35:28,511 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-12 15:35:28,511 - system - ERROR - Original text not found in /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-12 15:35:35,294 - system - INFO - Appended content to file: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-12 15:35:41,606 - system - INFO - Appended content to file: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 15:35:46,389 - system - INFO - Appended content to file: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 15:35:50,297 - system - INFO - Appended content to file: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 15:35:55,808 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 15:36:02,824 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/orchestrator.py
+2025-03-12 16:10:06,036 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 16:10:21,801 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 16:10:36,310 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 16:10:52,662 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 16:11:15,710 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-12 16:11:41,685 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-12 16:11:41,688 - system - INFO - Replaced function 'adjust_plan' in file: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-12 16:11:41,689 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/shared.py
+2025-03-12 16:12:04,357 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/output_schemas.py
+2025-03-12 16:12:21,006 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 16:12:21,007 - system - ERROR - Original text not found in /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 16:12:28,304 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 16:12:36,869 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 16:12:36,869 - system - INFO - Replaced text in file: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 16:12:36,870 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 16:12:47,511 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 16:12:47,511 - system - ERROR - Original text not found in /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 16:58:35,084 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 16:58:35,091 - system - ERROR - Function 'build_graph' not found in /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 16:58:43,238 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 16:59:02,784 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 16:59:02,784 - system - INFO - Replaced text in file: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 16:59:02,786 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 17:19:20,512 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 17:19:38,432 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 17:19:38,445 - system - INFO - Replaced function 'planner_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 17:19:38,449 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 17:19:47,495 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 17:20:02,698 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 17:20:02,702 - system - INFO - Replaced function 'reflection_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 17:20:02,703 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 17:20:13,921 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 17:20:41,677 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 17:20:41,682 - system - INFO - Replaced function 'code_assistant_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 17:20:41,683 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 17:24:13,817 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/logs/autonomous_cycle.log
+2025-03-12 17:24:23,776 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 17:24:36,297 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 17:24:36,299 - system - ERROR - Error parsing new function code for /home/armand0e/Autonomous-Agent/agents/planner.py: f-string: unmatched '[' (<unknown>, line 16)
+2025-03-12 17:24:45,424 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 17:24:45,426 - system - INFO - Replaced function 'planner_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 17:24:45,429 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/planner.py
+2025-03-12 17:24:52,787 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 17:25:13,541 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 17:25:13,543 - system - INFO - Replaced function 'reflection_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 17:25:13,544 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/reflection.py
+2025-03-12 17:25:19,333 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 17:25:39,361 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 17:25:39,368 - system - INFO - Replaced function 'code_assistant_node_fn' in file: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 17:25:39,369 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/code_assistant.py
+2025-03-12 17:25:45,944 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 17:25:56,557 - system - INFO - Read file successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 17:25:56,563 - system - INFO - Replaced function 'build_graph' in file: /home/armand0e/Autonomous-Agent/agents/graph.py
+2025-03-12 17:25:56,564 - system - INFO - File written successfully: /home/armand0e/Autonomous-Agent/agents/graph.py
